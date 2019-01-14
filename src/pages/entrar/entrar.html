@@ -9,25 +9,16 @@
 
 <ion-content>
 
-
   <form (ngSubmit)="login()" [formGroup]="formLogin">
 
-    <!-- <div *ngFor= "let ba of list">
-
-      {{ ba | json }} <br>
-
-    </div>
-    <div *ngFor= "let a of usuario | async">
-
-      {{ a | json }} <br>
-
-    </div> -->
+    <br>  
+    <br>
     
-    <ion-list inset >
+    <div text-center>
+        <img width="275" class="backcinza"height="206.25" src="../assets/imgs/tradlogo.jpg" alt="">
+    </div>
 
-        <div text-center>
-            <img width="225" height="168.75" src="../assets/imgs/tradlogo.jpg" alt="">
-        </div>
+    <ion-list inset>
 
       <ion-item >
         <ion-input type="text" placeholder="Usuário" formControlName="nome"></ion-input>
@@ -37,20 +28,20 @@
         <div [ngxError]="['required']" [when]="['touched']">Digite o seu nome</div>
       </div>
 
+      <br>
+
       <ion-item >
-        <ion-input type="text" placeholder="Senha" formControlName="senha"></ion-input>
+        <ion-input type="password" placeholder="Senha" formControlName="senha"></ion-input>
       </ion-item>
 
       <div ngxErrors="senha">
         <div [ngxError]="['required']" [when]="['touched']">Digite a sua senha</div>
       </div>   
+
       <br>
+
       <div padding-horizontal>
-
-        <button ion-button lightgreen full type="submit" [disabled]="!formLogin.valid">Login</button>
-
-        <!-- <button ion-button full (click)= "registro()" >Registro</button> -->
-
+        <button ion-button round color="vermelho" full type="submit" [disabled]="!formLogin.valid">Entrar</button>
       </div>
 
     </ion-list>

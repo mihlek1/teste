@@ -27,18 +27,7 @@ export class AuthProvider {
         this.atualUsuario = {
 
           nome:usuario,
-          role:100
-
-        };
-
-        resolve(true);
-
-      } else if (usuario === 'user' && senha === 'user') {
-
-        this.atualUsuario = {
-
-          nome:usuario,
-          role:1
+          role:'admin'
 
         };
 
@@ -49,7 +38,7 @@ export class AuthProvider {
         this.atualUsuario = {
 
           nome:usuario,
-          role:50
+          role:'supervisor'
 
         };
 
@@ -60,7 +49,7 @@ export class AuthProvider {
         this.atualUsuario = {
 
           nome:usuario,
-          role:25
+          role:'vendedor'
 
         };
 
@@ -71,7 +60,7 @@ export class AuthProvider {
         this.atualUsuario = {
 
           nome:usuario,
-          role:75
+          role:'financeiro'
 
         };
 
@@ -106,7 +95,7 @@ export class AuthProvider {
 
   acessoAdmin() {
     if(this.estaLogado()){
-      if(this.atualUsuario.role === 100) {
+      if(this.atualUsuario.role === 'admin') {
         return true;
       } else {
         return false;
@@ -118,7 +107,7 @@ export class AuthProvider {
 
   acessoSupervisor() {
     if(this.estaLogado()){
-      if(this.atualUsuario.role === 50) {
+      if(this.atualUsuario.role === 'supervisor') {
         return true;
       } else {
         return false;
@@ -130,7 +119,7 @@ export class AuthProvider {
 
   acessoFinanceiro() {
     if(this.estaLogado()){
-      if(this.atualUsuario.role === 75) {
+      if(this.atualUsuario.role === 'financeiro') {
         return true;
       } else {
         return false;
@@ -141,7 +130,7 @@ export class AuthProvider {
   }
   acessoVendedor() {
     if(this.estaLogado()){
-      if(this.atualUsuario.role === 25) {
+      if(this.atualUsuario.role === 'vendedor') {
         return true;
       } else {
         return false;

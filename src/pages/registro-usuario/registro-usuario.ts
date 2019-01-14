@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { EntrarPage } from '../entrar/entrar';
 import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { MenuPage } from '../menu/menu';
 
 
 
@@ -30,7 +31,8 @@ export class RegistroUsuarioPage {
     private authProvider: AuthProvider,
     private alertCtrl: AlertController,
     fb: FormBuilder,
-    private db: AngularFirestore) {
+    private db: AngularFirestore,
+    private toastCtrl: ToastController) {
 
       this.usuarioCollection = this.db.collection('usuarios');
 
@@ -49,12 +51,12 @@ export class RegistroUsuarioPage {
     if (!bool) {
       this.navCtrl.setRoot(EntrarPage);
 
-      let alert = this.alertCtrl.create({
-        title:'Falha de acesso',
-        message:'Você não possui acesso à essa funcionalidade',
-        buttons:['OK!']
+      let toast = this.toastCtrl.create({
+        message: 'Você não possui acesso à essa funcionalidade',
+        duration: 3000,
+        position: 'bottom'
       });
-      alert.present();
+      toast.present();
 
     } else {
 
@@ -63,7 +65,27 @@ export class RegistroUsuarioPage {
         console.log(result.id);
   
         this.db.doc('usuarios/'+result.id).update({id:result.id});
+
+        let toast = this.toastCtrl.create({
+          message: 'Usuário cadastrado com sucesso',
+          duration: 3000,
+          position: 'bottom'
+        });
+        toast.present();
+
+        this.navCtrl.setRoot(MenuPage);
+   
       }).catch(err => {
+
+        let toast = this.toastCtrl.create({
+          message: 'O cadastro falhou, erro: '+err,
+          duration: 3000,
+          position: 'bottom'
+        });
+        
+        toast.present();
+        
+        this.navCtrl.setRoot(MenuPage);
         console.log(err);
       });
 
@@ -79,12 +101,12 @@ export class RegistroUsuarioPage {
 
       this.navCtrl.setRoot(EntrarPage);
 
-      let alert = this.alertCtrl.create({
-        title:'Falha de acesso',
-        message:'Você não possui acesso à essa página',
-        buttons:['OK!']
+      let toast = this.toastCtrl.create({
+        message: 'Você não possui acesso à essa página',
+        duration: 3000,
+        position: 'bottom'
       });
-      alert.present();
+
 
     }       
 

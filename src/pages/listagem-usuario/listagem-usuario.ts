@@ -7,12 +7,14 @@ import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Usuarios } from '../../interfaces/usuario.interface';
 
+
 @IonicPage()
 @Component({
-  selector: 'page-listagem-pedido',
-  templateUrl: 'listagem-pedido.html',
+  selector: 'page-listagem-usuario',
+  templateUrl: 'listagem-usuario.html',
 })
-export class ListagemPedidoPage {
+export class ListagemUsuarioPage {
+
 
   usuarioCollection : AngularFirestoreCollection<Usuarios>;
   usuario: Observable<Usuarios[]>;
@@ -38,6 +40,5 @@ export class ListagemPedidoPage {
           } as Usuarios;
         })
       });
-    }
-
+  }
 }

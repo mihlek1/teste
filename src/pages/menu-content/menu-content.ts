@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { EntrarPage } from '../entrar/entrar';
 
 /**
- * Generated class for the BalancaRegistroPage page.
+ * Generated class for the MenuContentPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -12,16 +12,17 @@ import { EntrarPage } from '../entrar/entrar';
 
 @IonicPage()
 @Component({
-  selector: 'page-balanca-registro',
-  templateUrl: 'balanca-registro.html',
+  selector: 'page-menu-content',
+  templateUrl: 'menu-content.html',
 })
-export class BalancaRegistroPage {
-
+export class MenuContentPage {
+  
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     private authProvider: AuthProvider,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,
+    private toastCtrl: ToastController) {
   }
 
   ionViewCanEnter() {
@@ -32,12 +33,11 @@ export class BalancaRegistroPage {
 
       this.navCtrl.setRoot(EntrarPage);
 
-      let alert = this.alertCtrl.create({
-        title:'Falha de acesso',
-        message:'Você não possui acesso à essa página',
-        buttons:['OK!']
+      let toast = this.toastCtrl.create({
+        message: 'Você não possui acesso à essa página',
+        duration: 3000,
+        position: 'bottom'
       });
-      alert.present();
 
     }       
 
@@ -46,5 +46,3 @@ export class BalancaRegistroPage {
  }
 
 }
-
-

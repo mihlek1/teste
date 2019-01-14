@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController, Item } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController, Item, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuPage } from '../menu/menu';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Usuarios } from '../../interfaces/usuario.interface';
-import { b } from '@angular/core/src/render3';
 
 @IonicPage()
 @Component({
@@ -31,7 +30,8 @@ export class EntrarPage {
     fb: FormBuilder,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
-    private authProvider: AuthProvider) {
+    private authProvider: AuthProvider,
+    private toastCtrl:ToastController) {
 
        let a = this.db.collection('usuarios').snapshotChanges();
 
@@ -69,13 +69,19 @@ export class EntrarPage {
         if(success) {      
           this.navCtrl.setRoot(MenuPage);
         }
-      }).catch (err => {
-        let alert = this.alertCtrl.create({
-          title:'Falha ao realizar login',
-          message:'Confira seus dados',
-          buttons:['OK!']
+        let toast = this.toastCtrl.create({
+          message: 'Seja bem-vindo ' +data.nome,
+          duration: 3000,
+          position: 'bottom'
         });
-        alert.present();
+        toast.present(); 
+      }).catch (err => {
+        let toast = this.toastCtrl.create({
+          message: 'Falha ao realizar login, confira suas credenciais',
+          duration: 3000,
+          position: 'bottom'
+        });
+        toast.present(); 
       });
 
     }

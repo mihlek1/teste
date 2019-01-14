@@ -15,22 +15,24 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthProvider } from '../providers/auth/auth';
 import { EntrarPage } from '../pages/entrar/entrar';
 import { MenuPage } from '../pages/menu/menu';
-import { BalancaRegistroPage } from '../pages/balanca-registro/balanca-registro';
 import { RegistroUsuarioPage } from '../pages/registro-usuario/registro-usuario';
 import { DatabaseProvider } from '../providers/database/database';
 import { environment } from '../environments/firebase.config';
 import { RegistroPedidoPage } from '../pages/registro-pedido/registro-pedido';
 import { ListagemPedidoPage } from '../pages/listagem-pedido/listagem-pedido';
+import { MenuContentPage } from '../pages/menu-content/menu-content';
+import { ListagemUsuarioPage } from '../pages/listagem-usuario/listagem-usuario';
 
 @NgModule({
   declarations: [
     MyApp,
     EntrarPage,
     MenuPage,
-    BalancaRegistroPage,
     RegistroUsuarioPage,
     RegistroPedidoPage,
-    ListagemPedidoPage
+    ListagemPedidoPage,
+    MenuContentPage,
+    ListagemUsuarioPage
   ],
   imports: [
     BrowserModule,
@@ -48,10 +50,11 @@ import { ListagemPedidoPage } from '../pages/listagem-pedido/listagem-pedido';
     MyApp,
     EntrarPage,
     MenuPage,
-    BalancaRegistroPage,
     RegistroUsuarioPage,
     RegistroPedidoPage,
-    ListagemPedidoPage
+    ListagemPedidoPage,
+    MenuContentPage,
+    ListagemUsuarioPage
   ],
   providers: [
     StatusBar,

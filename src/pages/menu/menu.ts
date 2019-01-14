@@ -1,13 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Nav, App, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Nav, App, AlertController, ToastController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { EntrarPage } from '../entrar/entrar';
-import { app } from 'firebase';
-import { BalancaRegistroPage } from '../balanca-registro/balanca-registro';
 import { RegistroUsuarioPage } from '../registro-usuario/registro-usuario';
-import { AngularFirestore } from 'angularfire2/firestore';
 import { ListagemPedidoPage } from '../listagem-pedido/listagem-pedido';
 import { RegistroPedidoPage } from '../registro-pedido/registro-pedido';
+import { MenuContentPage } from '../menu-content/menu-content';
+import { ListagemUsuarioPage } from '../listagem-usuario/listagem-usuario';
 
 @IonicPage()
 @Component({
@@ -29,7 +28,8 @@ export class MenuPage {
     public navParams: NavParams,
     private authProvider: AuthProvider,
     private appCtrl: App,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,
+    private toastCtrl: ToastController) {
 
   }
 
@@ -38,45 +38,48 @@ export class MenuPage {
     if(this.authProvider.acessoAdmin()){
     
       this.pages=[
-        {title:'Registro', component:RegistroUsuarioPage},
+        {title:'Menu', component:MenuPage},
+        {title:'Registro de Usuário', component:RegistroUsuarioPage},        
+        {title:'Consultar Usuários', component:ListagemUsuarioPage},
+        {title:'Gerar Pedidos', component:RegistroPedidoPage},
         {title:'Consultar Pedidos', component:ListagemPedidoPage},
-        {title:'Gerar Pedidos', component:RegistroPedidoPage}
 
       ];
 
-      this.openPage(BalancaRegistroPage);
+      this.openPage(MenuContentPage);
     
     } else if(this.authProvider.acessoVendedor()) {
 
       this.pages=[
+        {title:'Menu', component:MenuPage},
         {title:'Consultar Pedidos', component:ListagemPedidoPage},
         {title:'Gerar Pedidos', component:RegistroPedidoPage}
 
       ];
 
-      this.openPage(BalancaRegistroPage);
+      this.openPage(MenuContentPage);
 
     } else if(this.authProvider.acessoSupervisor()) {
 
       this.pages=[
+        {title:'Menu', component:MenuPage},
         {title:'Consultar Pedidos', component:ListagemPedidoPage},
         {title:'Gerar Pedidos', component:RegistroPedidoPage}
 
       ];
 
-      this.openPage(BalancaRegistroPage);
+      this.openPage(MenuContentPage);
 
     } else if(this.authProvider.acessoFinanceiro()) {
 
       this.pages=[
+        {title:'Menu', component:MenuPage},
         {title:'Consultar Pedidos', component:ListagemPedidoPage}
       ];
 
-      this.openPage(BalancaRegistroPage);
+      this.openPage(MenuContentPage);
 
     }
-
-
 
     this.user = this.authProvider.atualUsuario.nome;
 
@@ -98,12 +101,11 @@ export class MenuPage {
 
       this.navCtrl.setRoot(EntrarPage);
 
-      let alert = this.alertCtrl.create({
-        title:'Falha de acesso',
-        message:'Você não possui acesso à essa página',
-        buttons:['OK!']
+      let toast = this.toastCtrl.create({
+        message: 'Você não possui acesso à essa página',
+        duration: 3000,
+        position: 'bottom'
       });
-      alert.present();
 
     }       
 

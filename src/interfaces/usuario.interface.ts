@@ -1,7 +1,7 @@
 export interface Usuarios {
 
     nome:string;
-    role:number;
+    role:string;
     filial:string;
     id:string;
     senha:string;
