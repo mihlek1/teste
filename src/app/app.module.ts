@@ -19,6 +19,8 @@ import { BalancaRegistroPage } from '../pages/balanca-registro/balanca-registro'
 import { RegistroUsuarioPage } from '../pages/registro-usuario/registro-usuario';
 import { DatabaseProvider } from '../providers/database/database';
 import { environment } from '../environments/firebase.config';
+import { RegistroPedidoPage } from '../pages/registro-pedido/registro-pedido';
+import { ListagemPedidoPage } from '../pages/listagem-pedido/listagem-pedido';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { environment } from '../environments/firebase.config';
     EntrarPage,
     MenuPage,
     BalancaRegistroPage,
-    RegistroUsuarioPage
+    RegistroUsuarioPage,
+    RegistroPedidoPage,
+    ListagemPedidoPage
   ],
   imports: [
     BrowserModule,
@@ -45,7 +49,9 @@ import { environment } from '../environments/firebase.config';
     EntrarPage,
     MenuPage,
     BalancaRegistroPage,
-    RegistroUsuarioPage
+    RegistroUsuarioPage,
+    RegistroPedidoPage,
+    ListagemPedidoPage
   ],
   providers: [
     StatusBar,

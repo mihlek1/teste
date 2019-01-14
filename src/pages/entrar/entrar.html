@@ -1,18 +1,18 @@
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="yellow">
     <ion-title>Entrar</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
 
   <form (ngSubmit)="login()" [formGroup]="formLogin">
 
-    <div *ngFor= "let ba of list">
+    <!-- <div *ngFor= "let ba of list">
 
       {{ ba | json }} <br>
 
@@ -21,9 +21,13 @@
 
       {{ a | json }} <br>
 
-    </div>
-
+    </div> -->
+    
     <ion-list inset >
+
+        <div text-center>
+            <img width="225" height="168.75" src="../assets/imgs/tradlogo.jpg" alt="">
+        </div>
 
       <ion-item >
         <ion-input type="text" placeholder="Usuário" formControlName="nome"></ion-input>
@@ -40,11 +44,10 @@
       <div ngxErrors="senha">
         <div [ngxError]="['required']" [when]="['touched']">Digite a sua senha</div>
       </div>   
-
-
+      <br>
       <div padding-horizontal>
 
-        <button ion-button full type="submit" [disabled]="!formLogin.valid">Login</button>
+        <button ion-button lightgreen full type="submit" [disabled]="!formLogin.valid">Login</button>
 
         <!-- <button ion-button full (click)= "registro()" >Registro</button> -->
 

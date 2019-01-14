@@ -21,15 +21,6 @@ export class AuthProvider {
   login(usuario: string, senha:string ): Promise<boolean> {
 
     return new Promise((resolve, reject) => {
-      this.usuarioCollection = this.db.collection('usuarios', ref => {
-        return ref.where('nome', '==', '').where('senha', '==', 'admin');
-        
-      });
-      this.usuario = this.usuarioCollection.valueChanges();
-      console.log(this.usuarioCollection.ref.get.name);
-      // this.usuarioCollection = this.db.collection('usuarios', ref => {
-      //   return ref.where('nome', '==', usuario).where('senha', '==', senha);
-      // });
       
       if(usuario === 'admin' && senha === 'admin') {
 
@@ -47,13 +38,47 @@ export class AuthProvider {
         this.atualUsuario = {
 
           nome:usuario,
+          role:1
+
+        };
+
+        resolve(true);
+
+      } else if (usuario === 'supervisor' && senha === 'supervisor') {
+
+        this.atualUsuario = {
+
+          nome:usuario,
           role:50
 
         };
 
         resolve(true);
 
-      } else {
+      } else if (usuario === 'vendedor' && senha === 'vendedor') {
+
+        this.atualUsuario = {
+
+          nome:usuario,
+          role:25
+
+        };
+
+        resolve(true);
+
+      } else if (usuario === 'financeiro' && senha === 'financeiro') {
+
+        this.atualUsuario = {
+
+          nome:usuario,
+          role:75
+
+        };
+
+        resolve(true);
+
+      }
+       else {
 
         reject(false);
 
@@ -88,11 +113,42 @@ export class AuthProvider {
       }
     } else {
       return false;
-    }
-
-
+    }    
   }
 
-  
+  acessoSupervisor() {
+    if(this.estaLogado()){
+      if(this.atualUsuario.role === 50) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }    
+  }
+
+  acessoFinanceiro() {
+    if(this.estaLogado()){
+      if(this.atualUsuario.role === 75) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }    
+  }
+  acessoVendedor() {
+    if(this.estaLogado()){
+      if(this.atualUsuario.role === 25) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }    
+  }
 
 }

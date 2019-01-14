@@ -6,6 +6,8 @@ import { app } from 'firebase';
 import { BalancaRegistroPage } from '../balanca-registro/balanca-registro';
 import { RegistroUsuarioPage } from '../registro-usuario/registro-usuario';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { ListagemPedidoPage } from '../listagem-pedido/listagem-pedido';
+import { RegistroPedidoPage } from '../registro-pedido/registro-pedido';
 
 @IonicPage()
 @Component({
@@ -36,21 +38,49 @@ export class MenuPage {
     if(this.authProvider.acessoAdmin()){
     
       this.pages=[
-        {title:'Registro', component:RegistroUsuarioPage}
+        {title:'Registro', component:RegistroUsuarioPage},
+        {title:'Consultar Pedidos', component:ListagemPedidoPage},
+        {title:'Gerar Pedidos', component:RegistroPedidoPage}
+
       ];
 
       this.openPage(BalancaRegistroPage);
     
-    } else {
+    } else if(this.authProvider.acessoVendedor()) {
 
       this.pages=[
-        {title:'Balanca', component:BalancaRegistroPage}
+        {title:'Consultar Pedidos', component:ListagemPedidoPage},
+        {title:'Gerar Pedidos', component:RegistroPedidoPage}
+
+      ];
+
+      this.openPage(BalancaRegistroPage);
+
+    } else if(this.authProvider.acessoSupervisor()) {
+
+      this.pages=[
+        {title:'Consultar Pedidos', component:ListagemPedidoPage},
+        {title:'Gerar Pedidos', component:RegistroPedidoPage}
+
+      ];
+
+      this.openPage(BalancaRegistroPage);
+
+    } else if(this.authProvider.acessoFinanceiro()) {
+
+      this.pages=[
+        {title:'Consultar Pedidos', component:ListagemPedidoPage}
       ];
 
       this.openPage(BalancaRegistroPage);
 
     }
+
+
+
     this.user = this.authProvider.atualUsuario.nome;
+
+
   }
 
   logout() {

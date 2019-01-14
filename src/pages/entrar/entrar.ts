@@ -8,7 +8,6 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { Usuarios } from '../../interfaces/usuario.interface';
 import { b } from '@angular/core/src/render3';
 
-
 @IonicPage()
 @Component({
   selector: 'page-entrar',
@@ -54,15 +53,12 @@ export class EntrarPage {
        });
 
        this.usuario = this.usuarioCollection.valueChanges();
-       console.log(this.ab, 'asdasd');
 
        this.formLogin = fb.group({
         nome: ['', Validators.compose([Validators.required])],
         senha: ['', Validators.compose([Validators.required])]
       });
-      console.log(a);
-      console.log(this.usuarioCollection);
-      console.log(this.usuario);
+  
   }
   
   login() {
