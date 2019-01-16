@@ -46,7 +46,7 @@ export class RegistroUsuarioPage {
   }
   registro() {
 
-    let bool =this.authProvider.acessoAdmin();
+    let bool =this.authProvider.atualUsuario.role === 'Admin';
 
     if (!bool) {
       this.navCtrl.setRoot(EntrarPage);
@@ -62,7 +62,6 @@ export class RegistroUsuarioPage {
 
       let data = this.formRegistro.value;
       this.usuarioCollection.add(data).then(result => {
-        console.log(result.id);
   
         this.db.doc('usuarios/'+result.id).update({id:result.id});
 
@@ -95,7 +94,7 @@ export class RegistroUsuarioPage {
   
   ionViewCanEnter() {
     
-    let bool =this.authProvider.acessoAdmin();
+    let bool =this.authProvider.atualUsuario.role === 'Admin';
 
     if (!bool) {
 

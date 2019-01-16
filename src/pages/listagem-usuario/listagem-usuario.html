@@ -10,19 +10,28 @@
 
 <ion-content padding>
 
-  <table>
-    <tr>
-      <th>Nome</th>
-      <th>Nível Acesso</th>
-      <th>Filial</th>
-    </tr>
-    <tr *ngFor="let user of list">
+    <ion-list >
+        <ion-item-sliding *ngFor="let user of usuario | async">
 
-      <td>{{user.nome}}</td>
-      <td>{{user.role}}</td>
-      <td>{{user.filial}}</td>
 
-    </tr>
-  </table>
-  
+          <ion-item>
+           <h3 class="text-align">{{user.nome}} - {{user.role}}</h3> 
+          </ion-item>
+
+
+          <ion-item-options side="right">
+
+            <button ion-button icon-only (click)="editar(user)">
+              <ion-icon name="settings"></ion-icon>
+            </button>
+
+            <button ion-button icon-only color="danger" (click)="deletar(user)">
+              <ion-icon name="trash"></ion-icon>
+            </button>
+
+          </ion-item-options>
+          
+        </ion-item-sliding>
+      </ion-list>
+
 </ion-content>

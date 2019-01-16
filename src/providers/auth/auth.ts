@@ -10,7 +10,7 @@ import { Usuarios } from '../../interfaces/usuario.interface';
 @Injectable()
 export class AuthProvider {
 
-  atualUsuario:Usuario;
+  atualUsuario:Usuarios;
   usuarioCollection : AngularFirestoreCollection<Usuarios>;
   usuario: Observable<Usuarios[]>;
 
@@ -18,62 +18,36 @@ export class AuthProvider {
 
   }
 
-  login(usuario: string, senha:string ): Promise<boolean> {
-
+  login(usuario: string, senha:string, user:any ): Promise<boolean> {
+    
     return new Promise((resolve, reject) => {
-      
-      if(usuario === 'admin' && senha === 'admin') {
 
+
+      if(usuario === user.nome && senha === user.senha) {
+        console.log(user.nome);
+        console.log(user.senha);
+        console.log(usuario);
+        console.log(senha);
         this.atualUsuario = {
-
-          nome:usuario,
-          role:'admin'
-
+          id:user.id,
+          nome:user.nome,
+          role:user.role,
+          senha:user.senha,
+          filial:user.filial
         };
-
+        
         resolve(true);
 
-      } else if (usuario === 'supervisor' && senha === 'supervisor') {
-
-        this.atualUsuario = {
-
-          nome:usuario,
-          role:'supervisor'
-
-        };
-
-        resolve(true);
-
-      } else if (usuario === 'vendedor' && senha === 'vendedor') {
-
-        this.atualUsuario = {
-
-          nome:usuario,
-          role:'vendedor'
-
-        };
-
-        resolve(true);
-
-      } else if (usuario === 'financeiro' && senha === 'financeiro') {
-
-        this.atualUsuario = {
-
-          nome:usuario,
-          role:'financeiro'
-
-        };
-
-        resolve(true);
-
-      }
-       else {
-
+      } else {
+        console.log(user.nome);
+        console.log(user.senha);
+        console.log(usuario);
+        console.log(senha);
         reject(false);
 
       }
 
-    })
+    });
 
   }
 

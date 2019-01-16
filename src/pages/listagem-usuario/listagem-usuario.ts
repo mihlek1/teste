@@ -30,15 +30,72 @@ export class ListagemUsuarioPage {
     public alertCtrl: AlertController,
     private authProvider: AuthProvider) {
 
-      let a = this.db.collection('usuarios').snapshotChanges();
+      // let a = this.db.collection('usuarios').snapshotChanges();
 
-      a.subscribe(actionArray => {
-        this.list = actionArray.map(item => {
-          return { 
-            id: item.payload.doc.id,
-            ...item.payload.doc.data()
-          } as Usuarios;
-        })
-      });
+      // a.subscribe(actionArray => {
+      //   this.list = actionArray.map(item => {
+      //     return { 
+      //       id: item.payload.doc.id,
+      //       ...item.payload.doc.data()
+      //     } as Usuarios;
+      //   })
+      // });
+
+      
+      this.usuarioCollection = this.db.collection<Usuarios>('usuarios');
+
+      
+      this.usuario = this.usuarioCollection.valueChanges();
+
   }
+
+
+
+
+  editar(user) {
+    let alert = this.alertCtrl.create({
+      title: 'Editar usuário',
+      inputs:[
+        {
+        name: 'nome',
+        value: user.nome,
+        placeholder: 'Nome'
+        },
+        {
+        name: 'role',
+        value: user.role,
+        placeholder: 'Acesso'
+        },
+        {
+        name: 'senha',
+        value: user.senha,
+        placeholder: 'Senha',
+        type: 'password'
+        },
+        {
+        name: 'filial',
+        value: user.filial,
+        placeholder: 'Senha'
+        },
+      ],
+      buttons: [
+        {
+          text:'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Atualizar',
+          handler: data => {
+            this.db.doc('usuarios/'+user.id).update(data);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  deletar(user) {
+    this.db.doc('usuarios/'+user.id).delete();
+  }
+
 }

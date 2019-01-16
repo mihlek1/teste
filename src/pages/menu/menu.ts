@@ -35,20 +35,20 @@ export class MenuPage {
 
   ionViewWillEnter() {
 
-    if(this.authProvider.acessoAdmin()){
+    if(this.authProvider.atualUsuario.role === 'Admin'){
     
       this.pages=[
         {title:'Menu', component:MenuPage},
         {title:'Registro de Usuário', component:RegistroUsuarioPage},        
-        {title:'Consultar Usuários', component:ListagemUsuarioPage},
-        {title:'Gerar Pedidos', component:RegistroPedidoPage},
+        {title:'Gerenciamento de Usuários', component:ListagemUsuarioPage},
+        {title:'Registro de Pedidos', component:RegistroPedidoPage},
         {title:'Consultar Pedidos', component:ListagemPedidoPage},
 
       ];
 
       this.openPage(MenuContentPage);
     
-    } else if(this.authProvider.acessoVendedor()) {
+    } else if(this.authProvider.atualUsuario.role === 'Vendedor') {
 
       this.pages=[
         {title:'Menu', component:MenuPage},
@@ -59,7 +59,7 @@ export class MenuPage {
 
       this.openPage(MenuContentPage);
 
-    } else if(this.authProvider.acessoSupervisor()) {
+    } else if(this.authProvider.atualUsuario.role === 'Supervisor') {
 
       this.pages=[
         {title:'Menu', component:MenuPage},
@@ -70,7 +70,7 @@ export class MenuPage {
 
       this.openPage(MenuContentPage);
 
-    } else if(this.authProvider.acessoFinanceiro()) {
+    } else if(this.authProvider.atualUsuario.role === 'Financeiro') {
 
       this.pages=[
         {title:'Menu', component:MenuPage},
