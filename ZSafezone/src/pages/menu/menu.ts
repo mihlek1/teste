@@ -20,7 +20,8 @@ export class MenuPage {
   @ViewChild(Nav) nav: Nav;
 
 
-  private pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any}>;
+  user:string;
 
   constructor(
     public navCtrl: NavController, 
@@ -33,10 +34,7 @@ export class MenuPage {
   }
 
   ionViewWillEnter() {
-  /*1- Ao entrar na página, o ionic automaticamente verifica se o acesso será permitido, a partir do usuarioAtual do arquivo auth.ts
-    2- Também são verificadas as roles para definir qual páginas determinado usuário poderá acessar
-    3- Mais funcionalidades deverão ser implementadas aqui, provavelmente, eu acho, não sei, enfim
-  */
+
     if(this.authProvider.atualUsuario.role === 'Admin'){
     
       this.pages=[
@@ -82,6 +80,9 @@ export class MenuPage {
       this.openPage(MenuContentPage);
 
     }
+
+    this.user = this.authProvider.atualUsuario.nome;
+
 
   }
 

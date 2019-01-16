@@ -3,10 +3,10 @@ import { IonicPage, NavController, NavParams, LoadingController, AlertController
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuPage } from '../menu/menu';
 import { AuthProvider } from '../../providers/auth/auth';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Usuarios } from '../../interfaces/usuario.interface';
-import { getQueryValue } from '@angular/core/src/view/query';
+import { map } from 'rxjs/operators';
 
 @IonicPage()
 @Component({
@@ -19,14 +19,12 @@ export class EntrarPage {
   booleanf: boolean;
   formLogin: FormGroup; 
   username:string;
+  usuarioArray;
   usuarioCollection : AngularFirestoreCollection<Usuarios>;
+  usuario: Observable<Usuarios[]>;
   dataLogin;
-  testeNull:boolean;
-  booleanExecution:boolean;
-  userData;
-
-
-
+  list;
+  observe$:Observable<any>;
   constructor(
     private db:AngularFirestore,
     public navCtrl: NavController, 
@@ -38,55 +36,49 @@ export class EntrarPage {
     private toastCtrl:ToastController,
     private cdRef : ChangeDetectorRef) {
 
-    this.booleanExecution === undefined;
-
     this.booleanf = false;
 
-    //forma alternativa de receber os dados - lista
+      //forma alternativa de receber os dados - lista
 
-        //  return { 
-        //     id: item.payload.doc.id,
-        //     ...item.payload.doc.data()
-        //  } as Usuarios;
+      
+       let a = this.db.collection('usuarios').snapshotChanges();
 
-        // let b = this.usuarioCollection = this.db.collection<Usuarios>('usuarios', ref => {
-        //   return ref.where('nome', '==', 'mam').where('senha', '==','123123');
-        //  });
-        // let a = b.snapshotChanges();
-        // a.subscribe(actionArray => {
-        // this.list = actionArray.map(item => {
-        //     //  return { 
-        //     //     id: item.payload.doc.id,
-        //     //     ...item.payload.doc.data()
-        //     //  } as Usuarios;
-        //     this.userData = item.payload.doc.data().nome;
-        //     console.log(this.userData);
-        //     console.log(item.payload.doc.id);
-        //     console.log(item.payload.doc.data().id);
-        //     console.log(item.payload.doc.data().filial);
-        //    })
-        //  });
- 
+       a.subscribe(actionArray => {
+       this.list = actionArray.map(item => {
+            return { 
+               id: item.payload.doc.id,
+               ...item.payload.doc.data()
+            } as Usuarios;
+          })
+        });
+      console.log(a);
 
       //validator para o formulário(requer acréscimos e melhorias)
-      
       this.formLogin = fb.group({
         nome: ['', Validators.compose([Validators.required])],
         senha: ['', Validators.compose([Validators.required])]
       });
       
-  }  
-  
-  login() {
+  }
 
-    let data = this.formLogin.value;
 
-    this.authProvider.login(data.nome, data.senha).then(success => {
+  receberUsuario(user){
+    if(this.booleanf === false) {
+      let existe = document.getElementById("dataSend");
+      console.log(existe);
+      console.log(user);  
+      this.booleanf=true;
+      this.login(user);
+    } 
+  }
+
+  login(user) {
+    this.authProvider.login(this.dataLogin.nome, this.dataLogin.senha, user).then(success => {
       if(success) {   
         this.navCtrl.setRoot(MenuPage);
       }
       let toast = this.toastCtrl.create({
-        message: 'Seja bem-vindo ' +data.nome,
+        message: 'Seja bem-vindo ' +this.dataLogin.nome,
         duration: 3000,
         position: 'bottom'
       });
@@ -99,6 +91,23 @@ export class EntrarPage {
       });
       toast.present(); 
     });
+
+  }
+
+  getForm() {
+    let data = this.formLogin.value;
+ 
+    this.usuarioCollection = this.db.collection<Usuarios>('usuarios', ref => {
+      return ref.where('nome', '==', data.nome).where('senha', '==', data.senha);
+     });
+     this.usuario = this.usuarioCollection.valueChanges(); 
+
+     this.dataLogin = data;
+     
+     let existe = document.getElementById("dataSend");
+     console.log(existe);
+     console.log(existe);
+     console.log(existe);
 
   }
   

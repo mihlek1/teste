@@ -46,7 +46,7 @@ export class RegistroUsuarioPage {
   }
   registro() {
 
-    let bool = this.authProvider.atualUsuario.role === 'Admin';
+    let bool =this.authProvider.atualUsuario.role === 'Admin';
 
     if (!bool) {
       this.navCtrl.setRoot(EntrarPage);
@@ -97,8 +97,7 @@ export class RegistroUsuarioPage {
     let bool =this.authProvider.atualUsuario.role === 'Admin';
 
     if (!bool) {
-      console.log(this.authProvider.atualUsuario.role);
-      console.log(this.authProvider.atualUsuario.nome);
+
       this.navCtrl.setRoot(EntrarPage);
 
       let toast = this.toastCtrl.create({
@@ -108,9 +107,7 @@ export class RegistroUsuarioPage {
       });
 
 
-    } else {
-        console.log(this.authProvider.atualUsuario.role);
-    }    
+    }       
 
     return bool;
  
