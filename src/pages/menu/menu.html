@@ -9,26 +9,29 @@
 
   <ion-content>
     <ion-list>
+
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage2(p)">
         {{p.title}}
       </button>
+
     </ion-list>
 
   </ion-content>
 
-
   <ion-footer>
+
     <ion-toolbar>
 
       <ion-grid>
-      
-        <ion-row>
-      
+   
+        <ion-row>    
          
           <ion-col>
+            
             <button ion-button full clear (click)="logout()">
               Sair
             </button>
+
           </ion-col>
 
         </ion-row>

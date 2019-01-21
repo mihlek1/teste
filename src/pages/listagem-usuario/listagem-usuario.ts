@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController, Item } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MenuPage } from '../menu/menu';
-import { AuthProvider } from '../../providers/auth/auth';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Usuarios } from '../../interfaces/usuario.interface';
@@ -16,34 +14,19 @@ import { Usuarios } from '../../interfaces/usuario.interface';
 export class ListagemUsuarioPage {
 
 
-  usuarioCollection : AngularFirestoreCollection<Usuarios>;
-  usuario: Observable<Usuarios[]>;
-  ab:string[];
-  list: Usuarios[];
-  asd:string;
+  private usuarioCollection : AngularFirestoreCollection<Usuarios>;
+  private usuario: Observable<Usuarios[]>;
 
-  constructor(   private db:AngularFirestore,
+  constructor(   
+    private db:AngularFirestore,
     public navCtrl: NavController, 
     public navParams: NavParams,
     fb: FormBuilder,
-    public loadingCtrl: LoadingController,
-    public alertCtrl: AlertController,
-    private authProvider: AuthProvider) {
+    private alertCtrl: AlertController ) {
 
-      // let a = this.db.collection('usuarios').snapshotChanges();
-
-      // a.subscribe(actionArray => {
-      //   this.list = actionArray.map(item => {
-      //     return { 
-      //       id: item.payload.doc.id,
-      //       ...item.payload.doc.data()
-      //     } as Usuarios;
-      //   })
-      // });
-      this.usuarioCollection = this.db.collection<Usuarios>('usuarios');
-
-      
+      this.usuarioCollection = this.db.collection<Usuarios>('usuarios');      
       this.usuario = this.usuarioCollection.valueChanges();
+      
   }
 
 

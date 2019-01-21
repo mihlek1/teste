@@ -40,11 +40,10 @@ export class ListagemUsuarioPage {
       //     } as Usuarios;
       //   })
       // });
+      this.usuarioCollection = this.db.collection<Usuarios>('usuarios');
 
       
-      this.usuarioCollection = this.db.collection<Usuarios>('usuarios');      
       this.usuario = this.usuarioCollection.valueChanges();
-
   }
 
 

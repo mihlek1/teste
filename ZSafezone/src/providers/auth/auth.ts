@@ -1,58 +1,27 @@
 import { Injectable } from '@angular/core';
-import { Usuario } from '../../interfaces/user.interface';
-import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-
-import * as firebase from 'firebase';
-import 'firebase/firestore';
 import { Usuarios } from '../../interfaces/usuario.interface';
+import { ToastController, NavController } from 'ionic-angular';
+import { MenuPage } from '../../pages/menu/menu';
 
 @Injectable()
 export class AuthProvider {
 
   atualUsuario:Usuarios;
   usuarioCollection : AngularFirestoreCollection<Usuarios>;
-  usuario: Observable<Usuarios[]>;
+  list;
+  user;
 
-  constructor(private db: AngularFirestore) {
-
-  }
-
-  login(usuario: string, senha:string, user:any ): Promise<boolean> {
-    
-    return new Promise((resolve, reject) => {
-
-
-      if(usuario === user.nome && senha === user.senha) {
-        console.log(user.nome);
-        console.log(user.senha);
-        console.log(usuario);
-        console.log(senha);
-        this.atualUsuario = {
-          id:user.id,
-          nome:user.nome,
-          role:user.role,
-          senha:user.senha,
-          filial:user.filial
-        };
-        
-        resolve(true);
-
-      } else {
-        console.log(user.nome);
-        console.log(user.senha);
-        console.log(usuario);
-        console.log(senha);
-        reject(false);
-
-      }
-
-    });
+  constructor(private db: AngularFirestore, private toastCtrl: ToastController) {
 
   }
 
-  estaLogado(){
-
+  setUsuario(user) {
+    this.atualUsuario = user;
+  }
+  
+  estaLogado() {
+    /*Verifica se o usuário está logado ou não */
     if( this.atualUsuario === null || this.atualUsuario === undefined) {
       return false;
     } else {
@@ -61,57 +30,14 @@ export class AuthProvider {
 
   }
 
-  logout() {
 
+  logout() {
+  /*Define o usuário atual como nulo,
+    realizando o seu logout, o que retira todo o acesso do aplicativo, 
+    pois sempre são realizadas verificações ao entrar nas pages
+  */
     this.atualUsuario = null;
 
-  }
-
-  acessoAdmin() {
-    if(this.estaLogado()){
-      if(this.atualUsuario.role === 'admin') {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }    
-  }
-
-  acessoSupervisor() {
-    if(this.estaLogado()){
-      if(this.atualUsuario.role === 'supervisor') {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }    
-  }
-
-  acessoFinanceiro() {
-    if(this.estaLogado()){
-      if(this.atualUsuario.role === 'financeiro') {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }    
-  }
-  acessoVendedor() {
-    if(this.estaLogado()){
-      if(this.atualUsuario.role === 'vendedor') {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }    
   }
 
 }

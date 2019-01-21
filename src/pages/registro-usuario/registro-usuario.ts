@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { EntrarPage } from '../entrar/entrar';
 import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { MenuPage } from '../menu/menu';
+import { Usuarios } from '../../interfaces/usuario.interface';
 
 
 
@@ -17,19 +18,14 @@ import { MenuPage } from '../menu/menu';
 export class RegistroUsuarioPage {
 
 
-  formRegistro: FormGroup; 
-  username:string;
+  private formRegistro: FormGroup; 
 
-
-  usuarioCollection : AngularFirestoreCollection<any>;
-  usuario: Observable<any>;
-  usuarioDoc: AngularFirestoreDocument<any>;
+  private usuarioCollection : AngularFirestoreCollection<Usuarios>;
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     private authProvider: AuthProvider,
-    private alertCtrl: AlertController,
     fb: FormBuilder,
     private db: AngularFirestore,
     private toastCtrl: ToastController) {
@@ -53,7 +49,7 @@ export class RegistroUsuarioPage {
 
       let toast = this.toastCtrl.create({
         message: 'Você não possui acesso à essa funcionalidade',
-        duration: 3000,
+        duration: 2000,
         position: 'bottom'
       });
       toast.present();
@@ -61,13 +57,14 @@ export class RegistroUsuarioPage {
     } else {
 
       let data = this.formRegistro.value;
+
       this.usuarioCollection.add(data).then(result => {
   
         this.db.doc('usuarios/'+result.id).update({id:result.id});
 
         let toast = this.toastCtrl.create({
           message: 'Usuário cadastrado com sucesso',
-          duration: 3000,
+          duration: 2000,
           position: 'bottom'
         });
         toast.present();
@@ -78,14 +75,13 @@ export class RegistroUsuarioPage {
 
         let toast = this.toastCtrl.create({
           message: 'O cadastro falhou, erro: '+err,
-          duration: 3000,
+          duration: 2000,
           position: 'bottom'
         });
         
         toast.present();
         
         this.navCtrl.setRoot(MenuPage);
-        console.log(err);
       });
 
     }
@@ -97,21 +93,17 @@ export class RegistroUsuarioPage {
     let bool =this.authProvider.atualUsuario.role === 'Admin';
 
     if (!bool) {
-      console.log(this.authProvider.atualUsuario.role);
-      console.log(this.authProvider.atualUsuario.nome);
       this.navCtrl.setRoot(EntrarPage);
 
       let toast = this.toastCtrl.create({
         message: 'Você não possui acesso à essa página',
-        duration: 3000,
+        duration: 2000,
         position: 'bottom'
       });
 
 
-    } else {
-        console.log(this.authProvider.atualUsuario.role);
-    }    
-
+    }
+    
     return bool;
  
  }

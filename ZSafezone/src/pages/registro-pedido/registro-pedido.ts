@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { AuthProvider } from '../../providers/auth/auth';
+import { EntrarPage } from '../entrar/entrar';
+import { Observable } from 'rxjs/Observable';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { MenuPage } from '../menu/menu';
 /**
  * Generated class for the RegistroPedidoPage page.
  *
@@ -15,11 +20,29 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class RegistroPedidoPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  formRegistro: FormGroup; 
+  username:string;
+  
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    fb: FormBuilder) {
+    this.formRegistro = fb.group({
+      rSocial: ['', Validators.compose([Validators.required])],
+      nFantasia: ['', Validators.compose([Validators.required])],
+      endereco: ['', Validators.compose([Validators.required])],
+      telefone: ['', Validators.compose([Validators.required])],
+      CEP: ['', Validators.compose([Validators.required])],
+      CNPJ: ['', Validators.compose([Validators.required])],
+      fPagamento: ['', Validators.compose([Validators.required])],
+      cidade: ['', Validators.compose([Validators.required])],
+      estado: ['', Validators.compose([Validators.required])],
+      iEstadual: ['', Validators.compose([Validators.required])],
+    });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RegistroPedidoPage');
+  registro() {
+
   }
 
 }

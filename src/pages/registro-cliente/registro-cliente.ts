@@ -6,48 +6,53 @@ import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { MenuPage } from '../menu/menu';
-
-
+import { Clientes } from '../../interfaces/cliente.interface';
 
 @IonicPage()
 @Component({
-  selector: 'page-registro-usuario',
-  templateUrl: 'registro-usuario.html',
+  selector: 'page-registro-cliente',
+  templateUrl: 'registro-cliente.html',
 })
-export class RegistroUsuarioPage {
+export class RegistroClientePage {
 
 
-  formRegistro: FormGroup; 
-  username:string;
+  private formRegistro: FormGroup; 
 
 
-  usuarioCollection : AngularFirestoreCollection<any>;
-  usuario: Observable<any>;
-  usuarioDoc: AngularFirestoreDocument<any>;
+  private clienteCollection : AngularFirestoreCollection<Clientes>;
+  private cliente: Observable<Clientes>;
+  private clienteDoc: AngularFirestoreDocument<Clientes>;
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     private authProvider: AuthProvider,
-    private alertCtrl: AlertController,
     fb: FormBuilder,
     private db: AngularFirestore,
     private toastCtrl: ToastController) {
 
+      this.clienteCollection = this.db.collection('clientes');
 
       this.formRegistro = fb.group({
         nome: ['', Validators.compose([Validators.required])],
-        senha: ['', Validators.compose([Validators.required])],
-        filial: ['', Validators.compose([Validators.required])],
-        role: ['', Validators.compose([Validators.required])]
+        CPF: ['', Validators.compose([Validators.required])],
+        RG: ['', Validators.compose([Validators.required])],
+        email: ['', Validators.compose([Validators.required])],
+        endereco: ['', Validators.compose([Validators.required])],
+        numeroEndereco: ['', Validators.compose([Validators.required])],
+        bairro: ['', Validators.compose([Validators.required])],
+        CEP: ['', Validators.compose([Validators.required])],
+        cidade: ['', Validators.compose([Validators.required])],
+        estado: ['', Validators.compose([Validators.required])],
       });
-
+    
   }
+
   registro() {
 
-    let bool = this.authProvider.atualUsuario.role === 'Admin';
-
-    if (!bool) {
+    let a = this.authProvider.atualUsuario.role;
+    
+    if(!((a === 'Vendedor') || (a === 'Admin'))) {
       this.navCtrl.setRoot(EntrarPage);
 
       let toast = this.toastCtrl.create({
@@ -60,15 +65,15 @@ export class RegistroUsuarioPage {
     } else {
 
       let data = this.formRegistro.value;
-      
-      this.usuarioCollection = this.db.collection('usuarios');
 
-      this.usuarioCollection.add(data).then(result => {
+      this.clienteCollection.add(data).then(result => {
   
-        this.db.doc('usuarios/'+result.id).update({id:result.id});
+        this.db.doc('clientes/'+result.id).update({id:result.id});
+
+        this.db.doc('clientes/'+result.id).update({vendedor:this.authProvider.atualUsuario.id});
 
         let toast = this.toastCtrl.create({
-          message: 'Usuário cadastrado com sucesso',
+          message: 'Cliente cadastrado com sucesso',
           duration: 2000,
           position: 'bottom'
         });
@@ -92,10 +97,16 @@ export class RegistroUsuarioPage {
     }
 
   }
-  
   ionViewCanEnter() {
+
+    let a = this.authProvider.atualUsuario.role;
+    let bool:boolean;
     
-    let bool =this.authProvider.atualUsuario.role === 'Admin';
+    if(a === 'Vendedor' || a === 'Admin') {
+      bool = true;
+    } else {
+      bool = false;
+    }
 
     if (!bool) {
       this.navCtrl.setRoot(EntrarPage);
@@ -107,8 +118,8 @@ export class RegistroUsuarioPage {
       });
 
 
-    }   
-
+    }
+    
     return bool;
  
  }

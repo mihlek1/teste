@@ -5,6 +5,5 @@ export interface Usuarios {
     senha:string;
     role:string;
     filial:string;
-
     
 }

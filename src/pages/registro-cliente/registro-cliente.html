@@ -1,0 +1,125 @@
+
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Cadastro de Clientes</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form (ngSubmit)="registro()" [formGroup]="formRegistro">
+
+
+    <div text-center>
+      <img width="125" height="125" src="../assets/imgs/images.png" alt="">
+    </div>
+
+    <ion-list inset>
+  
+      <ion-item >
+        <ion-input type="text" placeholder="Nome do Cliente" formControlName="nome"></ion-input>
+      </ion-item>
+
+      <div ngxErrors="nome">
+        <div [ngxError]="['required']" [when]="['touched']">Preencha o nome do Cliente</div>
+      </div>
+
+      <ion-item >
+        <ion-input type="text" placeholder="CPF" formControlName="CPF"></ion-input>
+      </ion-item>
+
+      <div ngxErrors="CPF">
+        <div [ngxError]="['required']" [when]="['touched']">Preencha o CPF do cliente</div>
+      </div>
+      
+      <ion-item >
+        <ion-input type="text" placeholder="RG" formControlName="RG"></ion-input>
+      </ion-item>
+
+      <div ngxErrors="RG">
+        <div [ngxError]="['required']" [when]="['touched']">Preencha o RG do cliente</div>
+      </div>
+      
+      <ion-item >
+        <ion-input type="text" placeholder="E-Mail" formControlName="email"></ion-input>
+      </ion-item>
+
+      <div ngxErrors="email">
+        <div [ngxError]="['required']" [when]="['touched']">Preencha o e-mail do cliente</div>
+      </div>
+      
+      <ion-item >
+        <ion-input type="text" placeholder="Endereço" formControlName="endereco"></ion-input>
+      </ion-item>
+
+      <div ngxErrors="endereco">
+        <div [ngxError]="['required']" [when]="['touched']">Preencha o endereço do cliente</div>
+      </div>
+      
+      <ion-item >
+        <ion-input type="text" placeholder="Número" formControlName="numeroEndereco"></ion-input>
+      </ion-item>
+
+      <div ngxErrors="numeroEndereco">
+        <div [ngxError]="['required']" [when]="['touched']">Preencha o número da casa do cliente</div>
+      </div>
+                
+      <ion-item >
+        <ion-input type="text" placeholder="Bairro" formControlName="bairro"></ion-input>
+      </ion-item>
+
+      <div ngxErrors="bairro">
+        <div [ngxError]="['required']" [when]="['touched']">Preencha o bairro do cliente</div>
+      </div>
+                
+      <ion-item >
+        <ion-input type="text" placeholder="CEP" formControlName="CEP"></ion-input>
+      </ion-item>
+
+      <div ngxErrors="CEP">
+        <div [ngxError]="['required']" [when]="['touched']">Preencha o CEP do cliente</div>
+      </div>
+            
+      <ion-item>
+        <ion-label>Município</ion-label>
+        <ion-select formControlName="cidade">
+          <ion-option>Ji-Paraná</ion-option>
+          <ion-option>Porto Velho</ion-option>
+          <ion-option>Jaru</ion-option>
+          <ion-option>São Paulo</ion-option>
+          <ion-option>Manaus</ion-option>
+          <ion-option>Rio Branco</ion-option>
+        </ion-select>
+      </ion-item> 
+
+      <div ngxErrors="cidade">
+        <div [ngxError]="['required']" [when]="['touched']">Selecione o município do cliente</div>
+      </div>  
+
+      <ion-item>
+        <ion-label>Estado</ion-label>
+        <ion-select formControlName="estado">
+          <ion-option>Rondônia</ion-option>
+          <ion-option>Amazonas</ion-option>
+          <ion-option>Acre</ion-option>
+          <ion-option>São Paulo</ion-option>
+        </ion-select>
+      </ion-item> 
+
+      <div ngxErrors="estado">
+        <div [ngxError]="['required']" [when]="['touched']">Selecione o estado do cliente</div>
+      </div> 
+
+      <div padding-horizontal>
+
+        <button ion-button round color="lightgreen" full type="submit" [disabled]="!formRegistro.valid">Registro</button>
+
+      </div>
+
+    </ion-list>
+  </form>
+  
+</ion-content>

@@ -7,6 +7,8 @@ import { ListagemPedidoPage } from '../listagem-pedido/listagem-pedido';
 import { RegistroPedidoPage } from '../registro-pedido/registro-pedido';
 import { MenuContentPage } from '../menu-content/menu-content';
 import { ListagemUsuarioPage } from '../listagem-usuario/listagem-usuario';
+import { RegistroClientePage } from '../registro-cliente/registro-cliente';
+import { ListagemClientePage } from '../listagem-cliente/listagem-cliente';
 
 @IonicPage()
 @Component({
@@ -27,7 +29,6 @@ export class MenuPage {
     public navParams: NavParams,
     private authProvider: AuthProvider,
     private appCtrl: App,
-    private alertCtrl: AlertController,
     private toastCtrl: ToastController) {
 
   }
@@ -37,46 +38,50 @@ export class MenuPage {
     2- Também são verificadas as roles para definir qual páginas determinado usuário poderá acessar
     3- Mais funcionalidades deverão ser implementadas aqui, provavelmente, eu acho, não sei, enfim
   */
-    if(this.authProvider.atualUsuario.role === 'Admin'){
+    let a = this.authProvider.atualUsuario.role;
+    if(a === 'Admin'){
     
       this.pages=[
-        {title:'Menu', component:MenuPage},
+        {title:'Início', component:MenuPage},
         {title:'Registro de Usuário', component:RegistroUsuarioPage},        
-        {title:'Gerenciamento de Usuários', component:ListagemUsuarioPage},
-        {title:'Registro de Pedidos', component:RegistroPedidoPage},
-        {title:'Consultar Pedidos', component:ListagemPedidoPage},
-
+        {title:'Usuários', component:ListagemUsuarioPage},
+        {title:'Adicione um Pedido', component:RegistroPedidoPage},
+        {title:'Pedidos', component:ListagemPedidoPage},
+        {title:'Clientes', component:ListagemClientePage},
+        {title:'Adicione um Cliente', component:RegistroClientePage}
       ];
 
       this.openPage(MenuContentPage);
     
-    } else if(this.authProvider.atualUsuario.role === 'Vendedor') {
+    } else if(a === 'Vendedor') {
 
       this.pages=[
-        {title:'Menu', component:MenuPage},
-        {title:'Consultar Pedidos', component:ListagemPedidoPage},
-        {title:'Gerar Pedidos', component:RegistroPedidoPage}
+        {title:'Início', component:MenuPage},
+        {title:'Pedidos', component:ListagemPedidoPage},
+        {title:'Adicione um Pedido', component:RegistroPedidoPage},
+        {title:'Clientes', component:ListagemClientePage},
+        {title:'Adicione um Cliente', component:RegistroClientePage}
 
       ];
 
       this.openPage(MenuContentPage);
 
-    } else if(this.authProvider.atualUsuario.role === 'Supervisor') {
+    } else if(a === 'Supervisor') {
 
       this.pages=[
-        {title:'Menu', component:MenuPage},
-        {title:'Consultar Pedidos', component:ListagemPedidoPage},
-        {title:'Gerar Pedidos', component:RegistroPedidoPage}
+        {title:'Início', component:MenuPage},
+        {title:'Pedidos', component:ListagemPedidoPage},
+        {title:'Adicione um Pedido', component:RegistroPedidoPage}
 
       ];
 
       this.openPage(MenuContentPage);
 
-    } else if(this.authProvider.atualUsuario.role === 'Financeiro') {
+    } else if(a === 'Faturamento') {
 
       this.pages=[
-        {title:'Menu', component:MenuPage},
-        {title:'Consultar Pedidos', component:ListagemPedidoPage}
+        {title:'Início', component:MenuPage},
+        {title:'Pedidos', component:ListagemPedidoPage}
       ];
 
       this.openPage(MenuContentPage);
@@ -89,7 +94,12 @@ export class MenuPage {
 
     this.authProvider.logout();
     this.appCtrl.getRootNav().setRoot(EntrarPage);
-
+    let toast = this.toastCtrl.create({
+      message: 'O logout foi realizado',
+      duration: 2000,
+      position: 'bottom'
+    });
+    toast.present();
   }
 
   ionViewCanEnter() {
@@ -102,10 +112,10 @@ export class MenuPage {
 
       let toast = this.toastCtrl.create({
         message: 'Você não possui acesso à essa página',
-        duration: 3000,
+        duration: 2000,
         position: 'bottom'
       });
-
+      toast.present();
     }       
 
     return bool;
@@ -118,6 +128,7 @@ export class MenuPage {
     this.nav.setRoot(page);
 
   }
+
   openPage2(page) {
 
     this.nav.setRoot(page.component);

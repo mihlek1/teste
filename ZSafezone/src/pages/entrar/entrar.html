@@ -10,11 +10,15 @@
 
 <ion-content>
 
+<!-- 
 
-    <button id="dataSend" *ngFor = "let user of usuario | async" [class.inactive]="receberUsuario(user)"
-    style="background:transparent; border:none; color:transparent;"></button>
-    
-  <form (ngSubmit)="getForm()" [formGroup]="formLogin">
+  <button *ngFor = "let user of usuario | async" [class.inactive]="receberUsuario(user)"
+  style="background:transparent; border:none; color:transparent;"></button> -->
+<!--   
+  <button *ngIf="!(usuario | async) as user; then erroMS()"
+  style="background:transparent; border:none; color:transparent;"></button> -->
+  
+  <form (ngSubmit)="login()" [formGroup]="formLogin">
 
     <br>  
     <br>

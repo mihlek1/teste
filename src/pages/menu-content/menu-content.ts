@@ -35,7 +35,7 @@ export class MenuContentPage {
 
       let toast = this.toastCtrl.create({
         message: 'Você não possui acesso à essa página',
-        duration: 3000,
+        duration: 2000,
         position: 'bottom'
       });
 

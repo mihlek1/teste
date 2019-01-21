@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Usuários</ion-title>
+    <ion-title>Clientes</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -11,21 +11,21 @@
 <ion-content padding>
 
     <ion-list >
-        <ion-item-sliding *ngFor="let user of usuario | async">
+        <ion-item-sliding *ngFor="let cliente of clientes | async">
 
 
           <ion-item>
-           <h3 class="text-align">{{user.nome}} - {{user.role}}</h3> 
+           <h3 class="text-align">{{cliente.nome}} - {{cliente.endereco}} - {{vendedor}}</h3> 
           </ion-item>
 
 
           <ion-item-options side="right">
 
-            <button ion-button icon-only (click)="editar(user)">
+            <button ion-button icon-only (click)="editar(cliente)">
               <ion-icon name="settings"></ion-icon>
             </button>
 
-            <button ion-button icon-only color="danger" (click)="deletar(user)">
+            <button ion-button icon-only color="danger" (click)="deletar(cliente)">
               <ion-icon name="trash"></ion-icon>
             </button>
 
