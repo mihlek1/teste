@@ -15,18 +15,14 @@
 
 
           <ion-item>
-           <h3 class="text-align">{{cliente.nome}} - {{cliente.endereco}} - {{vendedor}}</h3> 
+           <h3 class="text-align">{{cliente.nomeFantasia}} - {{cliente.cidade}} - {{cliente.estado}}</h3> 
           </ion-item>
 
 
           <ion-item-options side="right">
 
-            <button ion-button icon-only (click)="editar(cliente)">
+            <button ion-button icon-only (click)="detalhes(cliente)">
               <ion-icon name="settings"></ion-icon>
-            </button>
-
-            <button ion-button icon-only color="danger" (click)="deletar(cliente)">
-              <ion-icon name="trash"></ion-icon>
             </button>
 
           </ion-item-options>

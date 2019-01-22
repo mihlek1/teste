@@ -7,25 +7,9 @@
   </ion-navbar>
 </ion-header>
 
-
-
-<ion-content padding>
-
-</ion-content>
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Realize seu pedido</ion-title>
-  </ion-navbar>
-</ion-header>
-
-
 <ion-content padding>
 
   <form (ngSubmit)="registro()" [formGroup]="formRegistro">
-
 
     <div text-center>
       <img width="125" height="125" src="../assets/imgs/orderImage.jpg" alt="">
@@ -33,139 +17,29 @@
 
     <ion-list inset >
  
-      <ion-item >
-        <ion-input type="text" placeholder="Razão Social" formControlName="razaoSocial"></ion-input>
-      </ion-item>
+      <ion-item>
+        <ion-label>Forma de Pagamento</ion-label>
+        <ion-select formControlName="formaPagamento">
+          <ion-option>À Vista</ion-option>
+          <ion-option>À prazo</ion-option>
+        </ion-select>
+      </ion-item> 
 
-      <div ngxErrors="razaoSocial">
-        <div [ngxError]="['required']" [when]="['touched']">Preencha a Razão Social</div>
-      </div>
+      <div ngxErrors="formaPagamento">
+        <div [ngxError]="['required']" [when]="['touched']">Selecione a Forma de Pagamento</div>
+      </div> 
 
-      <br>
+      <ion-item>
+        <ion-label>Cliente</ion-label>
+        <ion-select  formControlName="cliente">
+          <ion-option value="{{cliente.id}}" *ngFor="let cliente of clientes | async">{{cliente.razaoSocial}}</ion-option>
+        </ion-select>
+      </ion-item> 
 
-      <ion-item >
-        <ion-input type="text" placeholder="Nome Fantasia" formControlName="nomeFantasia"></ion-input>
-      </ion-item>
-
-      <div ngxErrors="nomeFantasia">
-        <div [ngxError]="['required']" [when]="['touched']">Preencha o nome Fantasia</div>
+      <div ngxErrors="cliente">
+        <div [ngxError]="['required']" [when]="['touched']">Selecione o cliente</div>
       </div>  
-
-      <br>
-
-      <ion-item >
-        <ion-input type="text" placeholder="Logradouro" formControlName="endereco"></ion-input>
-      </ion-item>
-
-      <div ngxErrors="endereco">
-        <div [ngxError]="['required']" [when]="['touched']">Preencha o Logradouro</div>
-      </div>  
-
-      <br>
-
-      <ion-item >
-        <ion-input type="text" placeholder="CEP" formControlName="CEP"></ion-input>
-      </ion-item>
-
-      <div ngxErrors="CEP">
-        <div [ngxError]="['required']" [when]="['touched']">Preencha o CEP</div>
-      </div>  
-
-      <br>
-
-      <ion-item >
-        <ion-input type="text" placeholder="Telefone" formControlName="telefone"></ion-input>
-      </ion-item>
-
-      <div ngxErrors="telefone">
-        <div [ngxError]="['required']" [when]="['touched']">Preencha o Telefone</div>
-      </div>  
-
-      <br>
-
-      <ion-item >
-        <ion-input type="text" placeholder="Inscrição Estadual" formControlName="inscricaoEstadual"></ion-input>
-      </ion-item>
-
-      <div ngxErrors="inscricaoEstadual">
-        <div [ngxError]="['required']" [when]="['touched']">Preencha a Inscrição Estadual</div>
-      </div>  
-
-      <br>
-
-      <ion-item >
-        <ion-input type="text" placeholder="CNPJ" formControlName="CNPJ"></ion-input>
-      </ion-item>
-
-      <div ngxErrors="CNPJ">
-        <div [ngxError]="['required']" [when]="['touched']">Preencha o CNPJ</div>
-      </div>  
-
-      <br>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-
-            <ion-item>
-              <ion-label>Cidade</ion-label>
-              <ion-select formControlName="cidade">
-                <ion-option>Ji-Paraná</ion-option>
-                <ion-option>Porto Velho</ion-option>
-                <ion-option>Jaru</ion-option>
-              </ion-select>
-            </ion-item> 
-      
-            <div ngxErrors="cidade">
-              <div [ngxError]="['required']" [when]="['touched']">Selecione a Cidade</div>
-            </div>   <br>
-          </ion-col>
-          <ion-col>
-
-            <ion-item>
-              <ion-label>Estado</ion-label>
-              <ion-select formControlName="estado">
-                <ion-option>RO</ion-option>
-              </ion-select>
-            </ion-item> 
-      
-            <div ngxErrors="estado">
-              <div [ngxError]="['required']" [when]="['touched']">Selecione o Estado</div>
-            </div>  
-      
-          </ion-col>
-          <ion-col>
-
-            <ion-item>
-              <ion-label>Forma de Pagamento</ion-label>
-              <ion-select formControlName="formaPagamento">
-                <ion-option>À Vista</ion-option>
-                <ion-option>À prazo</ion-option>
-              </ion-select>
-            </ion-item> 
-      
-            <div ngxErrors="formaPagamento">
-              <div [ngxError]="['required']" [when]="['touched']">Selecione a Forma de Pagamento</div>
-            </div> 
-
-            <ion-item>
-              <ion-label>Cliente</ion-label>
-              <ion-select  formControlName="cliente">
-                <ion-option value="{{cliente.id}}" *ngFor="let cliente of clientes | async">{{cliente. nome}}</ion-option>
-              </ion-select>
-            </ion-item> 
-      
-            <div ngxErrors="cliente">
-              <div [ngxError]="['required']" [when]="['touched']">Selecione o cliente</div>
-            </div>  
-      
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-
-
-
-      <br>
-
+  
       <div padding-horizontal>
 
         <button ion-button round color="lightgreen" full type="submit" [disabled]="!formRegistro.valid">Registro</button>
@@ -173,6 +47,7 @@
       </div>
 
     </ion-list>
-    </form>
+
+  </form>
   
 </ion-content>

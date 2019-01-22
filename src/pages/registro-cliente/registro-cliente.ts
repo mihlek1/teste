@@ -34,35 +34,26 @@ export class RegistroClientePage {
       this.clienteCollection = this.db.collection('clientes');
 
       this.formRegistro = fb.group({
-        nome: ['', Validators.compose([Validators.required])],
-        CPF: ['', Validators.compose([Validators.required])],
-        RG: ['', Validators.compose([Validators.required])],
-        email: ['', Validators.compose([Validators.required])],
         endereco: ['', Validators.compose([Validators.required])],
-        numeroEndereco: ['', Validators.compose([Validators.required])],
         bairro: ['', Validators.compose([Validators.required])],
-        CEP: ['', Validators.compose([Validators.required])],
-        cidade: ['', Validators.compose([Validators.required])],
+        numeroPropriedade: ['', Validators.compose([Validators.required])],
         estado: ['', Validators.compose([Validators.required])],
+        cidade: ['', Validators.compose([Validators.required])],
+        nomeFantasia: ['', Validators.compose([Validators.required])],
+        telefone: ['', Validators.compose([Validators.required])],
+        CEP: ['', Validators.compose([Validators.required])],
+        razaoSocial: ['', Validators.compose([Validators.required])],
+        CNPJ: ['', Validators.compose([Validators.required])],
+        inscricaoEstadual: ['', Validators.compose([Validators.required])],
       });
     
   }
 
   registro() {
+    this.navCtrl.setRoot(MenuPage);
 
     let a = this.authProvider.atualUsuario.role;
     
-    if(!((a === 'Vendedor') || (a === 'Admin'))) {
-      this.navCtrl.setRoot(EntrarPage);
-
-      let toast = this.toastCtrl.create({
-        message: 'Você não possui acesso à essa funcionalidade',
-        duration: 2000,
-        position: 'bottom'
-      });
-      toast.present();
-
-    } else {
 
       let data = this.formRegistro.value;
 
@@ -70,7 +61,11 @@ export class RegistroClientePage {
   
         this.db.doc('clientes/'+result.id).update({id:result.id});
 
-        this.db.doc('clientes/'+result.id).update({vendedor:this.authProvider.atualUsuario.id});
+        if(this.authProvider.atualUsuario.role === 'Vendedor') {
+          this.db.doc('clientes/'+result.id).update({vendedor:this.authProvider.atualUsuario.id});
+        } else {
+          this.db.doc('clientes/'+result.id).update({vendedor:''});
+        }
 
         let toast = this.toastCtrl.create({
           message: 'Cliente cadastrado com sucesso',
@@ -79,7 +74,6 @@ export class RegistroClientePage {
         });
         toast.present();
 
-        this.navCtrl.setRoot(MenuPage);
    
       }).catch(err => {
 
@@ -91,12 +85,10 @@ export class RegistroClientePage {
         
         toast.present();
         
-        this.navCtrl.setRoot(MenuPage);
       });
 
-    }
-
   }
+  
   ionViewCanEnter() {
 
     let a = this.authProvider.atualUsuario.role;

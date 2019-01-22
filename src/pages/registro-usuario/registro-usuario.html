@@ -20,13 +20,13 @@
     <ion-list inset >
  
       <ion-item >
-        <ion-input type="text" placeholder="Nome do usuário" formControlName="nome"></ion-input>
+        <ion-input type="text" placeholder="Usuário" formControlName="usuario"></ion-input>
       </ion-item>
 
-      <div ngxErrors="nome">
-        <div [ngxError]="['required']" [when]="['touched']">Preencha o nome do usuário</div>
+      <div ngxErrors="usuario">
+        <div [ngxError]="['required']" [when]="['touched']">Preencha o usuário</div>
       </div>
-      <br>
+
       <ion-item >
         <ion-input type="password" placeholder="Senha" formControlName="senha"></ion-input>
       </ion-item>
@@ -35,23 +35,90 @@
         <div [ngxError]="['required']" [when]="['touched']">Digite a senha</div>
       </div>  
 
-      <br>
+      <p>Digite novamente a senha -- Validator</p>
+
+      <ion-item >
+        <ion-input type="text" placeholder="Nome Completo" formControlName="nome"></ion-input>
+      </ion-item>
+
+      <div ngxErrors="nome">
+        <div [ngxError]="['required']" [when]="['touched']">Digite o nome completo</div>
+      </div>  
+
+      <ion-item >
+        <ion-input type="text" placeholder="CPF" formControlName="CPF"></ion-input>
+      </ion-item>
+
+      <div ngxErrors="CPF">
+        <div [ngxError]="['required']" [when]="['touched']">Digite o CPF</div>
+      </div>  
+
+      <ion-item >
+        <ion-input type="text" placeholder="Telefone" formControlName="telefone"></ion-input>
+      </ion-item>
+
+      <div ngxErrors="telefone">
+        <div [ngxError]="['required']" [when]="['touched']">Digite o telefone</div>
+      </div>  
+
+      <ion-item >
+        <ion-input type="text" placeholder="E-Mail" formControlName="email"></ion-input>
+      </ion-item>
+
+      <div ngxErrors="email">
+        <div [ngxError]="['required']" [when]="['touched']">Digite o E-Mail</div>
+      </div>  
+
+      <ion-item>
+        <ion-label>Estado</ion-label>
+        <ion-select formControlName="estado">
+          <ion-option>RO</ion-option>
+          <ion-option>SP</ion-option>
+          <ion-option>AM</ion-option>
+        </ion-select>
+      </ion-item> 
+
+      <div ngxErrors="estado">
+        <div [ngxError]="['required']" [when]="['touched']">Selecione o estado</div>
+      </div>  
 
       <ion-item>
         <ion-label>Cidade</ion-label>
-        <ion-select formControlName="filial">
+        <ion-select formControlName="cidade">
           <ion-option>Ji-Paraná</ion-option>
           <ion-option>Porto Velho</ion-option>
           <ion-option>Jaru</ion-option>
         </ion-select>
       </ion-item> 
 
-        <div ngxErrors="filial">
-          <div [ngxError]="['required']" [when]="['touched']">Selecione a Filial</div>
-        </div>  
+      <div ngxErrors="cidade">
+        <div [ngxError]="['required']" [when]="['touched']">Selecione a cidade</div>
+      </div>  
 
-      <br>
+      <ion-item >
+        <ion-input type="text" placeholder="Endereço" formControlName="endereco"></ion-input>
+      </ion-item>
 
+      <div ngxErrors="endereco">
+        <div [ngxError]="['required']" [when]="['touched']">Digite o Endereço</div>
+      </div>  
+      
+      <ion-item >
+        <ion-input type="text" placeholder="Bairro" formControlName="bairro"></ion-input>
+      </ion-item>
+
+      <div ngxErrors="bairro">
+        <div [ngxError]="['required']" [when]="['touched']">Digite o bairro</div>
+      </div>  
+      
+      <ion-item >
+        <ion-input type="text" placeholder="Numero da Casa" formControlName="numeroCasa"></ion-input>
+      </ion-item>
+
+      <div ngxErrors="numeroCasa">
+        <div [ngxError]="['required']" [when]="['touched']">Digite o número da casa</div>
+      </div>  
+      
       <ion-item>
           <ion-label>Nível de acesso</ion-label>
           <ion-select formControlName="role">

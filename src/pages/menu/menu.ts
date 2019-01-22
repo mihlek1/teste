@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Nav, App, AlertController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Nav, App, ToastController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { EntrarPage } from '../entrar/entrar';
 import { RegistroUsuarioPage } from '../registro-usuario/registro-usuario';
@@ -9,6 +9,8 @@ import { MenuContentPage } from '../menu-content/menu-content';
 import { ListagemUsuarioPage } from '../listagem-usuario/listagem-usuario';
 import { RegistroClientePage } from '../registro-cliente/registro-cliente';
 import { ListagemClientePage } from '../listagem-cliente/listagem-cliente';
+import { RegistroProdutoPage } from '../registro-produto/registro-produto';
+import { ListagemProdutoPage } from '../listagem-produto/listagem-produto';
 
 @IonicPage()
 @Component({
@@ -30,7 +32,6 @@ export class MenuPage {
     private authProvider: AuthProvider,
     private appCtrl: App,
     private toastCtrl: ToastController) {
-
   }
 
   ionViewWillEnter() {
@@ -43,12 +44,15 @@ export class MenuPage {
     
       this.pages=[
         {title:'Início', component:MenuPage},
-        {title:'Registro de Usuário', component:RegistroUsuarioPage},        
         {title:'Usuários', component:ListagemUsuarioPage},
-        {title:'Adicione um Pedido', component:RegistroPedidoPage},
+        {title:'Registro de Usuário', component:RegistroUsuarioPage},        
         {title:'Pedidos', component:ListagemPedidoPage},
+        {title:'Adicione um Pedido', component:RegistroPedidoPage},
         {title:'Clientes', component:ListagemClientePage},
-        {title:'Adicione um Cliente', component:RegistroClientePage}
+        {title:'Adicione um Cliente', component:RegistroClientePage},
+        {title:'Produtos', component:ListagemProdutoPage},
+        {title:'Adicione um Produto', component:RegistroProdutoPage},
+
       ];
 
       this.openPage(MenuContentPage);
@@ -129,7 +133,7 @@ export class MenuPage {
 
   }
 
-  openPage2(page) {
+  openMenu(page) {
 
     this.nav.setRoot(page.component);
 

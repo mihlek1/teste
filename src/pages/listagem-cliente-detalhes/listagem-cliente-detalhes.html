@@ -1,16 +1,35 @@
+<!--
+  Generated template for the ListagemClienteDetalhesPage page.
 
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
 <ion-header>
+
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Cadastro de Clientes</ion-title>
+      <ion-toolbar>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-1>
+              <ion-buttons slot="start">
+                <button text-center (click)="voltar()" ion-button icon-only>
+                  <ion-icon name="arrow-back"></ion-icon>
+                </button>
+              </ion-buttons>
+            </ion-col>
+            <ion-col>
+                <ion-title text-center>Detalhes do Cliente</ion-title>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-toolbar>
   </ion-navbar>
+
 </ion-header>
 
 
 <ion-content padding>
-  <form (ngSubmit)="registro()" [formGroup]="formRegistro">
+  <form (ngSubmit)="atualizar()" [formGroup]="formAtualizar">
 
 
     <div text-center>
@@ -20,7 +39,7 @@
     <ion-list inset>
   
       <ion-item >
-        <ion-input type="text" placeholder="Razão Social" formControlName="razaoSocial"></ion-input>
+        <ion-input type="text" value="{{cliente.razaoSocial}}" placeholder="Razão Social" formControlName="razaoSocial"></ion-input>
       </ion-item>
 
       <div ngxErrors="razaoSocial">
@@ -28,7 +47,7 @@
       </div>
 
       <ion-item >
-        <ion-input type="text" placeholder="Nome Fantasia" formControlName="nomeFantasia"></ion-input>
+        <ion-input type="text" value="{{cliente.nomeFantasia}}" placeholder="Nome Fantasia" formControlName="nomeFantasia"></ion-input>
       </ion-item>
 
       <div ngxErrors="nomeFantasia">
@@ -36,7 +55,7 @@
       </div>
 
       <ion-item >
-        <ion-input type="text" placeholder="Telefone" formControlName="telefone"></ion-input>
+        <ion-input type="text" value="{{cliente.telefone}}" placeholder="Telefone" formControlName="telefone"></ion-input>
       </ion-item>
 
       <div ngxErrors="telefone">
@@ -44,7 +63,7 @@
       </div>
 
       <ion-item >
-        <ion-input type="text" placeholder="CNPJ" formControlName="CNPJ"></ion-input>
+        <ion-input type="text" value="{{cliente.CNPJ}}" placeholder="CNPJ" formControlName="CNPJ"></ion-input>
       </ion-item>
 
       <div ngxErrors="CNPJ">
@@ -52,7 +71,7 @@
       </div>
       
       <ion-item >
-        <ion-input type="text" placeholder="CEP" formControlName="CEP"></ion-input>
+        <ion-input type="text" value="{{cliente.CEP}}" placeholder="CEP" formControlName="CEP"></ion-input>
       </ion-item>
 
       <div ngxErrors="CEP">
@@ -60,7 +79,7 @@
       </div>
 
       <ion-item >
-        <ion-input type="text" placeholder="Inscrição Estadual" formControlName="inscricaoEstadual"></ion-input>
+        <ion-input type="text" value="{{cliente.inscricaoEstadual}}" placeholder="Inscrição Estadual" formControlName="inscricaoEstadual"></ion-input>
       </ion-item>
 
       <div ngxErrors="inscricaoEstadual">
@@ -68,7 +87,7 @@
       </div>
 
       <ion-item >
-        <ion-input type="text" placeholder="Logradouro" formControlName="endereco"></ion-input>
+        <ion-input type="text" value="{{cliente.endereco}}" placeholder="Logradouro" formControlName="endereco"></ion-input>
       </ion-item>
 
       <div ngxErrors="endereco">
@@ -76,7 +95,7 @@
       </div>
       
       <ion-item >
-        <ion-input type="text" placeholder="Bairro" formControlName="bairro"></ion-input>
+        <ion-input type="text" value="{{cliente.bairro}}" placeholder="Bairro" formControlName="bairro"></ion-input>
       </ion-item>
 
       <div ngxErrors="bairro">
@@ -84,7 +103,7 @@
       </div>
       
       <ion-item >
-        <ion-input type="text" placeholder="Número" formControlName="numeroPropriedade"></ion-input>
+        <ion-input type="text" value="{{cliente.numeroPropriedade}}" placeholder="Número" formControlName="numeroPropriedade"></ion-input>
       </ion-item>
 
       <div ngxErrors="numeroPropriedade">
@@ -123,11 +142,13 @@
 
       <div padding-horizontal>
 
-        <button ion-button round color="lightgreen" full type="submit" [disabled]="!formRegistro.valid">Registro</button>
+        <button ion-button round color="lightgreen" full type="submit" [disabled]="!formAtualizar.valid">Atualizar</button>
 
       </div>
 
     </ion-list>
   </form>
-  
+
+  <button ion-button round color="lightgreen" full (click)="deletar()">Deletar</button>
+
 </ion-content>

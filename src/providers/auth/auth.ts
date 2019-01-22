@@ -27,7 +27,7 @@ export class AuthProvider {
         //busca no banco de dados de acordo com os dados inseridos
         this.usuarioCollection$ = this.db.collection<Usuarios>('usuarios', ref => {
 
-          return ref.where('nome', '==', usuario).where('senha', '==', senha);
+          return ref.where('usuario', '==', usuario).where('senha', '==', senha);
         });
         //collection vira observable
         this.usuarioCollection = this.usuarioCollection$.snapshotChanges();
@@ -49,10 +49,18 @@ export class AuthProvider {
               this.atualUsuario = {
                 /*Interface usuários recebendo os dados do documento pesquisado */
                 id:user.id,
-                nome:user.nome,
-                role:user.role,
+                usuario:user.usuario,
                 senha:user.senha,
-                filial:user.filial
+                nome:user.nome,
+                estado:user.estado,
+                cidade:user.cidade,
+                CPF:user.cpf,
+                endereco:user.endereco,
+                bairro:user.bairro,
+                numeroCasa:user.numeroCasa,
+                email:user.email,
+                telefone:user.telefone,
+                role:user.role
               };
   
             });

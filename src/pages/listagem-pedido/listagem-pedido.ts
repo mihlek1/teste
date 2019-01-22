@@ -12,8 +12,8 @@ import { Pedido } from '../../interfaces/pedido.interface';
 })
 export class ListagemPedidoPage {
 
-   pedidosCollection : AngularFirestoreCollection<Pedido>;
-   pedidos: Observable<Pedido[]>;
+   private pedidosCollection : AngularFirestoreCollection<Pedido>;
+   private pedidos: Observable<Pedido[]>;
 
   constructor(   
     private db:AngularFirestore,

@@ -13,12 +13,13 @@ import { MyApp } from './app.component';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthProvider } from '../providers/auth/auth';
-import { EntrarPage } from '../pages/entrar/entrar';
-import { MenuPage } from '../pages/menu/menu';
+
 
 import { DatabaseProvider } from '../providers/database/database';
 import { environment } from '../environments/firebase.config';
 
+import { EntrarPage } from '../pages/entrar/entrar';
+import { MenuPage } from '../pages/menu/menu';
 import { RegistroPedidoPage } from '../pages/registro-pedido/registro-pedido';
 import { ListagemPedidoPage } from '../pages/listagem-pedido/listagem-pedido';
 import { MenuContentPage } from '../pages/menu-content/menu-content';
@@ -26,6 +27,12 @@ import { ListagemUsuarioPage } from '../pages/listagem-usuario/listagem-usuario'
 import { ListagemClientePage } from '../pages/listagem-cliente/listagem-cliente';
 import { RegistroClientePage } from '../pages/registro-cliente/registro-cliente';
 import { RegistroUsuarioPage } from '../pages/registro-usuario/registro-usuario';
+import { RegistroProdutoPage } from '../pages/registro-produto/registro-produto';
+import { ListagemProdutoPage } from '../pages/listagem-produto/listagem-produto';
+
+import { DatePipe } from '@angular/common';
+import { ParametrosDetalhesProvider } from '../providers/parametros-detalhes/parametros-detalhes';
+import { ListagemClienteDetalhesPage } from '../pages/listagem-cliente-detalhes/listagem-cliente-detalhes';
 @NgModule({
   declarations: [
     MyApp,
@@ -37,7 +44,10 @@ import { RegistroUsuarioPage } from '../pages/registro-usuario/registro-usuario'
     MenuContentPage,
     ListagemUsuarioPage,
     ListagemClientePage,
-    RegistroClientePage
+    RegistroClientePage,
+    RegistroProdutoPage,
+    ListagemProdutoPage,
+    ListagemClienteDetalhesPage
   ],
   imports: [
     BrowserModule,
@@ -60,14 +70,20 @@ import { RegistroUsuarioPage } from '../pages/registro-usuario/registro-usuario'
     MenuContentPage,
     ListagemUsuarioPage,
     ListagemClientePage,
-    RegistroClientePage
+    RegistroClientePage,
+    RegistroProdutoPage,
+    ListagemProdutoPage,
+    ListagemClienteDetalhesPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
-    DatabaseProvider
+    DatabaseProvider,
+    DatePipe,
+    ParametrosDetalhesProvider,
+
   ]
 })
 export class AppModule {}

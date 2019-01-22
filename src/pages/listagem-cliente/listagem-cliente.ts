@@ -5,6 +5,8 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Clientes } from '../../interfaces/cliente.interface';
+import { ParametrosDetalhesProvider } from '../../providers/parametros-detalhes/parametros-detalhes';
+import { ListagemClienteDetalhesPage } from '../listagem-cliente-detalhes/listagem-cliente-detalhes';
 
 @IonicPage()
 @Component({
@@ -22,7 +24,8 @@ export class ListagemClientePage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     fb: FormBuilder,
-    private authProvider: AuthProvider) {
+    private authProvider: AuthProvider,
+    private pmt: ParametrosDetalhesProvider) {
 
       let a = this.authProvider.atualUsuario.role;
       let b = this.authProvider.atualUsuario.id;
@@ -35,7 +38,7 @@ export class ListagemClientePage {
         });      
         this.clientes = this.clientesCollection.valueChanges();
 
-      } else if (a === 'Admin') {
+      } else if (a === 'Admin' || a === 'Faturamento') {
 
         this.clientesCollection = this.db.collection<Clientes>('clientes'); 
         this.clientes = this.clientesCollection.valueChanges();
@@ -44,6 +47,9 @@ export class ListagemClientePage {
 
   }
 
-
+  detalhes(cliente) {
+    this.pmt.setClienteData(cliente);
+    this.navCtrl.setRoot(ListagemClienteDetalhesPage);
+  }
 
 }

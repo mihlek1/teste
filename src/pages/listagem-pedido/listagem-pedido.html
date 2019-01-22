@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Lista de Usuários</ion-title>
+    <ion-title>Pedidos</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -16,7 +16,7 @@
 
 
           <ion-item>
-           <h3 class="text-align">{{ pedido | json }}</h3> 
+            <p>{{pedido.id}} - - {{pedido.cliente}} - - {{pedido.vendedor}}</p>
           </ion-item>
 
 
