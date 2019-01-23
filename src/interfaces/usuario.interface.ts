@@ -5,11 +5,12 @@ export interface Usuarios {
     nome:string;
     estado:string;
     cidade:string;
-    CPF:string;
+    CPF:number;
     endereco:string;
     bairro:string;
     numeroCasa:string;
     email:string;
-    telefone:string;
+    telefone:number;
     role:string;
+    status:boolean;
 }

@@ -3,11 +3,12 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFirestoreCollection, AngularFirestore } from 'angularfire2/firestore';
-import { MenuPage } from '../menu/menu';
-import { Pedido } from '../../interfaces/pedido.interface';
+import { Pedidos } from '../../interfaces/pedido.interface';
 import { Clientes } from '../../interfaces/cliente.interface';
 import { AuthProvider } from '../../providers/auth/auth';
 import { DatePipe } from '@angular/common';
+import { RegistroProdutoPedidoPage } from '../registro-produto-pedido/registro-produto-pedido';
+import { ParametrosDetalhesProvider } from '../../providers/parametros-detalhes/parametros-detalhes';
 
 @IonicPage()
 @Component({
@@ -22,18 +23,19 @@ export class RegistroPedidoPage {
   private clientesCollection: AngularFirestoreCollection<Clientes>;
   private clientes: Observable<Clientes[]>;
 
-  private pedidoCollection : AngularFirestoreCollection<Pedido>;
+  private pedidoCollection : AngularFirestoreCollection<Pedidos>;
   private dataAtual = new Date();
   private data:string;
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    fb: FormBuilder,  
+    private fb: FormBuilder,  
     private db: AngularFirestore,
     private toastCtrl: ToastController,
     private authProvider:AuthProvider,
-    private datePipe: DatePipe) {
+    private datePipe: DatePipe,
+    private pmt: ParametrosDetalhesProvider) {
 
       this.data = this.datePipe.transform(this.dataAtual, 'dd-MM-yyyy');
 
@@ -56,17 +58,14 @@ export class RegistroPedidoPage {
 
     this.pedidoCollection = this.db.collection('pedidos');
 
-    this.formRegistro = fb.group({
+    this.formRegistro = this.fb.group({
       formaPagamento: ['', Validators.compose([Validators.required])],
       cliente: ['', Validators.compose([Validators.required])],
     });
     
+
   }
-
   registro() {
-
-    this.navCtrl.setRoot(MenuPage);
-
     let data = this.formRegistro.value;
     
     this.pedidoCollection.add(data).then(result => {
@@ -76,18 +75,16 @@ export class RegistroPedidoPage {
       } else {
         this.db.doc('pedidos/'+result.id).update({vendedor:''});
       }
+
       this.db.doc('pedidos/'+result.id).update({id:result.id});
       this.db.doc('pedidos/'+result.id).update({status:'Em andamento'});
       this.db.doc('pedidos/'+result.id).update({dataEmissao: this.data});
       this.db.doc('pedidos/'+result.id).update({dataAvaliacao: ''});
+      this.db.doc('pedidos/'+result.id).update({statusVenda: 'Não finalizada'});
+      this.db.doc('pedidos/'+result.id).update({valorTotal: 0});
+      this.pmt.setPedido(result.id);
+      this.navCtrl.setRoot(RegistroProdutoPedidoPage);
 
-      let toast = this.toastCtrl.create({
-        message: 'Pedido cadastrado com sucesso',
-        duration: 2000,
-        position: 'bottom'
-      });
-      toast.present();
- 
     }).catch(err => {
 
       let toast = this.toastCtrl.create({

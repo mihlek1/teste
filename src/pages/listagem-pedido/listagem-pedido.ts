@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
 import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Pedido } from '../../interfaces/pedido.interface';
+import { Pedidos } from '../../interfaces/pedido.interface';
 
 
 @IonicPage()
@@ -12,8 +13,8 @@ import { Pedido } from '../../interfaces/pedido.interface';
 })
 export class ListagemPedidoPage {
 
-   private pedidosCollection : AngularFirestoreCollection<Pedido>;
-   private pedidos: Observable<Pedido[]>;
+   private pedidosCollection : AngularFirestoreCollection<Pedidos>;
+   private pedidos: Observable<Pedidos[]>;
 
   constructor(   
     private db:AngularFirestore,
@@ -22,19 +23,8 @@ export class ListagemPedidoPage {
     
     ) {
 
-      // let a = this.db.collection('usuarios').snapshotChanges();
-
-      // a.subscribe(actionArray => {
-      //   this.list = actionArray.map(item => {
-      //     return { 
-      //       id: item.payload.doc.id,
-      //       ...item.payload.doc.data()
-      //     } as Usuarios;
-      //   })
-      // });
-
+      //Mostrar apenas pedidos 'não finalizados'
        this.pedidosCollection = this.db.collection<Pedido>('pedidos');
-
        this.pedidos = this.pedidosCollection.valueChanges();
     
     }

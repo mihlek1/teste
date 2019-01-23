@@ -9,7 +9,8 @@ import { EntrarPage } from '../pages/entrar/entrar';
   templateUrl: 'app.html'
 })
 export class MyApp {
-
+  
+  //Página inicial do aplicativo
   rootPage: any = EntrarPage;
 
   constructor(
@@ -18,13 +19,16 @@ export class MyApp {
     public splashScreen: SplashScreen) {
     
      this.initializeApp();
+
   }
 
    initializeApp() {
+
      this.platform.ready().then(() => {
        this.statusBar.styleDefault();
        this.splashScreen.hide();
      });
+
    }
 
 }

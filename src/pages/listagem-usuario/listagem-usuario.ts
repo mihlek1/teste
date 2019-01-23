@@ -13,7 +13,6 @@ import { Usuarios } from '../../interfaces/usuario.interface';
 })
 export class ListagemUsuarioPage {
 
-
   private usuarioCollection : AngularFirestoreCollection<Usuarios>;
   private usuario: Observable<Usuarios[]>;
 
@@ -28,9 +27,6 @@ export class ListagemUsuarioPage {
       this.usuario = this.usuarioCollection.valueChanges();
       
   }
-
-
-
 
   editar(user) {
     let alert = this.alertCtrl.create({

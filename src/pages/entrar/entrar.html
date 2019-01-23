@@ -1,19 +1,16 @@
 <ion-header>
-
   <ion-navbar color="yellow">
+    
     <ion-title>Entrar</ion-title>
+
   </ion-navbar>
-
 </ion-header>
-
 
 
 <ion-content>
 
   <form (ngSubmit)="login()" [formGroup]="formLogin">
 
-    <br>  
-    <br>
     <div text-center>
         <img width="275" class="backcinza"height="206.25" src="../assets/imgs/tradlogo.jpg" alt="">
     </div>
@@ -28,8 +25,6 @@
         <div [ngxError]="['required']" [when]="['touched']">Digite o seu nome</div>
       </div>
 
-      <br>
-
       <ion-item >
         <ion-input type="password" placeholder="Senha" formControlName="senha"></ion-input>
       </ion-item>
@@ -38,12 +33,11 @@
         <div [ngxError]="['required']" [when]="['touched']">Digite a sua senha</div>
       </div>   
 
-      <br>
-
       <div padding-horizontal>
         <button ion-button round color="vermelho" full type="submit" [disabled]="!formLogin.valid">Entrar</button>
       </div>
 
     </ion-list>
-    </form>
+  </form>
+
 </ion-content>

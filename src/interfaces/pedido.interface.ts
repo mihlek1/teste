@@ -2,11 +2,14 @@ import { Usuarios } from "./usuario.interface";
 import { Clientes } from "./cliente.interface";
 
     
-export interface Pedido {
+export interface Pedidos {
+    id:string;
     dataEmissão:string;
     dataAvaliacao:string;
     formaPagamento:string;
     cliente:Clientes;
     vendedor:Usuarios;
-    status:string;
+    statusFaturamento:boolean;
+    statusVenda:boolean;
+    valorTotal:number;
 }  

@@ -1,0 +1,14 @@
+        // let b = this.usuarioCollection = this.db.collection<Usuarios>('usuarios', ref => {
+        //   return ref.where('nome', '==', 'mam').where('senha', '==','123123');
+        //  });
+        // let a = b.snapshotChanges();
+        // a.subscribe(actionArray => {
+        // this.list = actionArray.map(item => {
+        //     //  return { 
+        //     //     id: item.payload.doc.id,
+        //     //     ...item.payload.doc.data()
+        //     //  } as Usuarios;
+        //     this.userData = item.payload.doc.data().nome;
+
+        //    })
+        //  });

@@ -91,29 +91,6 @@ export class RegistroClientePage {
   
   ionViewCanEnter() {
 
-    let a = this.authProvider.atualUsuario.role;
-    let bool:boolean;
-    
-    if(a === 'Vendedor' || a === 'Admin') {
-      bool = true;
-    } else {
-      bool = false;
-    }
-
-    if (!bool) {
-      this.navCtrl.setRoot(EntrarPage);
-
-      let toast = this.toastCtrl.create({
-        message: 'Você não possui acesso à essa página',
-        duration: 2000,
-        position: 'bottom'
-      });
-
-
-    }
-    
-    return bool;
- 
- }
+  }
 
 }

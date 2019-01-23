@@ -1,38 +1,41 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { MyApp } from './app.component';
+import { SplashScreen } from '@ionic-native/splash-screen';
+
+//Módulos automaticamente vão para os imports, entretanto, as vezes precisam ser inicializados
 import { AgmCoreModule } from '@agm/core';
 import { HttpModule } from '@angular/http';
-import { StatusBar } from '@ionic-native/status-bar';
-import { NgxErrorsModule } from '@ultimate/ngxerrors';
+import { BrowserModule } from '@angular/platform-browser';
 
+//Importante instalar para corrigir erros de formulários
+import { NgxErrorsModule } from '@ultimate/ngxerrors';
+import { ErrorHandler, NgModule } from '@angular/core';
+
+//Firestore Modules
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
-import { MyApp } from './app.component';
-
-import { SplashScreen } from '@ionic-native/splash-screen';
+//Provedores utilizados para receber dados e enviar dados, além de realizar funções como o login
+//Tem que ser importados em 'Providers'
 import { AuthProvider } from '../providers/auth/auth';
+import { DatePipe } from '@angular/common';
 
-
-import { DatabaseProvider } from '../providers/database/database';
+//Firebase config
 import { environment } from '../environments/firebase.config';
 
+// Páginas criadas(essas páginas devem ser colocadas na 'declarations' e na 'entryComponents')
 import { EntrarPage } from '../pages/entrar/entrar';
 import { MenuPage } from '../pages/menu/menu';
 import { RegistroPedidoPage } from '../pages/registro-pedido/registro-pedido';
 import { ListagemPedidoPage } from '../pages/listagem-pedido/listagem-pedido';
 import { MenuContentPage } from '../pages/menu-content/menu-content';
 import { ListagemUsuarioPage } from '../pages/listagem-usuario/listagem-usuario';
-import { ListagemClientePage } from '../pages/listagem-cliente/listagem-cliente';
 import { RegistroClientePage } from '../pages/registro-cliente/registro-cliente';
 import { RegistroUsuarioPage } from '../pages/registro-usuario/registro-usuario';
-import { RegistroProdutoPage } from '../pages/registro-produto/registro-produto';
-import { ListagemProdutoPage } from '../pages/listagem-produto/listagem-produto';
-
-import { DatePipe } from '@angular/common';
 import { ParametrosDetalhesProvider } from '../providers/parametros-detalhes/parametros-detalhes';
-import { ListagemClienteDetalhesPage } from '../pages/listagem-cliente-detalhes/listagem-cliente-detalhes';
+import { RegistroProdutoPedidoPage } from '../pages/registro-produto-pedido/registro-produto-pedido';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -43,11 +46,8 @@ import { ListagemClienteDetalhesPage } from '../pages/listagem-cliente-detalhes/
     ListagemPedidoPage,
     MenuContentPage,
     ListagemUsuarioPage,
-    ListagemClientePage,
     RegistroClientePage,
-    RegistroProdutoPage,
-    ListagemProdutoPage,
-    ListagemClienteDetalhesPage
+    RegistroProdutoPedidoPage
   ],
   imports: [
     BrowserModule,
@@ -56,8 +56,8 @@ import { ListagemClienteDetalhesPage } from '../pages/listagem-cliente-detalhes/
 		HttpModule,
 		AgmCoreModule.forRoot(),
 		NgxErrorsModule,
-    AngularFireModule.initializeApp(environment.FIREBASE_CONFIG),
-    AngularFirestoreModule.enablePersistence()
+    AngularFireModule.initializeApp(environment.FIREBASE_CONFIG), //Recebe as credenciais do FB e inicializa
+    AngularFirestoreModule.enablePersistence() //Persistencia offline Firestore
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -69,18 +69,14 @@ import { ListagemClienteDetalhesPage } from '../pages/listagem-cliente-detalhes/
     ListagemPedidoPage,
     MenuContentPage,
     ListagemUsuarioPage,
-    ListagemClientePage,
     RegistroClientePage,
-    RegistroProdutoPage,
-    ListagemProdutoPage,
-    ListagemClienteDetalhesPage
+    RegistroProdutoPedidoPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
-    DatabaseProvider,
     DatePipe,
     ParametrosDetalhesProvider,
 

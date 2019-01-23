@@ -1,4 +1,4 @@
-//BANCO DE DADOS
+//BANCO DE DADOS FIREBASE
 export const environment = {
     production:false,
     FIREBASE_CONFIG: {

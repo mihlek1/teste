@@ -31,7 +31,7 @@
 
       <ion-item>
         <ion-label>Cliente</ion-label>
-        <ion-select  formControlName="cliente">
+        <ion-select formControlName="cliente">
           <ion-option value="{{cliente.id}}" *ngFor="let cliente of clientes | async">{{cliente.razaoSocial}}</ion-option>
         </ion-select>
       </ion-item> 
@@ -42,7 +42,7 @@
   
       <div padding-horizontal>
 
-        <button ion-button round color="lightgreen" full type="submit" [disabled]="!formRegistro.valid">Registro</button>
+        <button ion-button round color="vermelho" full type="submit" [disabled]="!formRegistro.valid">Registro</button>
 
       </div>
 

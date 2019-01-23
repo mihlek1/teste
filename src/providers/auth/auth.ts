@@ -5,6 +5,8 @@ import { ToastController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 
 @Injectable()
+
+//Provedor utilizado para realizar autenticações e verificações de segurança
 export class AuthProvider {
 
     atualUsuario:Usuarios;
@@ -17,65 +19,62 @@ export class AuthProvider {
     private toastCtrl: ToastController) {
 
     }
-  
-  login(usuario: string, senha:string ):Promise<boolean>{
-    if(this.atualUsuario != undefined && this.atualUsuario != null) {
+  //PRECISA DE MELHORAR A VERIFICAÇÃO DE CAMPO ÚNICO
+  login(data:any):Promise<boolean>{
 
-    } else {
+    return new Promise((resolve, reject) => {
+      //busca no banco de dados de acordo com os dados inseridos
+      this.usuarioCollection$ = this.db.collection<Usuarios>('usuarios', ref => {
 
-      return new Promise((resolve, reject) => {
-        //busca no banco de dados de acordo com os dados inseridos
-        this.usuarioCollection$ = this.db.collection<Usuarios>('usuarios', ref => {
-
-          return ref.where('usuario', '==', usuario).where('senha', '==', senha);
-        });
-        //collection vira observable
-        this.usuarioCollection = this.usuarioCollection$.snapshotChanges();
-
-        //subscribe observer receber os dados
-        this.usuarioCollection.subscribe(actionArray => {
-
-          if(actionArray.length === 1) {
-
-          /*Teste para verificar se o array não traz nenhum resultado, 
-            e caso isso aconteça, não existe nenhum usuário com o nome digitado 
-          */
-            actionArray.map(item => {
-
-              /*Dados do array específicos */
-              let user = item.payload.doc.data();
-
-              /*Definindo o usuário atual do sistema, sendo realizado o seu login e logout a partir do mesmo */
-              this.atualUsuario = {
-                /*Interface usuários recebendo os dados do documento pesquisado */
-                id:user.id,
-                usuario:user.usuario,
-                senha:user.senha,
-                nome:user.nome,
-                estado:user.estado,
-                cidade:user.cidade,
-                CPF:user.cpf,
-                endereco:user.endereco,
-                bairro:user.bairro,
-                numeroCasa:user.numeroCasa,
-                email:user.email,
-                telefone:user.telefone,
-                role:user.role
-              };
-  
-            });
-
-            resolve(true);
-            
-          } else {
-            reject(false);
-            
-          } 
-  
-        });
-        
+        return ref.where('usuario', '==', data.nome).where('senha', '==', data.senha);
       });
-    }
+      //collection vira observable
+      this.usuarioCollection = this.usuarioCollection$.snapshotChanges();
+
+      //subscribe observer receber os dados
+      this.usuarioCollection.subscribe(actionArray => {
+
+        if(actionArray.length === 1) {
+
+        /*Teste para verificar se o array não traz nenhum resultado, 
+          e caso isso aconteça, não existe nenhum usuário com o nome digitado 
+        */
+          actionArray.map(item => {
+
+            /*Dados do array específicos */
+            let user = item.payload.doc.data();
+
+            /*Definindo o usuário atual do sistema, sendo realizado o seu login e logout a partir do mesmo */
+            this.atualUsuario = {
+              /*Interface usuários recebendo os dados do documento pesquisado */
+              id:user.id,
+              usuario:user.usuario,
+              senha:user.senha,
+              nome:user.nome,
+              estado:user.estado,
+              cidade:user.cidade,
+              CPF:user.cpf,
+              endereco:user.endereco,
+              bairro:user.bairro,
+              numeroCasa:user.numeroCasa,
+              email:user.email,
+              telefone:user.telefone,
+              role:user.role,
+              status:user.status
+            };
+
+          });
+
+          resolve(true);
+          
+        } else {
+          reject(false);
+          
+        } 
+
+      });
+      
+    });
 
   }
 

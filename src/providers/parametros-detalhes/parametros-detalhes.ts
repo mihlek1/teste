@@ -1,23 +1,29 @@
 import { Injectable } from '@angular/core';
+import { Pedidos } from '../../interfaces/pedido.interface';
 
 
 @Injectable()
+
+//Provedor utilizado para realizar a transferência dados de página para página
 export class ParametrosDetalhesProvider {
 
-
-  private data;
-
+  private pedido:Pedidos;
 
   constructor() {
+
+
   }
 
-  //recebe os dados da listagemCliente e envia para os detalhes
-  setClienteData(data) {
-    this.data = data;
+  setPedido(pedido) {
+
+    this.pedido = pedido;
+
   }
-  
-  getClienteData() {
-    return this.data;
+
+  getPedido() {
+
+    return this.pedido;
+
   }
 
 }

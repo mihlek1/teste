@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Nav, App, ToastController } from 'ionic-angular';
+
 import { AuthProvider } from '../../providers/auth/auth';
+
 import { EntrarPage } from '../entrar/entrar';
 import { RegistroUsuarioPage } from '../registro-usuario/registro-usuario';
 import { ListagemPedidoPage } from '../listagem-pedido/listagem-pedido';
@@ -8,9 +10,7 @@ import { RegistroPedidoPage } from '../registro-pedido/registro-pedido';
 import { MenuContentPage } from '../menu-content/menu-content';
 import { ListagemUsuarioPage } from '../listagem-usuario/listagem-usuario';
 import { RegistroClientePage } from '../registro-cliente/registro-cliente';
-import { ListagemClientePage } from '../listagem-cliente/listagem-cliente';
-import { RegistroProdutoPage } from '../registro-produto/registro-produto';
-import { ListagemProdutoPage } from '../listagem-produto/listagem-produto';
+
 
 @IonicPage()
 @Component({
@@ -32,6 +32,7 @@ export class MenuPage {
     private authProvider: AuthProvider,
     private appCtrl: App,
     private toastCtrl: ToastController) {
+
   }
 
   ionViewWillEnter() {
@@ -39,7 +40,9 @@ export class MenuPage {
     2- Também são verificadas as roles para definir qual páginas determinado usuário poderá acessar
     3- Mais funcionalidades deverão ser implementadas aqui, provavelmente, eu acho, não sei, enfim
   */
+
     let a = this.authProvider.atualUsuario.role;
+
     if(a === 'Admin'){
     
       this.pages=[
@@ -48,11 +51,7 @@ export class MenuPage {
         {title:'Registro de Usuário', component:RegistroUsuarioPage},        
         {title:'Pedidos', component:ListagemPedidoPage},
         {title:'Adicione um Pedido', component:RegistroPedidoPage},
-        {title:'Clientes', component:ListagemClientePage},
         {title:'Adicione um Cliente', component:RegistroClientePage},
-        {title:'Produtos', component:ListagemProdutoPage},
-        {title:'Adicione um Produto', component:RegistroProdutoPage},
-
       ];
 
       this.openPage(MenuContentPage);
@@ -63,9 +62,6 @@ export class MenuPage {
         {title:'Início', component:MenuPage},
         {title:'Pedidos', component:ListagemPedidoPage},
         {title:'Adicione um Pedido', component:RegistroPedidoPage},
-        {title:'Clientes', component:ListagemClientePage},
-        {title:'Adicione um Cliente', component:RegistroClientePage}
-
       ];
 
       this.openPage(MenuContentPage);
@@ -76,7 +72,6 @@ export class MenuPage {
         {title:'Início', component:MenuPage},
         {title:'Pedidos', component:ListagemPedidoPage},
         {title:'Adicione um Pedido', component:RegistroPedidoPage}
-
       ];
 
       this.openPage(MenuContentPage);
@@ -104,27 +99,12 @@ export class MenuPage {
       position: 'bottom'
     });
     toast.present();
+
   }
 
   ionViewCanEnter() {
-    
-    let bool =this.authProvider.estaLogado();
-
-    if (!bool) {
-
-      this.navCtrl.setRoot(EntrarPage);
-
-      let toast = this.toastCtrl.create({
-        message: 'Você não possui acesso à essa página',
-        duration: 2000,
-        position: 'bottom'
-      });
-      toast.present();
-    }       
-
-    return bool;
  
- }
+  }
 
 
   openPage(page) {
