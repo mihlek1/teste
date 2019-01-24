@@ -59,12 +59,12 @@ export class RegistroPedidoPage {
     this.pedidoCollection = this.db.collection('pedidos');
 
     this.formRegistro = this.fb.group({
-      formaPagamento: ['', Validators.compose([Validators.required])],
       cliente: ['', Validators.compose([Validators.required])],
     });
     
 
   }
+  
   registro() {
     let data = this.formRegistro.value;
     
@@ -80,9 +80,12 @@ export class RegistroPedidoPage {
       this.db.doc('pedidos/'+result.id).update({status:'Em andamento'});
       this.db.doc('pedidos/'+result.id).update({dataEmissao: this.data});
       this.db.doc('pedidos/'+result.id).update({dataAvaliacao: ''});
+      this.db.doc('pedidos/'+result.id).update({dataFinalizada: ''});
       this.db.doc('pedidos/'+result.id).update({statusVenda: 'Não finalizada'});
       this.db.doc('pedidos/'+result.id).update({valorTotal: 0});
+
       this.pmt.setPedido(result.id);
+
       this.navCtrl.setRoot(RegistroProdutoPedidoPage);
 
     }).catch(err => {

@@ -16,18 +16,6 @@
     </div>
 
     <ion-list inset >
- 
-      <ion-item>
-        <ion-label>Forma de Pagamento</ion-label>
-        <ion-select formControlName="formaPagamento">
-          <ion-option>À Vista</ion-option>
-          <ion-option>À prazo</ion-option>
-        </ion-select>
-      </ion-item> 
-
-      <div ngxErrors="formaPagamento">
-        <div [ngxError]="['required']" [when]="['touched']">Selecione a Forma de Pagamento</div>
-      </div> 
 
       <ion-item>
         <ion-label>Cliente</ion-label>

@@ -11,49 +11,102 @@
 
   <form (ngSubmit)="prodPedido()" [formGroup]="formVenda">
 
-    <div text-center>
-      <img width="125" height="125" src="../assets/imgs/orderImage.jpg" alt="">
-    </div>
+    <ion-grid>
 
-    <ion-list inset >
- 
-      <ion-item>
-        <ion-label>Produto</ion-label>
-        <ion-select (ionChange)="setProduto($event)" formControlName="produto">
-          <ion-option value="{{prod.id}}" *ngFor="let prod of produtos | async">{{prod.nome}}</ion-option>
-        </ion-select>
-      </ion-item> 
+      <ion-row>
+        <ion-col>
 
-      <div ngxErrors="produto">
-        <div [ngxError]="['required']" [when]="['touched']">Selecione o produto</div>
-      </div>  
+        </ion-col>
+      </ion-row>
 
+      <ion-row align-items-start>
+
+        <ion-col col-9>
+
+            <ion-item>
+              <ion-select class="selectProd" placeholder="Produto" (ionChange)="setProduto($event)" formControlName="produto">
+                <ion-option value="{{prod.id}}" *ngFor="let prod of produtos | async">{{prod.nome}}</ion-option>
+              </ion-select>
+            </ion-item> 
       
-      <ion-item>
-        <ion-input type="text"  placeholder="Quantidade" formControlName="quantidade"></ion-input>
-      </ion-item>
-     
-      <div ngxErrors="quantidade">
-        <div [ngxError]="['required']" [when]="['touched']">Digite a quantidade de produtos</div>
-      </div>
+        </ion-col>
 
 
-      <ion-item  *ngFor = "let prod2 of produtos2 | async">
-        <ion-input type="text" value="{{prod2.preco}}" [readonly]="isReadonly()" placeholder="Valor do Produto" formControlName="valorUnidade"></ion-input>
-      </ion-item>
-     
-      <div ngxErrors="valorUnidade">
-        <div [ngxError]="['required']" [when]="['touched']"></div>
-      </div>
+        <ion-col col-3>
+
+          <button type="button" *ngFor = "let prod2 of produtos2 | async" (click)="listar(prod2)" ion-button icon-only>
+              <ion-icon name="list"></ion-icon>
+          </button>
+
+        </ion-col>
+
+      </ion-row>
+
+      <ion-row align-items-start>
+
+        <ion-col col-9>
+
+          <ion-item>
+            <ion-input type="number"  placeholder="  Quantidade" formControlName="quantidade"></ion-input>
+          </ion-item>
+        
+
+        </ion-col>
+
+        <ion-col col-3>
+
+          <!-- <button ion-button round color="lightgreen" full type="submit" [disabled]="!formVenda.valid">Registro</button> -->
+
+          <button type="submit" [disabled]="!formVenda.valid" ion-button icon-only>
+              <ion-icon name="add"></ion-icon>
+          </button>
+
+        </ion-col>
+      
+      </ion-row>
+
+      <ion-row align-items-start>
+
+        <ion-col col-9>
+
+          <ion-item  *ngFor = "let prod2 of produtos2 | async">
+            <ion-input type="text" value="{{prod2.preco}}" [readonly]="isReadonly()" placeholder="Valor do Produto" formControlName="valorUnidade"></ion-input>
+          </ion-item>
+        
+        </ion-col>
 
 
-      <div padding-horizontal>
+        <ion-col col-3>
+          <button type="button" (click)="listar(this.pedido)" ion-button icon-only>
+            <ion-icon name="cart"></ion-icon>
+          </button>
+        </ion-col>
 
-        <button ion-button round color="lightgreen" full type="submit" [disabled]="!formVenda.valid">Registro</button>
+      </ion-row>
+    
+    </ion-grid>
 
-      </div>
-
-    </ion-list>
+    <ul>
+      <br>
+      <li>
+        <div ngxErrors="valorUnidade">
+          <div [ngxError]="['required']" [when]="['touched']"></div>
+        </div>
+      </li>
+      <br>
+      <li>
+        <div ngxErrors="quantidade">
+          <div [ngxError]="['required']" [when]="['touched']">Digite a quantidade de produtos</div>
+        </div> 
+      </li>
+      <br>
+      <li>
+        <div ngxErrors="produto">
+          <div [ngxError]="['required']" [when]="['touched']">Selecione o produto</div>
+        </div>  
+      </li>
+      <br>
+    </ul>
 
   </form>
 

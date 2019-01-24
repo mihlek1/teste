@@ -6,6 +6,7 @@ export interface Pedidos {
     id:string;
     dataEmissão:string;
     dataAvaliacao:string;
+    dataFinalizada:string;
     formaPagamento:string;
     cliente:Clientes;
     vendedor:Usuarios;

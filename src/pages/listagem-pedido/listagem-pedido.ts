@@ -24,7 +24,9 @@ export class ListagemPedidoPage {
     ) {
 
       //Mostrar apenas pedidos 'não finalizados'
-       this.pedidosCollection = this.db.collection<Pedido>('pedidos');
+       this.pedidosCollection = this.db.collection<Pedidos>('pedidos', ref => {
+         return ref.where('statusVenda','==', 'Finalizada');
+       });
        this.pedidos = this.pedidosCollection.valueChanges();
     
     }

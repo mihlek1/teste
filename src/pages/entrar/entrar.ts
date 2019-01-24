@@ -34,7 +34,8 @@ export class EntrarPage {
   login() {
 
     let data = this.formLogin.value;
-
+    this.formLogin.reset();
+    
       this.authProvider.login(data).then(success => {
         if(success) {   
           this.navCtrl.setRoot(MenuPage);

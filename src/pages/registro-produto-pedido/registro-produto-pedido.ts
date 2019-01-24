@@ -7,6 +7,7 @@ import { AngularFirestoreCollection, AngularFirestore } from 'angularfire2/fires
 import { Pedidos } from '../../interfaces/pedido.interface';
 import { Produtos } from '../../interfaces/produto.interface';
 import { ProdutosPedido } from '../../interfaces/produtoPedido.interface';
+import { DatePipe } from '@angular/common';
 
 @IonicPage()
 @Component({
@@ -22,13 +23,21 @@ export class RegistroProdutoPedidoPage {
   private produtos: Observable<Produtos[]>;
   
   private pedidoProdutoCollection: AngularFirestoreCollection<ProdutosPedido>;
+  private pedidoProdutoCollectionSpec: AngularFirestoreCollection<ProdutosPedido>;
+  private pedidoProdutos: Observable<ProdutosPedido[]>;
 
   private produtosCollection2:AngularFirestoreCollection<Produtos>;
   private produtos2: Observable<Produtos[]>;
 
-  private pedido;
+  private pedido:Pedidos;
+
+  private ultimoProd:string;
 
   private formVenda: FormGroup; 
+
+  private dataAtual = new Date();
+  private data:string;
+
 
   constructor(
     public navCtrl: NavController, 
@@ -37,7 +46,8 @@ export class RegistroProdutoPedidoPage {
     private db: AngularFirestore,
     private fb: FormBuilder,
     private alertCtrl:AlertController,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    private datePipe: DatePipe) {
 
       this.formVenda = this.fb.group({
         valorUnidade:['', Validators.compose([Validators.required])],
@@ -49,13 +59,20 @@ export class RegistroProdutoPedidoPage {
 
       this.pedido = this.pmt.getPedido();
 
+      this.pedidoProdutoCollectionSpec = this.db.collection<ProdutosPedido>('produtosPedidos', ref => {
+        return ref.where('pedido', '==', this.pedido)
+      });
+      this.pedidoProdutos = this.pedidoProdutoCollectionSpec.valueChanges();
+
       this.pedidosCollection = this.db.collection<Pedidos>('pedidos', ref => {
         return ref.where('id', '==', this.pedido);
       });      
       this.pedidos = this.pedidosCollection.valueChanges();
-
+      
       this.produtosCollection = this.db.collection<Produtos>('produtos');      
       this.produtos = this.produtosCollection.valueChanges();
+
+      this.data = this.datePipe.transform(this.dataAtual, 'dd-MM-yyyy');
 
   }
 
@@ -79,7 +96,7 @@ export class RegistroProdutoPedidoPage {
             this.formVenda.reset();
 
             this.pedidoProdutoCollection.add(data).then(result => {
-
+              
               this.db.doc('produtosPedidos/'+result.id).update({id:result.id});
               this.db.doc('produtosPedidos/'+result.id).update({pedido:this.pedido});
               this.db.doc('produtosPedidos/'+result.id).update({valorTotal:valorTotal});       
@@ -92,8 +109,7 @@ export class RegistroProdutoPedidoPage {
               
               toast.present();
               
-              this.db.doc('pedidos/'+this.pedido).update({statusVenda:'Finalizada'});
-
+              this.ultimoProd = result.id;
 
             }).catch(err => {
         
@@ -114,11 +130,23 @@ export class RegistroProdutoPedidoPage {
 
   }
 
+  finalizarCompra() {
+
+    this.db.doc('pedidos/'+this.pedido).update({statusVenda:'Finalizada'});
+    this.db.doc('pedidos/'+this.pedido).update({dataFinalizada:this.data});
+
+  }
+
+  listar(prod) {
+    console.log(prod);
+  }
+  
   isReadonly() {
     return this.isReadonly;
   }
 
   setProduto(idProd: any) {
+
     this.produtosCollection2 = this.db.collection<Produtos>('produtos', ref => {
       return ref.where('id', '==', idProd);
     });      
