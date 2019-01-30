@@ -1,7 +1,22 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Adicione produtos ao pedido</ion-title>
+  <ion-navbar color="yellow"> 
+    <ion-toolbar>
+      <ion-grid>
+        <ion-row align-items-center>
+          <ion-col align-self-center col-1>
+            <ion-buttons slot="start">
+              <button text-center (click)="voltar()" ion-button icon-only>
+                <ion-icon name="arrow-back"></ion-icon>
+              </button>
+            </ion-buttons>
+          </ion-col>
+          <ion-col align-self-center col-11>
+            <ion-title text-center>Carrinho</ion-title>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-toolbar> 
   </ion-navbar>
 
 </ion-header>
@@ -9,7 +24,7 @@
 
 <ion-content padding>
 
-  <form (ngSubmit)="prodPedido()" [formGroup]="formVenda">
+  <form (ngSubmit)="adicionarCarrinho()" [formGroup]="formVenda">
 
     <ion-grid>
 
@@ -24,8 +39,9 @@
         <ion-col col-9>
 
             <ion-item>
-              <ion-select class="selectProd" placeholder="Produto" (ionChange)="setProduto($event)" formControlName="produto">
-                <ion-option value="{{prod.id}}" *ngFor="let prod of produtos | async">{{prod.nome}}</ion-option>
+              <label item-content for="produto">Item:</label>
+              <ion-select class="selectProd" placeholder="Produto" (ionChange)="escolheProduto($event)" formControlName="produto">
+                <ion-option value="{{prod.nome}}" *ngFor="let prod of produtos | async">{{prod.nome}}</ion-option>
               </ion-select>
             </ion-item> 
       
@@ -34,7 +50,7 @@
 
         <ion-col col-3>
 
-          <button type="button" *ngFor = "let prod2 of produtos2 | async" (click)="listar(prod2)" ion-button icon-only>
+          <button type="button" *ngFor = "let prod2 of produtos2 | async" (click)="detalhesProduto(prod2.id)" ion-button icon-only>
               <ion-icon name="list"></ion-icon>
           </button>
 
@@ -47,6 +63,7 @@
         <ion-col col-9>
 
           <ion-item>
+            <label item-content for="quantidade">QTD: </label>
             <ion-input type="number"  placeholder="  Quantidade" formControlName="quantidade"></ion-input>
           </ion-item>
         
@@ -54,8 +71,6 @@
         </ion-col>
 
         <ion-col col-3>
-
-          <!-- <button ion-button round color="lightgreen" full type="submit" [disabled]="!formVenda.valid">Registro</button> -->
 
           <button type="submit" [disabled]="!formVenda.valid" ion-button icon-only>
               <ion-icon name="add"></ion-icon>
@@ -70,6 +85,7 @@
         <ion-col col-9>
 
           <ion-item  *ngFor = "let prod2 of produtos2 | async">
+            <label item-content for="valorUnidade">(R$)</label>
             <ion-input type="text" value="{{prod2.preco}}" [readonly]="isReadonly()" placeholder="Valor do Produto" formControlName="valorUnidade"></ion-input>
           </ion-item>
         
@@ -77,7 +93,7 @@
 
 
         <ion-col col-3>
-          <button type="button" (click)="listar(this.pedido)" ion-button icon-only>
+          <button type="button" (click)="mostrarCarrinho(this.pedido)" ion-button icon-only>
             <ion-icon name="cart"></ion-icon>
           </button>
         </ion-col>
@@ -111,3 +127,9 @@
   </form>
 
 </ion-content>
+
+<ion-footer>
+
+  <button ion-button color="vermelho" (click)="finalizarPedido()" full>Finalizar Pedido</button>
+
+</ion-footer>

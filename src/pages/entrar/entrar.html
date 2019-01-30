@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="yellow">
     
-    <ion-title>Entrar</ion-title>
+    <ion-title text-center>Entrar</ion-title>
 
   </ion-navbar>
 </ion-header>
@@ -9,7 +9,7 @@
 
 <ion-content>
 
-  <form (ngSubmit)="login()" [formGroup]="formLogin">
+  <form (ngSubmit)="login()" #loginForm="ngForm" [formGroup]="formLogin">
 
     <div text-center>
         <img width="275" class="backcinza"height="206.25" src="../assets/imgs/tradlogo.jpg" alt="">
@@ -21,23 +21,32 @@
         <ion-input type="text" placeholder="Usuário" formControlName="nome"></ion-input>
       </ion-item>
 
-      <div ngxErrors="nome">
-        <div [ngxError]="['required']" [when]="['touched']">Digite o seu nome</div>
-      </div>
-
       <ion-item >
         <ion-input type="password" placeholder="Senha" formControlName="senha"></ion-input>
       </ion-item>
 
-      <div ngxErrors="senha">
-        <div [ngxError]="['required']" [when]="['touched']">Digite a sua senha</div>
-      </div>   
-
-      <div padding-horizontal>
-        <button ion-button round color="vermelho" full type="submit" [disabled]="!formLogin.valid">Entrar</button>
-      </div>
+      <ul>
+        <li>
+          <div ngxErrors="nome">
+            <div [ngxError]="['required']" [when]="['touched']">Digite o seu nome</div>
+          </div>
+        </li>
+        <li>
+          <div ngxErrors="senha">
+            <div [ngxError]="['required']" [when]="['touched']">Digite a sua senha</div>
+          </div>   
+        </li>
+      </ul>
 
     </ion-list>
   </form>
 
 </ion-content>
+
+<ion-footer>
+
+  <div padding-horizontal>
+    <button ion-button color="vermelho" full (click)="loginForm.ngSubmit.emit()" [disabled]="!formLogin.valid">Entrar</button>
+  </div>
+
+</ion-footer>

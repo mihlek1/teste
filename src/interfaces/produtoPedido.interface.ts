@@ -3,6 +3,7 @@ import { Produtos } from "./produto.interface";
 
 export interface ProdutosPedido {
     id:string;
+    nome:string;
     pedido:Pedidos;
     produto:Produtos;
     quantidade:number;

@@ -9,6 +9,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { DatePipe } from '@angular/common';
 import { RegistroProdutoPedidoPage } from '../registro-produto-pedido/registro-produto-pedido';
 import { ParametrosDetalhesProvider } from '../../providers/parametros-detalhes/parametros-detalhes';
+import { MenuPage } from '../menu/menu';
 
 @IonicPage()
 @Component({
@@ -24,6 +25,8 @@ export class RegistroPedidoPage {
   private clientes: Observable<Clientes[]>;
 
   private pedidoCollection : AngularFirestoreCollection<Pedidos>;
+
+  //Recebe a data atual para registrar
   private dataAtual = new Date();
   private data:string;
 
@@ -37,20 +40,22 @@ export class RegistroPedidoPage {
     private datePipe: DatePipe,
     private pmt: ParametrosDetalhesProvider) {
 
+      //Converte a data para o formato ideal
       this.data = this.datePipe.transform(this.dataAtual, 'dd-MM-yyyy');
 
+      //Recebe o id e a role do usuário
       let a = this.authProvider.atualUsuario.role;
       let b = this.authProvider.atualUsuario.id;
 
       if( a === 'Vendedor') {
-
+        //Se a role for vendedor, ele mostra apenas os clientes relacionados à ele
       this.clientesCollection = this.db.collection<Clientes>('clientes', ref => {
         return ref.where('vendedor', '==', b);
       });      
       this.clientes = this.clientesCollection.valueChanges();
 
     } else if (a === 'Admin') {
-
+      //Mostra todos os clientes
       this.clientesCollection = this.db.collection<Clientes>('clientes'); 
       this.clientes = this.clientesCollection.valueChanges();
 
@@ -68,11 +73,16 @@ export class RegistroPedidoPage {
   registro() {
     let data = this.formRegistro.value;
     
+    //Zera o valor total do pedido toda vez que um pedido é gerado
+    this.pmt.setValorPedido(0);
+
     this.pedidoCollection.add(data).then(result => {
 
       if(this.authProvider.atualUsuario.role === 'Vendedor') {
+        //Se o usuário for um vendedor, define o 'vendedor' como o ID do usuario atual
         this.db.doc('pedidos/'+result.id).update({vendedor:this.authProvider.atualUsuario.id});
       } else {
+        //Vendedor vazio
         this.db.doc('pedidos/'+result.id).update({vendedor:''});
       }
 
@@ -84,6 +94,7 @@ export class RegistroPedidoPage {
       this.db.doc('pedidos/'+result.id).update({statusVenda: 'Não finalizada'});
       this.db.doc('pedidos/'+result.id).update({valorTotal: 0});
 
+      //Define o pedido e envia para o provider
       this.pmt.setPedido(result.id);
 
       this.navCtrl.setRoot(RegistroProdutoPedidoPage);
@@ -99,6 +110,12 @@ export class RegistroPedidoPage {
       toast.present();
       
     });
+  }
+  
+  voltar() {
+
+    this.navCtrl.setRoot(MenuPage);
+
   }
 
 }

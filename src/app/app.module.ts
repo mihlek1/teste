@@ -7,8 +7,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AgmCoreModule } from '@agm/core';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrMaskerModule } from 'brmasker-ionic-3';
 
-//Importante instalar para corrigir erros de formulários
+//Importante instalar para erros de formulários
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 import { ErrorHandler, NgModule } from '@angular/core';
 
@@ -35,7 +36,8 @@ import { RegistroClientePage } from '../pages/registro-cliente/registro-cliente'
 import { RegistroUsuarioPage } from '../pages/registro-usuario/registro-usuario';
 import { ParametrosDetalhesProvider } from '../providers/parametros-detalhes/parametros-detalhes';
 import { RegistroProdutoPedidoPage } from '../pages/registro-produto-pedido/registro-produto-pedido';
-
+import { DetalheProdutoPage } from '../pages/detalhe-produto/detalhe-produto';
+import { DetalheProdutosPedidoPage } from '../pages/detalhe-produtos-pedido/detalhe-produtos-pedido';
 @NgModule({
   declarations: [
     MyApp,
@@ -47,7 +49,9 @@ import { RegistroProdutoPedidoPage } from '../pages/registro-produto-pedido/regi
     MenuContentPage,
     ListagemUsuarioPage,
     RegistroClientePage,
-    RegistroProdutoPedidoPage
+    RegistroProdutoPedidoPage,
+    DetalheProdutoPage,
+    DetalheProdutosPedidoPage
   ],
   imports: [
     BrowserModule,
@@ -55,9 +59,10 @@ import { RegistroProdutoPedidoPage } from '../pages/registro-produto-pedido/regi
     BrowserModule,
 		HttpModule,
 		AgmCoreModule.forRoot(),
-		NgxErrorsModule,
+    NgxErrorsModule,
+    BrMaskerModule,
     AngularFireModule.initializeApp(environment.FIREBASE_CONFIG), //Recebe as credenciais do FB e inicializa
-    AngularFirestoreModule.enablePersistence() //Persistencia offline Firestore
+    AngularFirestoreModule.enablePersistence(), //Persistencia offline Firestore
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -70,7 +75,9 @@ import { RegistroProdutoPedidoPage } from '../pages/registro-produto-pedido/regi
     MenuContentPage,
     ListagemUsuarioPage,
     RegistroClientePage,
-    RegistroProdutoPedidoPage
+    RegistroProdutoPedidoPage,
+    DetalheProdutoPage,
+    DetalheProdutosPedidoPage
   ],
   providers: [
     StatusBar,
