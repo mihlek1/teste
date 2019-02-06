@@ -22,13 +22,13 @@
 
 
           <ion-item>
-            <p>{{pedido.id}} - - {{pedido.cliente}} - - {{pedido.vendedor}}</p>
+            <p>{{pedido.cliente}} - {{pedido.valorTotal}} - {{pedido.vendedor}}</p>
           </ion-item>
 
 
           <ion-item-options side="right">
 
-            <button ion-button icon-only (click)="editar(pedido)">
+            <button ion-button icon-only (click)="continuar(pedido)">
               <ion-icon name="settings"></ion-icon>
             </button>
 

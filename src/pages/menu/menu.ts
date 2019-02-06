@@ -3,14 +3,6 @@ import { IonicPage, NavController, NavParams, Nav, App, ToastController } from '
 
 import { AuthProvider } from '../../providers/auth/auth';
 
-import { EntrarPage } from '../entrar/entrar';
-import { RegistroUsuarioPage } from '../registro-usuario/registro-usuario';
-import { ListagemPedidoPage } from '../listagem-pedido/listagem-pedido';
-import { RegistroPedidoPage } from '../registro-pedido/registro-pedido';
-import { MenuContentPage } from '../menu-content/menu-content';
-import { ListagemUsuarioPage } from '../listagem-usuario/listagem-usuario';
-import { RegistroClientePage } from '../registro-cliente/registro-cliente';
-
 
 @IonicPage()
 @Component({
@@ -46,44 +38,44 @@ export class MenuPage {
     if(a === 'Admin'){
     
       this.pages=[
-        {title:'Início', component:MenuPage},
-        {title:'Usuários', component:ListagemUsuarioPage},
-        {title:'Registro de Usuário', component:RegistroUsuarioPage},        
-        {title:'Pedidos', component:ListagemPedidoPage},
-        {title:'Adicione um Pedido', component:RegistroPedidoPage},
-        {title:'Adicione um Cliente', component:RegistroClientePage},
+        {title:'Início', component:'MenuPage'},
+        {title:'Usuários', component:'ListagemUsuarioPage'},
+        {title:'Registro de Usuário', component:'RegistroUsuarioPage'},        
+        {title:'Pedidos', component:'ListagemPedidoPage'},
+        {title:'Adicione um Pedido', component:'RegistroPedidoPage'},
+        {title:'Adicione um Cliente', component:'RegistroClientePage'},
       ];
 
-      this.openPage(MenuContentPage);
+      this.openPage('MenuContentPage');
     
     } else if(a === 'Vendedor') {
 
       this.pages=[
-        {title:'Início', component:MenuPage},
-        {title:'Pedidos', component:ListagemPedidoPage},
-        {title:'Adicione um Pedido', component:RegistroPedidoPage},
+        {title:'Início', component:'MenuPage'},
+        {title:'Pedidos', component:'ListagemPedidoPage'},
+        {title:'Adicione um Pedido', component:'RegistroPedidoPage'},
       ];
 
-      this.openPage(MenuContentPage);
+      this.openPage('MenuContentPage');
 
     } else if(a === 'Supervisor') {
 
       this.pages=[
-        {title:'Início', component:MenuPage},
-        {title:'Pedidos', component:ListagemPedidoPage},
-        {title:'Adicione um Pedido', component:RegistroPedidoPage}
+        {title:'Início', component:'MenuPage'},
+        {title:'Pedidos', component:'ListagemPedidoPage'},
+        {title:'Adicione um Pedido', component:'RegistroPedidoPage'}
       ];
 
-      this.openPage(MenuContentPage);
+      this.openPage('MenuContentPage');
 
     } else if(a === 'Faturamento') {
 
       this.pages=[
-        {title:'Início', component:MenuPage},
-        {title:'Pedidos', component:ListagemPedidoPage}
+        {title:'Início', component:'MenuPage'},
+        {title:'Pedidos', component:'ListagemPedidoPage'}
       ];
 
-      this.openPage(MenuContentPage);
+      this.openPage('MenuContentPage');
 
     }
 
@@ -92,7 +84,7 @@ export class MenuPage {
   logout() {
 
     this.authProvider.logout();
-    this.appCtrl.getRootNav().setRoot(EntrarPage);
+    this.appCtrl.getRootNav().setRoot('EntrarPage');
     let toast = this.toastCtrl.create({
       message: 'O logout foi realizado',
       duration: 2000,

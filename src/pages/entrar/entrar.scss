@@ -1,5 +1,30 @@
 page-entrar {
+    
     ul {
         list-style-type: none;
     }
+    ion-input {
+        font-size: 150%;
+    }
+    button {
+        font-size: 150%;
+    }
+    form {
+        height: 100%;
+    }
+    .button { 
+        width: 50%;
+        font-size: 150%;
+    }
+    .container {
+        height: 100%;
+        width: 100%;
+    }
+    .container-20 {
+        height: 20%;
+    }
+    .container-30 {
+        height: 33%;
+    }
+
 }

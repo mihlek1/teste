@@ -1,52 +1,66 @@
 <ion-header>
+  
   <ion-navbar color="yellow">
     
-    <ion-title text-center>Entrar</ion-title>
+    <ion-title text-center>Login Pedidos TRD</ion-title>
 
   </ion-navbar>
+
 </ion-header>
 
 
 <ion-content>
 
-  <form (ngSubmit)="login()" #loginForm="ngForm" [formGroup]="formLogin">
+  <div class="container">
 
-    <div text-center>
-        <img width="275" class="backcinza"height="206.25" src="../assets/imgs/tradlogo.jpg" alt="">
+    <div class="container-30">
+
     </div>
 
-    <ion-list inset>
 
-      <ion-item >
-        <ion-input type="text" placeholder="Usuário" formControlName="nome"></ion-input>
-      </ion-item>
+    <form (ngSubmit)="login()" #loginForm="ngForm" [formGroup]="formLogin">
+      
+      <div class="container-30">
 
-      <ion-item >
-        <ion-input type="password" placeholder="Senha" formControlName="senha"></ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-input type="text" placeholder="Usuário" formControlName="nome"></ion-input>
+        </ion-item>
 
-      <ul>
-        <li>
-          <div ngxErrors="nome">
-            <div [ngxError]="['required']" [when]="['touched']">Digite o seu nome</div>
-          </div>
-        </li>
-        <li>
-          <div ngxErrors="senha">
-            <div [ngxError]="['required']" [when]="['touched']">Digite a sua senha</div>
-          </div>   
-        </li>
-      </ul>
 
-    </ion-list>
-  </form>
+        <ion-item>
+          <ion-input full type="password" placeholder="Senha" formControlName="senha"></ion-input>
+        </ion-item>
+
+
+        <ul>
+
+          <li>
+            <div ngxErrors="nome">
+              <div [ngxError]="['required']" [when]="['touched']">Digite o seu nome</div>
+            </div>
+          </li>
+
+
+          <li>
+            <div ngxErrors="senha">
+              <div [ngxError]="['required']" [when]="['touched']">Digite a sua senha</div>
+            </div>   
+          </li>
+
+        </ul>
+
+      </div>
+
+    </form>
+
+  </div>
 
 </ion-content>
 
 <ion-footer>
 
-  <div padding-horizontal>
-    <button ion-button color="vermelho" full (click)="loginForm.ngSubmit.emit()" [disabled]="!formLogin.valid">Entrar</button>
+  <div padding-horizontal text-center>
+    <button ion-button color="vermelho" round (click)="loginForm.ngSubmit.emit()" [disabled]="!formLogin.valid">Entrar</button>
   </div>
 
 </ion-footer>

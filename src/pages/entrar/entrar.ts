@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MenuPage } from '../menu/menu';
 import { AuthProvider } from '../../providers/auth/auth';
 
 @IonicPage()
@@ -38,7 +37,7 @@ export class EntrarPage {
     
       this.authProvider.login(data).then(success => {
         if(success) {   
-          this.navCtrl.setRoot(MenuPage);
+          this.navCtrl.setRoot('MenuPage');
           let toast = this.toastCtrl.create({
             message: 'Seja bem-vindo ' +data.nome,
             duration: 1350,

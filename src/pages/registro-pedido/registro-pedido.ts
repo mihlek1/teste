@@ -7,9 +7,7 @@ import { Pedidos } from '../../interfaces/pedido.interface';
 import { Clientes } from '../../interfaces/cliente.interface';
 import { AuthProvider } from '../../providers/auth/auth';
 import { DatePipe } from '@angular/common';
-import { RegistroProdutoPedidoPage } from '../registro-produto-pedido/registro-produto-pedido';
 import { ParametrosDetalhesProvider } from '../../providers/parametros-detalhes/parametros-detalhes';
-import { MenuPage } from '../menu/menu';
 
 @IonicPage()
 @Component({
@@ -23,6 +21,9 @@ export class RegistroPedidoPage {
 
   private clientesCollection: AngularFirestoreCollection<Clientes>;
   private clientes: Observable<Clientes[]>;
+
+  private clientesCollection2:AngularFirestoreCollection<Clientes>;
+  private clientes2: Observable<Clientes[]>;
 
   private pedidoCollection : AngularFirestoreCollection<Pedidos>;
 
@@ -65,39 +66,47 @@ export class RegistroPedidoPage {
 
     this.formRegistro = this.fb.group({
       cliente: ['', Validators.compose([Validators.required])],
+      nomeFantasia: ['', Validators.compose([Validators.required])],
     });
     
 
   }
-  
+
+  isReadonly() {
+    return this.isReadonly;
+  }
+
   registro() {
-    let data = this.formRegistro.value;
-    
-    //Zera o valor total do pedido toda vez que um pedido é gerado
+
+    let data:Clientes = this.formRegistro.value;
+    let id = this.db.createId();
+    this.formRegistro.reset();
+    this.pmt.setPedido(id);
     this.pmt.setValorPedido(0);
-
-    this.pedidoCollection.add(data).then(result => {
-
+    this.pmt.setCliente(data);
+    console.log(this.pmt.getCliente());
+    // this.navCtrl.setRoot('RegistroProdutoPedidoPage');
+    console.log(data.inscricaoEstadual)
+    //Zera o valor total do pedido toda vez que um pedido é gerado
+    this.pedidoCollection.doc(id).set({data}).then(result => {
       if(this.authProvider.atualUsuario.role === 'Vendedor') {
         //Se o usuário for um vendedor, define o 'vendedor' como o ID do usuario atual
-        this.db.doc('pedidos/'+result.id).update({vendedor:this.authProvider.atualUsuario.id});
+        this.db.doc('pedidos/'+id).update({vendedor:this.authProvider.atualUsuario.id});
       } else {
         //Vendedor vazio
-        this.db.doc('pedidos/'+result.id).update({vendedor:''});
+        this.db.doc('pedidos/'+id).update({vendedor:''});
       }
 
-      this.db.doc('pedidos/'+result.id).update({id:result.id});
-      this.db.doc('pedidos/'+result.id).update({status:'Em andamento'});
-      this.db.doc('pedidos/'+result.id).update({dataEmissao: this.data});
-      this.db.doc('pedidos/'+result.id).update({dataAvaliacao: ''});
-      this.db.doc('pedidos/'+result.id).update({dataFinalizada: ''});
-      this.db.doc('pedidos/'+result.id).update({statusVenda: 'Não finalizada'});
-      this.db.doc('pedidos/'+result.id).update({valorTotal: 0});
+      this.db.doc('pedidos/'+id).update({id:id});
+      this.db.doc('pedidos/'+id).update({status:'Em andamento'});
+      this.db.doc('pedidos/'+id).update({dataEmissao: this.data});
+      this.db.doc('pedidos/'+id).update({dataAvaliacao: ''});
+      this.db.doc('pedidos/'+id).update({dataFinalizada: ''});
+      this.db.doc('pedidos/'+id).update({statusVenda: 'Não finalizada'});
+      this.db.doc('pedidos/'+id).update({valorTotal: 0});
 
       //Define o pedido e envia para o provider
-      this.pmt.setPedido(result.id);
 
-      this.navCtrl.setRoot(RegistroProdutoPedidoPage);
 
     }).catch(err => {
 
@@ -114,8 +123,13 @@ export class RegistroPedidoPage {
   
   voltar() {
 
-    this.navCtrl.setRoot(MenuPage);
+    this.navCtrl.setRoot('MenuPage');
 
   }
-
+  escolheCliente(idCliente: any) {
+    this.clientesCollection2 = this.db.collection<Clientes>('clientes', ref => {
+      return ref.where('id', '==', idCliente);
+    });      
+    this.clientes2 = this.clientesCollection2.valueChanges();
+  }
 }

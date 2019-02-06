@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-@Injectable()
+import { AngularFirestore } from 'angularfire2/firestore';
+
 
 //Provedor utilizado para realizar a transferência dados de página para página
+@Injectable()
 export class ParametrosDetalhesProvider {
 
   private pedido:string;
@@ -9,7 +11,10 @@ export class ParametrosDetalhesProvider {
   private pProdutos:string;
   private nomeProduto:string;
   private valorTotalPedido:number;
-  constructor() {
+  private clientePedido:any;
+  constructor(
+    private db: AngularFirestore
+  ) {
 
     this.valorTotalPedido = 0;
 
@@ -61,5 +66,16 @@ export class ParametrosDetalhesProvider {
   }
   setValorPedido(valor:number) {
     this.valorTotalPedido = valor;
+  }
+  setCliente(cliente:any) {
+    this.clientePedido = cliente;
+  }
+  getCliente() {
+    return this.clientePedido;
+  }
+
+  generateRandomId() {
+    let id = this.db.createId();
+    return id;
   }
 }

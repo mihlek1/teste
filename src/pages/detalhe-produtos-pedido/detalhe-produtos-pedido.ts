@@ -4,7 +4,7 @@ import { ParametrosDetalhesProvider } from '../../providers/parametros-detalhes/
 import { Observable } from 'rxjs';
 import { AngularFirestoreCollection, AngularFirestore } from 'angularfire2/firestore';
 import { ProdutosPedido } from '../../interfaces/produtoPedido.interface';
-import * as admin from 'firebase-admin';
+// import * as admin from 'firebase-admin';
 
 @IonicPage()
 @Component({
@@ -33,17 +33,20 @@ export class DetalheProdutosPedidoPage {
       });
       
       this.pedidoProdutos = this.pedidoProdutoCollection.valueChanges();
-      
-      admin.initializeApp();
 
+      // admin.initializeApp();
   }
 
   fecharModal() {
+
     this.viewCtrl.dismiss();
+
   }
 
   remover(pPedido) {
+
     //Recebe os dados do produto, diminui o valor total do pedido, deleta o produto e atualiza o valor total.
+
     let vtotal:number = pPedido.valorTotal;
     this.pmt.removeValorPedido(vtotal);
     this.db.doc('produtosPedidos/'+pPedido.id).delete();
@@ -52,22 +55,14 @@ export class DetalheProdutosPedidoPage {
   } 
 
   //Stackoveflow await
-  removerAll() {
-    let db = admin.firestore();
-    db.collection('produtosPedidos').where('pedido', '==', this.pProdutos)
-    .get()
-    .then(querySnapshot => {
-      querySnapshot.forEach((doc) => {
-        doc.ref.delete().then(() => {
-          console.log("Document successfully deleted!");
-        }).catch(function(error) {
-          console.error("Error removing document: ", error);
-        });
-      });
-    })
-    .catch(function(error) {
-      console.log("Error getting documents: ", error);
-    });
-
-  }
+  // removerAll() {
+  //   var firestore = admin.firestore(); 
+  //   var query = firestore.collection('produtosPedidos').where('pedido','==',this.pProdutos);
+  //   query.get().then(function(querySnapshot) {
+  //     querySnapshot.forEach(function(doc) {
+  //       doc.ref.delete();
+  //     });
+  //   });
+  // }
+  
 }

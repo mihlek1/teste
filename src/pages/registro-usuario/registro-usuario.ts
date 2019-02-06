@@ -53,7 +53,7 @@ export class RegistroUsuarioPage {
 
 
     if (!bool) {
-      this.navCtrl.setRoot(EntrarPage);
+      this.navCtrl.setRoot('EntrarPage');
 
       let toast = this.toastCtrl.create({
         message: 'Você não possui acesso à essa funcionalidade',
@@ -64,7 +64,7 @@ export class RegistroUsuarioPage {
 
     } else {
       
-      this.navCtrl.setRoot(MenuPage);
+      this.navCtrl.setRoot('MenuPage');
 
       let data = this.formRegistro.value;
 
@@ -100,7 +100,7 @@ export class RegistroUsuarioPage {
     let bool =this.authProvider.atualUsuario.role === 'Admin';
 
     if (!bool) {
-      this.navCtrl.setRoot(EntrarPage);
+      this.navCtrl.setRoot('EntrarPage');
 
       let toast = this.toastCtrl.create({
         message: 'Você não possui acesso à essa página',

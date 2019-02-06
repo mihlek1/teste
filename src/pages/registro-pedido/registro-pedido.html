@@ -1,23 +1,38 @@
 <ion-header>
+
   <ion-navbar color="yellow"> 
+
     <ion-toolbar>
+
       <ion-grid>
+
         <ion-row align-items-center>
+
           <ion-col align-self-center col-1>
+
             <ion-buttons slot="start">
               <button text-center (click)="voltar()" ion-button icon-only>
                 <ion-icon name="arrow-back"></ion-icon>
               </button>
             </ion-buttons>
+
           </ion-col>
+
+
           <ion-col align-self-center col-11>
             <ion-title text-center>Realizar Pedido</ion-title>
           </ion-col>
+
         </ion-row>
+
       </ion-grid>
+
     </ion-toolbar> 
+
   </ion-navbar>
+
 </ion-header>
+
 
 <ion-content padding>
 
@@ -27,26 +42,38 @@
       <img width="125" height="125" src="../assets/imgs/orderImage.jpg" alt="">
     </div>
 
-    <ion-list inset >
 
-      <ion-item>
-        <ion-label>Cliente</ion-label>
-        <ion-select formControlName="cliente">
-          <ion-option value="{{cliente.id}}" *ngFor="let cliente of clientes | async">{{cliente.razaoSocial}}</ion-option>
-        </ion-select>
-      </ion-item> 
+    <ion-item>
 
-      <div ngxErrors="cliente">
-        <div [ngxError]="['required']" [when]="['touched']">Selecione o cliente</div>
-      </div>  
-  
-      <div padding-horizontal>
+      <label item-content for="cliente">Cliente: </label>
+      
 
-        <button ion-button round color="vermelho" full type="submit" [disabled]="!formRegistro.valid">Continuar</button>
+      <ion-select class="selectCliente" (ionChange)="escolheCliente($event)" formControlName="cliente">
+        <ion-option value="{{cliente.id}}" *ngFor="let cliente of clientes | async">{{cliente.razaoSocial}}</ion-option>
+      </ion-select>
 
-      </div>
+    </ion-item> 
 
-    </ion-list>
+    <div ngxErrors="cliente">
+      <div [ngxError]="['required']" [when]="['touched']">Selecione o cliente</div>
+    </div> 
+
+    <ion-item  *ngFor = "let cliente2 of clientes2 | async">
+
+      <label item-content for="nomeFantasia">Nome Fantasia: </label>
+      <ion-input type="text" value="{{cliente2.nomeFantasia}}" [readonly]="isReadonly()" placeholder="Valor do Produto" formControlName="nomeFantasia"></ion-input>
+    
+    </ion-item>
+
+    
+    <div ngxErrors="nomeFantasia">
+      <div [ngxError]="['required']" [when]="['touched']">Selecione o nome fantasia</div>
+    </div>  
+
+
+    <div padding-horizontal>
+      <button ion-button round color="vermelho" full type="submit" [disabled]="!formRegistro.valid">Continuar</button>
+    </div>
 
   </form>
   

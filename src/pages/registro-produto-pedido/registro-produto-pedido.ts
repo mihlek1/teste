@@ -8,9 +8,6 @@ import { Pedidos } from '../../interfaces/pedido.interface';
 import { Produtos } from '../../interfaces/produto.interface';
 import { ProdutosPedido } from '../../interfaces/produtoPedido.interface';
 import { DatePipe } from '@angular/common';
-import { DetalheProdutoPage } from '../detalhe-produto/detalhe-produto';
-import { MenuPage } from '../menu/menu';
-import { DetalheProdutosPedidoPage } from '../detalhe-produtos-pedido/detalhe-produtos-pedido';
 
 @IonicPage()
 @Component({
@@ -116,7 +113,7 @@ export class RegistroProdutoPedidoPage {
  
     this.pmt.setProduto(produto);
 
-    let profileModal = this.modalCtrl.create(DetalheProdutoPage);
+    let profileModal = this.modalCtrl.create('DetalheProdutoPage');
     profileModal.present();
 
   }
@@ -148,7 +145,7 @@ export class RegistroProdutoPedidoPage {
         {
           text: 'Confirmar',
           handler: data => {
-            this.navCtrl.setRoot(MenuPage);
+            this.navCtrl.setRoot('MenuPage');
 
             let toast = this.toastCtrl.create({
               message: 'O pedido foi finalizado com sucesso',
@@ -171,7 +168,7 @@ export class RegistroProdutoPedidoPage {
   //abre o modal do carrinho de compras
   mostrarCarrinho() {
 
-    let profileModal = this.modalCtrl.create(DetalheProdutosPedidoPage);
+    let profileModal = this.modalCtrl.create('DetalheProdutosPedidoPage');
     profileModal.present();
 
   }
@@ -201,7 +198,7 @@ export class RegistroProdutoPedidoPage {
 
   voltar() {
 
-    this.navCtrl.setRoot(MenuPage);
+    this.navCtrl.setRoot('MenuPage');
 
     let toast = this.toastCtrl.create({
       message: 'O pedido foi cancelado',

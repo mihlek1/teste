@@ -3,15 +3,13 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { EntrarPage } from '../pages/entrar/entrar';
-
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class PedidosTRD {
   
   //Página inicial do aplicativo
-  rootPage: any = EntrarPage;
+  rootPage: any = 'EntrarPage';
 
   constructor(
     public platform: Platform, 
