@@ -60,9 +60,29 @@
 
     <ion-item  *ngFor = "let cliente2 of clientes2 | async">
 
-      <label item-content for="nomeFantasia">Nome Fantasia: </label>
-      <ion-input type="text" value="{{cliente2.nomeFantasia}}" [readonly]="isReadonly()" placeholder="Valor do Produto" formControlName="nomeFantasia"></ion-input>
+      <ion-grid item-content>
+
+        <ion-row>
+          
+          <ion-col> 
+
+            <label for="nomeFantasia">Nome Fantasia: </label>
+            <ion-input type="text" value="{{cliente2.nomeFantasia}}" [readonly]="isReadonly()" placeholder="Valor do Produto" formControlName="nomeFantasia"></ion-input>
+
+          </ion-col>
+
+
+          <ion-col>
+
+            <label for="nomeFantasia">Nome Fantasia: </label>
+            <ion-input type="text" value="{{cliente2.nomeFantasia}}" [readonly]="isReadonly()" placeholder="Valor do Produto" formControlName="nomeFantasia"></ion-input>
     
+          </ion-col>
+
+        </ion-row>
+
+      </ion-grid> 
+
     </ion-item>
 
     

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
-import { EntrarPage } from '../entrar/entrar';
 import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
@@ -62,9 +61,21 @@ export class RegistroClientePage {
         this.db.doc('clientes/'+result.id).update({id:result.id});
 
         if(this.authProvider.atualUsuario.role === 'Vendedor') {
-          this.db.doc('clientes/'+result.id).update({vendedor:this.authProvider.atualUsuario.id});
+
+          this.db.doc('clientes/'+result.id).update({zVENDEDORid:this.authProvider.atualUsuario.id});
+          this.db.doc('clientes/'+result.id).update({zVENDEDORnome:this.authProvider.atualUsuario.nome});
+          this.db.doc('clientes/'+result.id).update({zVENDEDORestado:this.authProvider.atualUsuario.estado});
+          this.db.doc('clientes/'+result.id).update({zVENDEDORcidade:this.authProvider.atualUsuario.cidade});
+          this.db.doc('clientes/'+result.id).update({zVENDEDORcpf:this.authProvider.atualUsuario.CPF});
+          this.db.doc('clientes/'+result.id).update({zVENDEDORendereco:this.authProvider.atualUsuario.endereco});
+          this.db.doc('clientes/'+result.id).update({zVENDEDORbairro:this.authProvider.atualUsuario.bairro});
+          this.db.doc('clientes/'+result.id).update({zVENDEDORnumeroCasa:this.authProvider.atualUsuario.numeroCasa});
+          this.db.doc('clientes/'+result.id).update({zVENDEDORemail:this.authProvider.atualUsuario.email});
+          this.db.doc('clientes/'+result.id).update({zVENDEDORtelefone:this.authProvider.atualUsuario.telefone});
+          this.db.doc('clientes/'+result.id).update({zVENDEDORrole:this.authProvider.atualUsuario.role});
+          
         } else {
-          this.db.doc('clientes/'+result.id).update({vendedor:''});
+
         }
 
         let toast = this.toastCtrl.create({
@@ -76,7 +87,6 @@ export class RegistroClientePage {
 
    
       }).catch(err => {
-
         let toast = this.toastCtrl.create({
           message: 'O cadastro falhou, erro: '+err,
           duration: 2000,

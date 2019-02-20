@@ -54,6 +54,8 @@ export class MenuPage {
         {title:'Início', component:'MenuPage'},
         {title:'Pedidos', component:'ListagemPedidoPage'},
         {title:'Adicione um Pedido', component:'RegistroPedidoPage'},
+        {title:'Adicione um Cliente', component:'RegistroClientePage'},
+
       ];
 
       this.openPage('MenuContentPage');

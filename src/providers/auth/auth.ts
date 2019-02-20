@@ -53,7 +53,7 @@ export class AuthProvider {
               nome:user.nome,
               estado:user.estado,
               cidade:user.cidade,
-              CPF:user.cpf,
+              CPF:user.CPF,
               endereco:user.endereco,
               bairro:user.bairro,
               numeroCasa:user.numeroCasa,
