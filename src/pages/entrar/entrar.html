@@ -23,31 +23,36 @@
       <div class="container-30">
 
         <ion-item>
-          <ion-input type="text" placeholder="Usuário" formControlName="nome"></ion-input>
+
+          <label item-content for="nome">Usuario: </label>
+
+
+          <ion-input type="text" formControlName="nome"></ion-input>
+
         </ion-item>
 
 
         <ion-item>
-          <ion-input full type="password" placeholder="Senha" formControlName="senha"></ion-input>
+
+          <label item-content for="senha">Senha: </label>
+
+
+          <ion-input full type="password" formControlName="senha"></ion-input>
+
         </ion-item>
 
 
-        <ul>
+        <ion-item>
 
-          <li>
-            <div ngxErrors="nome">
-              <div [ngxError]="['required']" [when]="['touched']">Digite o seu nome</div>
-            </div>
-          </li>
+          <div ngxErrors="nome">
+            <div [ngxError]="['required']" [when]="['touched']">Digite o seu nome</div>
+          </div>
+      
+          <div ngxErrors="senha">
+            <div [ngxError]="['required']" [when]="['touched']">Digite a sua senha</div>
+          </div>   
 
-
-          <li>
-            <div ngxErrors="senha">
-              <div [ngxError]="['required']" [when]="['touched']">Digite a sua senha</div>
-            </div>   
-          </li>
-
-        </ul>
+        </ion-item>
 
       </div>
 

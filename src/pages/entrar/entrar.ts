@@ -48,7 +48,7 @@ export class EntrarPage {
       }).catch (err => {
         let toast = this.toastCtrl.create({
           message: 'Falha ao realizar login, confira suas credenciais',
-          duration: 1350,
+          duration: 4000,
           position: 'bottom'
         });
         toast.present(); 

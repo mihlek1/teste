@@ -98,7 +98,7 @@ export class RegistroProdutoPedidoPage {
 
       let toast = this.toastCtrl.create({
         message: 'O produto não foi adicionado, erro: '+err,
-        duration: 3000,
+        duration: 4000,
         position: 'bottom'
       });
       

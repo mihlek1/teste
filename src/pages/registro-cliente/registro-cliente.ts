@@ -49,53 +49,53 @@ export class RegistroClientePage {
   }
 
   registro() {
+
     this.navCtrl.setRoot(MenuPage);
 
     let a = this.authProvider.atualUsuario.role;
     
 
-      let data = this.formRegistro.value;
+    let data = this.formRegistro.value;
 
-      this.clienteCollection.add(data).then(result => {
-  
-        this.db.doc('clientes/'+result.id).update({id:result.id});
+    this.clienteCollection.add(data).then(result => {
 
-        if(this.authProvider.atualUsuario.role === 'Vendedor') {
+      this.db.doc('clientes/'+result.id).update({id:result.id});
 
-          this.db.doc('clientes/'+result.id).update({zVENDEDORid:this.authProvider.atualUsuario.id});
-          this.db.doc('clientes/'+result.id).update({zVENDEDORnome:this.authProvider.atualUsuario.nome});
-          this.db.doc('clientes/'+result.id).update({zVENDEDORestado:this.authProvider.atualUsuario.estado});
-          this.db.doc('clientes/'+result.id).update({zVENDEDORcidade:this.authProvider.atualUsuario.cidade});
-          this.db.doc('clientes/'+result.id).update({zVENDEDORcpf:this.authProvider.atualUsuario.CPF});
-          this.db.doc('clientes/'+result.id).update({zVENDEDORendereco:this.authProvider.atualUsuario.endereco});
-          this.db.doc('clientes/'+result.id).update({zVENDEDORbairro:this.authProvider.atualUsuario.bairro});
-          this.db.doc('clientes/'+result.id).update({zVENDEDORnumeroCasa:this.authProvider.atualUsuario.numeroCasa});
-          this.db.doc('clientes/'+result.id).update({zVENDEDORemail:this.authProvider.atualUsuario.email});
-          this.db.doc('clientes/'+result.id).update({zVENDEDORtelefone:this.authProvider.atualUsuario.telefone});
-          this.db.doc('clientes/'+result.id).update({zVENDEDORrole:this.authProvider.atualUsuario.role});
+      if(this.authProvider.atualUsuario.role === 'Vendedor') {
+
+        this.db.doc('clientes/'+result.id).update({zVENDEDORid:this.authProvider.atualUsuario.id});
+        this.db.doc('clientes/'+result.id).update({zVENDEDORnome:this.authProvider.atualUsuario.nome});
+        this.db.doc('clientes/'+result.id).update({zVENDEDORestado:this.authProvider.atualUsuario.estado});
+        this.db.doc('clientes/'+result.id).update({zVENDEDORcidade:this.authProvider.atualUsuario.cidade});
+        this.db.doc('clientes/'+result.id).update({zVENDEDORcpf:this.authProvider.atualUsuario.CPF});
+        this.db.doc('clientes/'+result.id).update({zVENDEDORendereco:this.authProvider.atualUsuario.endereco});
+        this.db.doc('clientes/'+result.id).update({zVENDEDORbairro:this.authProvider.atualUsuario.bairro});
+        this.db.doc('clientes/'+result.id).update({zVENDEDORnumeroCasa:this.authProvider.atualUsuario.numeroCasa});
+        this.db.doc('clientes/'+result.id).update({zVENDEDORemail:this.authProvider.atualUsuario.email});
+        this.db.doc('clientes/'+result.id).update({zVENDEDORtelefone:this.authProvider.atualUsuario.telefone});
+        this.db.doc('clientes/'+result.id).update({zVENDEDORrole:this.authProvider.atualUsuario.role});
+        this.db.doc('clientes/'+result.id).update({verificado:false});
           
-        } else {
+      }
 
-        }
-
-        let toast = this.toastCtrl.create({
-          message: 'Cliente cadastrado com sucesso',
-          duration: 2000,
-          position: 'bottom'
-        });
-        toast.present();
-
-   
-      }).catch(err => {
-        let toast = this.toastCtrl.create({
-          message: 'O cadastro falhou, erro: '+err,
-          duration: 2000,
-          position: 'bottom'
-        });
-        
-        toast.present();
-        
+      let toast = this.toastCtrl.create({
+        message: 'Cliente cadastrado com sucesso',
+        duration: 2000,
+        position: 'bottom'
       });
+      toast.present();
+
+  
+    }).catch(err => {
+      let toast = this.toastCtrl.create({
+        message: 'O cadastro falhou, erro: '+err,
+        duration: 4000,
+        position: 'bottom'
+      });
+      
+      toast.present();
+      
+    });
 
   }
   

@@ -43,7 +43,7 @@ export class MenuPage {
         {title:'Registro de Usuário', component:'RegistroUsuarioPage'},        
         {title:'Pedidos', component:'ListagemPedidoPage'},
         {title:'Adicione um Pedido', component:'RegistroPedidoPage'},
-        {title:'Adicione um Cliente', component:'RegistroClientePage'},
+        {title:'Pré-Cadastro de Cliente', component:'RegistroClientePage'},
       ];
 
       this.openPage('MenuContentPage');
@@ -54,7 +54,7 @@ export class MenuPage {
         {title:'Início', component:'MenuPage'},
         {title:'Pedidos', component:'ListagemPedidoPage'},
         {title:'Adicione um Pedido', component:'RegistroPedidoPage'},
-        {title:'Adicione um Cliente', component:'RegistroClientePage'},
+        {title:'Pré-Cadastro de Cliente', component:'RegistroClientePage'},
 
       ];
 

@@ -83,7 +83,7 @@ export class RegistroUsuarioPage {
 
         let toast = this.toastCtrl.create({
           message: 'O cadastro falhou, erro: '+err,
-          duration: 2000,
+          duration: 4000,
           position: 'bottom'
         });
         

@@ -8,7 +8,7 @@
 
         <ion-row align-items-center>
 
-          <ion-col align-self-center col-1>
+          <ion-col align-self-center col-4>
 
             <ion-buttons slot="start">
               <button text-center (click)="voltar()" ion-button icon-only>
@@ -19,8 +19,8 @@
           </ion-col>
 
 
-          <ion-col align-self-center col-11>
-            <ion-title text-center>Realizar Pedido</ion-title>
+          <ion-col align-self-center col-8>
+            <ion-title>Realizar Pedido</ion-title>
           </ion-col>
 
         </ion-row>
@@ -36,11 +36,8 @@
 
 <ion-content padding>
 
-  <form (ngSubmit)="registro()" [formGroup]="formRegistro">
 
-    <div text-center>
-      <img width="125" height="125" src="../assets/imgs/orderImage.jpg" alt="">
-    </div>
+  <form (ngSubmit)="registro()" #registroForm="ngForm" [formGroup]="formRegistro">
 
 
     <ion-item>
@@ -58,43 +55,104 @@
       <div [ngxError]="['required']" [when]="['touched']">Selecione o cliente</div>
     </div> 
 
-    <ion-item  *ngFor = "let cliente2 of clientes2 | async">
+    <div *ngFor = "let cliente2 of clientes2 | async">
 
-      <ion-grid item-content>
+      <ion-item>
 
-        <ion-row>
-          
-          <ion-col> 
+        <label item-content for="nomeFantasia">Nome Fantasia: </label>
+        <ion-input type="text" value="{{cliente2.nomeFantasia}}" [readonly]="isReadonly()" formControlName="nomeFantasia"></ion-input>
 
-            <label for="nomeFantasia">Nome Fantasia: </label>
-            <ion-input type="text" value="{{cliente2.nomeFantasia}}" [readonly]="isReadonly()" placeholder="Valor do Produto" formControlName="nomeFantasia"></ion-input>
-
-          </ion-col>
+      </ion-item>
 
 
-          <ion-col>
+      <ion-item>
 
-            <label for="nomeFantasia">Nome Fantasia: </label>
-            <ion-input type="text" value="{{cliente2.nomeFantasia}}" [readonly]="isReadonly()" placeholder="Valor do Produto" formControlName="nomeFantasia"></ion-input>
+        <label item-content for="razaoSocial">Razão Social: </label>
+        <ion-input type="text" value="{{cliente2.razaoSocial}}" [readonly]="isReadonly()" formControlName="razaoSocial"></ion-input>
+
+      </ion-item>
+
+
+      <ion-item>
+
+        <label item-content for="CNPJ">CNPJ: </label>
+        <ion-input type="text" value="{{cliente2.CNPJ}}" [readonly]="isReadonly()" formControlName="CNPJ"></ion-input>
+
+      </ion-item>
+
+
+      <ion-item>
+
+        <label item-content for="telefone">Telefone: </label>
+        <ion-input type="text" value="{{cliente2.telefone}}" [readonly]="isReadonly()" formControlName="telefone"></ion-input>
     
-          </ion-col>
+      </ion-item>
 
-        </ion-row>
 
-      </ion-grid> 
+      <ion-item>
 
-    </ion-item>
+        <label item-content for="endereco">Endereco: </label>
+        <ion-input type="text" value="{{cliente2.endereco}}" [readonly]="isReadonly()" formControlName="endereco"></ion-input>
+    
+      </ion-item>
+
+
+      <ion-item>
+
+        <label item-content for="bairro">Bairro: </label>
+        <ion-input type="text" value="{{cliente2.bairro}}" [readonly]="isReadonly()" formControlName="bairro"></ion-input>
+    
+      </ion-item>
+
+
+      <ion-item>
+
+        <label item-content for="CEP">CEP: </label>
+        <ion-input type="text" value="{{cliente2.CEP}}" [readonly]="isReadonly()" formControlName="CEP"></ion-input>
+    
+      </ion-item>
+
+
+      <ion-item>
+
+        <label item-content for="estado">Estado: </label>
+        <ion-input type="text" value="{{cliente2.estado}}" [readonly]="isReadonly()" formControlName="estado"></ion-input>
+    
+      </ion-item>
+
+
+      <ion-item>
+
+        <label item-content for="cidade">Cidade: </label>
+        <ion-input type="text" value="{{cliente2.cidade}}" [readonly]="isReadonly()" formControlName="cidade"></ion-input>
+    
+      </ion-item>
+
+
+      <ion-item>
+
+        <label item-content for="inscricaoEstadual">Inscrição Estadual: </label>
+        <ion-input type="text" value="{{cliente2.inscricaoEstadual}}" [readonly]="isReadonly()" formControlName="inscricaoEstadual"></ion-input>
+    
+      </ion-item>
+
+
+    </div>
 
     
     <div ngxErrors="nomeFantasia">
       <div [ngxError]="['required']" [when]="['touched']">Selecione o nome fantasia</div>
     </div>  
 
-
-    <div padding-horizontal>
-      <button ion-button round color="vermelho" full type="submit" [disabled]="!formRegistro.valid">Continuar</button>
-    </div>
-
   </form>
   
 </ion-content>
+
+
+<ion-footer>
+
+  <div padding-horizontal text-center>
+    <button ion-button color="vermelho" (click)="registroForm.ngSubmit.emit()" [disabled]="!formRegistro.valid">Adicionar Produtos</button>
+  </div>
+  
+  </ion-footer>

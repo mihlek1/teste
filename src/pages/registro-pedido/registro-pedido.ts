@@ -50,8 +50,8 @@ export class RegistroPedidoPage {
 
       if( a === 'Vendedor') {
         //Se a role for vendedor, ele mostra apenas os clientes relacionados à ele
-      this.clientesCollection = this.db.collection<Clientes>('clientes', ref => {
-        return ref.where('vendedor', '==', b);
+      this.clientesCollection = this.db.collection('clientes', ref => {
+        return ref.where('zVENDEDORid', '==', b);
       });      
       this.clientes = this.clientesCollection.valueChanges();
 
@@ -66,7 +66,17 @@ export class RegistroPedidoPage {
 
     this.formRegistro = this.fb.group({
       cliente: ['', Validators.compose([Validators.required])],
+      bairro: ['', Validators.compose([Validators.required])],
+      inscricaoEstadual: ['', Validators.compose([Validators.required])],
+      telefone: ['', Validators.compose([Validators.required])],
+      endereco: ['', Validators.compose([Validators.required])],
+      razaoSocial: ['', Validators.compose([Validators.required])],
+      cidade: ['', Validators.compose([Validators.required])],
+      CEP: ['', Validators.compose([Validators.required])],
+      estado: ['', Validators.compose([Validators.required])],
+      CNPJ: ['', Validators.compose([Validators.required])],
       nomeFantasia: ['', Validators.compose([Validators.required])],
+      
     });
     
 
@@ -85,16 +95,14 @@ export class RegistroPedidoPage {
     this.pmt.setValorPedido(0);
     this.pmt.setCliente(data);
     console.log(this.pmt.getCliente());
-    // this.navCtrl.setRoot('RegistroProdutoPedidoPage');
+    this.navCtrl.setRoot('RegistroProdutoPedidoPage');
     console.log(data.inscricaoEstadual)
     //Zera o valor total do pedido toda vez que um pedido é gerado
     this.pedidoCollection.doc(id).set({data}).then(result => {
+      
       if(this.authProvider.atualUsuario.role === 'Vendedor') {
         //Se o usuário for um vendedor, define o 'vendedor' como o ID do usuario atual
         this.db.doc('pedidos/'+id).update({vendedor:this.authProvider.atualUsuario.id});
-      } else {
-        //Vendedor vazio
-        this.db.doc('pedidos/'+id).update({vendedor:''});
       }
 
       this.db.doc('pedidos/'+id).update({id:id});
@@ -112,7 +120,7 @@ export class RegistroPedidoPage {
 
       let toast = this.toastCtrl.create({
         message: 'O cadastro falhou, erro: '+err,
-        duration: 3000,
+        duration: 4000,
         position: 'bottom'
       });
       

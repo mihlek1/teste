@@ -1,14 +1,35 @@
-
 <ion-header>
 
-  <ion-navbar color="yellow">
+  <ion-navbar color="yellow"> 
 
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
+    <ion-toolbar>
+
+      <ion-grid>
+
+        <ion-row align-items-center>
+
+          <ion-col align-self-center col-4>
+
+            <ion-buttons slot="start">
+              <button ion-button menuToggle>
+                <ion-icon name="menu"></ion-icon>
+              </button>
+            </ion-buttons>
+
+          </ion-col>
 
 
-    <ion-title text-center>Pré-Cadastro de Clientes</ion-title>
+          <ion-col align-self-start col-8>
+
+            <ion-title>Pré-Cadastro de Clientes</ion-title>
+
+          </ion-col>
+
+        </ion-row>
+
+      </ion-grid>
+
+    </ion-toolbar> 
 
   </ion-navbar>
 
@@ -20,14 +41,12 @@
   <form (ngSubmit)="registro()" [formGroup]="formRegistro">
 
 
-    <div text-center>
+    <!-- <div text-center>
       <img width="125" height="125" src="../assets/imgs/images.png" alt="">
-    </div>
-
-    
-    <ion-list inset>
-  
+    </div> -->
+   
       <ion-item >
+        
         <ion-input type="text" placeholder="Razão Social" formControlName="razaoSocial"></ion-input>
       </ion-item>
 
@@ -92,7 +111,11 @@
       </div>
       
       <ion-item >
-        <ion-input type="text" placeholder="Número" formControlName="numeroPropriedade"></ion-input>
+
+        <label item-content for="numeroPropriedade">Propriedade: </label>
+
+        <ion-input type="text"  formControlName="numeroPropriedade"></ion-input>
+
       </ion-item>
 
       <div ngxErrors="numeroPropriedade">
@@ -100,8 +123,8 @@
       </div>
             
       <ion-item>
-        <ion-label>Município</ion-label>
-        <ion-select formControlName="cidade">
+          <label item-content for="cidade">Cidade: </label>
+          <ion-select class="selectCidade" formControlName="cidade">
           <ion-option>Ji-Paraná</ion-option>
           <ion-option>Porto Velho</ion-option>
           <ion-option>Jaru</ion-option>
@@ -116,8 +139,8 @@
       </div>  
 
       <ion-item>
-        <ion-label>Estado</ion-label>
-        <ion-select formControlName="estado">
+        <label item-content for="estado">Estado: </label>
+        <ion-select class="selectEstado"  formControlName="estado">
           <ion-option>Rondônia</ion-option>
           <ion-option>Amazonas</ion-option>
           <ion-option>Acre</ion-option>
@@ -135,7 +158,7 @@
 
       </div>
 
-    </ion-list>
+
   </form>
   
 </ion-content>
