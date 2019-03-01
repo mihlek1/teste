@@ -1,0 +1,158 @@
+<ion-header>
+
+  <ion-navbar color="yellow"> 
+
+    <ion-toolbar>
+
+      <ion-grid>
+
+        <ion-row align-items-center>
+
+          <ion-col align-self-center col-4>
+
+            <ion-buttons slot="start">
+              <button text-center (click)="voltar()" ion-button icon-only>
+                <ion-icon name="arrow-back"></ion-icon>
+              </button>
+            </ion-buttons>
+
+          </ion-col>
+
+
+          <ion-col align-self-center col-8>
+            <ion-title>Realizar Pedido</ion-title>
+          </ion-col>
+
+        </ion-row>
+
+      </ion-grid>
+
+    </ion-toolbar> 
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+
+  <form (ngSubmit)="registro()" #registroForm="ngForm" [formGroup]="formRegistro">
+
+
+    <ion-item>
+
+      <label item-content for="cliente">Cliente: </label>
+      
+
+      <ion-select class="selectCliente" (ionChange)="escolheCliente($event)" formControlName="cliente">
+        <ion-option value="{{cliente.id}}" *ngFor="let cliente of clientes | async">{{cliente.razaoSocial}}</ion-option>
+      </ion-select>
+
+    </ion-item> 
+
+    <div ngxErrors="cliente">
+      <div [ngxError]="['required']" [when]="['touched']">Selecione o cliente</div>
+    </div> 
+
+    <div *ngFor = "let cliente2 of clientes2 | async">
+
+      <ion-item>
+
+        <label item-content for="nomeFantasia">Nome Fantasia: </label>
+        <ion-input type="text" value="{{cliente2.nomeFantasia}}"[ngClass]="getClienteTemplate(cliente2)" [readonly]="isReadonly()" formControlName="nomeFantasia"></ion-input>
+
+      </ion-item>
+
+
+      <ion-item>
+
+        <label item-content for="razaoSocial">Razão Social: </label>
+        <ion-input type="text" value="{{cliente2.razaoSocial}}" [readonly]="isReadonly()" formControlName="razaoSocial"></ion-input>
+
+      </ion-item>
+
+
+      <ion-item>
+
+        <label item-content for="CNPJ">CNPJ: </label>
+        <ion-input type="text" value="{{cliente2.CNPJ}}" [readonly]="isReadonly()" formControlName="CNPJ"></ion-input>
+
+      </ion-item>
+
+
+      <ion-item>
+
+        <label item-content for="telefone">Telefone: </label>
+        <ion-input type="text" value="{{cliente2.telefone}}" [readonly]="isReadonly()" formControlName="telefone"></ion-input>
+    
+      </ion-item>
+
+
+      <ion-item>
+
+        <label item-content for="endereco">Endereco: </label>
+        <ion-input type="text" value="{{cliente2.endereco}}" [readonly]="isReadonly()" formControlName="endereco"></ion-input>
+    
+      </ion-item>
+
+
+      <ion-item>
+
+        <label item-content for="bairro">Bairro: </label>
+        <ion-input type="text" value="{{cliente2.bairro}}" [readonly]="isReadonly()" formControlName="bairro"></ion-input>
+    
+      </ion-item>
+
+
+      <ion-item>
+
+        <label item-content for="CEP">CEP: </label>
+        <ion-input type="text" value="{{cliente2.CEP}}" [readonly]="isReadonly()" formControlName="CEP"></ion-input>
+    
+      </ion-item>
+
+
+      <ion-item>
+
+        <label item-content for="estado">Estado: </label>
+        <ion-input type="text" value="{{cliente2.estado}}" [readonly]="isReadonly()" formControlName="estado"></ion-input>
+    
+      </ion-item>
+
+
+      <ion-item>
+
+        <label item-content for="cidade">Cidade: </label>
+        <ion-input type="text" value="{{cliente2.cidade}}" [readonly]="isReadonly()" formControlName="cidade"></ion-input>
+    
+      </ion-item>
+
+
+      <ion-item>
+
+        <label item-content for="inscricaoEstadual">Inscrição Estadual: </label>
+        <ion-input type="text" value="{{cliente2.inscricaoEstadual}}" [readonly]="isReadonly()" formControlName="inscricaoEstadual"></ion-input>
+    
+      </ion-item>
+
+
+    </div>
+
+    
+    <div ngxErrors="nomeFantasia">
+      <div [ngxError]="['required']" [when]="['touched']">Selecione o nome fantasia</div>
+    </div>  
+
+  </form>
+  
+</ion-content>
+
+
+<ion-footer>
+
+  <div padding-horizontal text-center>
+    <button ion-button color="vermelho" (click)="registroForm.ngSubmit.emit()" [disabled]="!formRegistro.valid">Continuar a Compra</button>
+  </div>
+  
+  </ion-footer>

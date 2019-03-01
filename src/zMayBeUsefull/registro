@@ -1,0 +1,33 @@
+registro() {
+    
+    let data = this.formRegistro.value;
+    
+    this.pedidoCollection.add(data).then(result => {
+
+
+      this.db.doc('pedidos/'+result.id).update({id:result.id});
+      this.db.doc('pedidos/'+result.id).update({status:'Em andamento'});
+      this.db.doc('pedidos/'+result.id).update({dataEmissao: this.data});
+      this.db.doc('pedidos/'+result.id).update({dataAvaliacao: ''});
+
+      let toast = this.toastCtrl.create({
+        message: 'Pedido cadastrado com sucesso',
+        duration: 2000,
+        position: 'bottom'
+      });
+      toast.present();
+ 
+    }).catch(err => {
+
+      let toast = this.toastCtrl.create({
+        message: 'O cadastro falhou, erro: '+err,
+        duration: 3000,
+        position: 'bottom'
+      });
+      
+      toast.present();
+      
+    });
+  }
+
+}

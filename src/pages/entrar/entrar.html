@@ -1,0 +1,71 @@
+<ion-header>
+  
+  <ion-navbar color="yellow">
+    
+    <ion-title text-center>Login Pedidos TRD</ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <div class="container">
+
+    <div class="container-30">
+
+    </div>
+
+
+    <form (ngSubmit)="login()" #loginForm="ngForm" [formGroup]="formLogin">
+      
+      <div class="container-30">
+
+        <ion-item>
+
+          <label item-content for="nome">Usuario: </label>
+
+
+          <ion-input type="text" formControlName="nome"></ion-input>
+
+        </ion-item>
+
+
+        <ion-item>
+
+          <label item-content for="senha">Senha: </label>
+
+
+          <ion-input full type="password" formControlName="senha"></ion-input>
+
+        </ion-item>
+
+
+        <ion-item>
+
+          <div ngxErrors="nome">
+            <div [ngxError]="['required']" [when]="['touched']">Digite o seu nome</div>
+          </div>
+      
+          <div ngxErrors="senha">
+            <div [ngxError]="['required']" [when]="['touched']">Digite a sua senha</div>
+          </div>   
+
+        </ion-item>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</ion-content>
+
+<ion-footer>
+
+  <div padding-horizontal text-center>
+    <button ion-button color="vermelho" round (click)="loginForm.ngSubmit.emit()" [disabled]="!formLogin.valid">Entrar</button>
+  </div>
+
+</ion-footer>

@@ -1,0 +1,82 @@
+<ion-header>
+
+  <ion-navbar color="yellow"> 
+    <ion-title text-center>Detalhes do produto</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-grid>
+    
+    <ion-row align-items-start>
+
+      <ion-col>
+
+        <div *ngFor="let produto of produtos | async">
+          
+          <ion-row align-items-start>
+
+            <ion-col text-center col-12>
+
+              <h1>{{produto.nome}}</h1>
+
+            </ion-col>
+
+            
+            <ion-col col-12>
+
+            </ion-col>
+            
+            
+            <ion-col col-8>
+
+              <h3>Unidade: {{produto.unidade}}</h3>
+
+            </ion-col>
+            
+
+            <ion-col text-end col-4>
+
+              <h3>R$ {{produto.preco}}</h3>
+
+            </ion-col>
+          
+
+            <ion-col text-justify col-12>
+
+              <h6>{{produto.descricao}}</h6>
+
+            </ion-col>
+
+          </ion-row>
+
+        </div>
+
+      </ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+ 
+</ion-content>
+
+<ion-footer>
+
+  <ion-grid>
+
+    <ion-row justify-content-center>
+
+      <ion-col text-center align-self-center>
+
+        <button color="vermelho" ion-button full (click)="fecharModal()">Retornar</button>
+
+      </ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+
+</ion-footer>

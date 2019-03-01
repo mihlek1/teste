@@ -1,0 +1,62 @@
+
+<ion-header>
+
+  <ion-navbar color="yellow">
+    <ion-title text-center>Carrinho de Compras</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-list>
+
+      <h2 text-center class="text-align">Total: {{this.pmt.getValorPedido()}}</h2>
+
+      
+      <ion-item-sliding *ngFor="let pProduto of pedidoProdutos | async">
+
+        <ion-item>
+
+          <br>
+          <h3 class="text-align">Nome: {{pProduto.nome}}</h3> 
+          <h3 class="text-align">Quantidade: {{pProduto.quantidade}}</h3> 
+          <h3 class="text-align">Valor Total: {{pProduto.valorTotal}}</h3> 
+
+        </ion-item>
+
+
+        <ion-item-options side="right">
+
+          <button ion-button icon-only color="danger" (click)="remover(pProduto)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+
+        </ion-item-options>
+        
+      </ion-item-sliding>
+
+    </ion-list>
+
+</ion-content>
+
+<ion-footer>
+
+  <ion-grid>
+
+    <ion-row justify-content-center>
+
+      <ion-col text-center align-self-center>
+
+        <button color="vermelho" ion-button full (click)="fecharModal()">Retornar</button>
+        <button ion-button icon-only color="danger" (click)="removerAll()">
+            <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+
+</ion-footer>

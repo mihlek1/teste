@@ -1,0 +1,46 @@
+<ion-header>
+  
+  <ion-navbar color="yellow"> 
+
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+
+    <ion-title text-center>Pedidos</ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-list >
+
+        <ion-item-sliding *ngFor="let pedido of pedidos | async">
+
+
+          <ion-item>
+            <p>{{pedido.data.CEP}} - {{pedido.valorTotal}} - {{pedido.vendedor}}</p>
+          </ion-item>
+
+
+          <ion-item-options side="right">
+
+            <button ion-button icon-only (click)="continuar(pedido)">
+              <ion-icon name="settings"></ion-icon>
+            </button>
+
+
+            <button ion-button icon-only color="danger" (click)="deletar(pedido)">
+              <ion-icon name="trash"></ion-icon>
+            </button>
+
+          </ion-item-options>
+          
+        </ion-item-sliding>
+
+      </ion-list>
+
+</ion-content>
