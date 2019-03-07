@@ -1,8 +1,8 @@
 //GERADO AUTOMATICAMENTE
-import { NgModule } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
-import { EntrarPage } from './entrar';
-import { NgxErrorsModule } from '@ultimate/ngxerrors';
+import { NgModule } from '@angular/core'
+import { IonicPageModule } from 'ionic-angular'
+import { EntrarPage } from './entrar'
+import { NgxErrorsModule } from '@ultimate/ngxerrors'
 
 @NgModule({
   declarations: [
@@ -13,4 +13,5 @@ import { NgxErrorsModule } from '@ultimate/ngxerrors';
     NgxErrorsModule
   ],
 })
+
 export class EntrarPageModule {}

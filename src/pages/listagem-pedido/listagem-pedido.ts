@@ -3,7 +3,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+
 import { Pedidos } from '../../interfaces/pedido.interface';
+
 import { AuthProvider } from '../../providers/auth/auth';
 import { ParametrosDetalhesProvider } from '../../providers/parametros-detalhes/parametros-detalhes';
 
@@ -15,8 +17,8 @@ import { ParametrosDetalhesProvider } from '../../providers/parametros-detalhes/
 })
 export class ListagemPedidoPage {
 
-   private pedidosCollection : AngularFirestoreCollection<Pedidos>;
-   private pedidos: Observable<Pedidos[]>;
+  private pedidosCollection : AngularFirestoreCollection<Pedidos>;
+  private pedidos$: Observable<Pedidos[]>;
 
   constructor(   
     private db:AngularFirestore,
@@ -25,13 +27,13 @@ export class ListagemPedidoPage {
     private auth: AuthProvider,
     private pmt: ParametrosDetalhesProvider
     
-    ) {
+  ) {
 
-      //Mostrar apenas pedidos 'não finalizados'
-       this.pedidosCollection = this.db.collection<Pedidos>('pedidos', ref => {
-         return ref.where('statusVenda','==', 'Não finalizada').where('vendedor', '==', this.auth.atualUsuario.id);
-       });
-       this.pedidos = this.pedidosCollection.valueChanges();
-    
-    }
+    //Mostrar apenas pedidos 'não finalizados'
+      this.pedidosCollection = this.db.collection<Pedidos>('pedidos', ref => {
+        return ref.where('statusVenda','==', 'Não finalizada').where('vendedor', '==', this.auth.atualUsuario.id);
+      });
+      this.pedidos$ = this.pedidosCollection.valueChanges();
+  
+  }
 }

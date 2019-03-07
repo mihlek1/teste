@@ -1,8 +1,17 @@
 page-registro-cliente {
+    
     .selectEstado {
         min-width: 80%;
     }
+
     .selectCidade {
         min-width: 80%;
     }
+
+    ion-scroll {
+        white-space: nowrap;
+        height: 120px;
+        width: 100%;
+    }
+
 }

@@ -33,9 +33,9 @@ export class MenuPage {
     3- Mais funcionalidades deverão ser implementadas aqui, provavelmente, eu acho, não sei, enfim
   */
 
-    let a = this.authProvider.atualUsuario.role;
+    let roleUsuarioAtual = this.authProvider.atualUsuario.role;
 
-    if(a === 'Admin'){
+    if(roleUsuarioAtual === 'Admin'){
     
       this.pages=[
         {title:'Início', component:'MenuPage'},
@@ -45,10 +45,8 @@ export class MenuPage {
         {title:'Adicione um Pedido', component:'RegistroPedidoPage'},
         {title:'Pré-Cadastro de Cliente', component:'RegistroClientePage'},
       ];
-
-      this.openPage('MenuContentPage');
     
-    } else if(a === 'Vendedor') {
+    } else if(roleUsuarioAtual === 'Vendedor') {
 
       this.pages=[
         {title:'Início', component:'MenuPage'},
@@ -58,9 +56,7 @@ export class MenuPage {
 
       ];
 
-      this.openPage('MenuContentPage');
-
-    } else if(a === 'Supervisor') {
+    } else if(roleUsuarioAtual === 'Supervisor') {
 
       this.pages=[
         {title:'Início', component:'MenuPage'},
@@ -68,19 +64,17 @@ export class MenuPage {
         {title:'Adicione um Pedido', component:'RegistroPedidoPage'}
       ];
 
-      this.openPage('MenuContentPage');
-
-    } else if(a === 'Faturamento') {
+    } else if(roleUsuarioAtual === 'Faturamento') {
 
       this.pages=[
         {title:'Início', component:'MenuPage'},
         {title:'Pedidos', component:'ListagemPedidoPage'}
       ];
 
-      this.openPage('MenuContentPage');
-
     }
 
+    this.openPage('MenuContentPage');
+    
   }
 
   logout() {

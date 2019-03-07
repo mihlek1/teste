@@ -1,12 +1,11 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
-import { AuthProvider } from '../../providers/auth/auth';
-import { Observable } from 'rxjs/Observable';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { MenuPage } from '../menu/menu';
-import { Clientes } from '../../interfaces/cliente.interface';
-
+import { Component, Input } from '@angular/core'
+import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular'
+import { AuthProvider } from '../../providers/auth/auth'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { AngularFirestoreCollection, AngularFirestore } from 'angularfire2/firestore'
+import { MenuPage } from '../menu/menu'
+import { Clientes } from '../../interfaces/cliente.interface'
+import {  ViewChild, ElementRef } from '@angular/core';
 @IonicPage()
 @Component({
   selector: 'page-registro-cliente',
@@ -14,13 +13,12 @@ import { Clientes } from '../../interfaces/cliente.interface';
 })
 export class RegistroClientePage {
 
+  private formRegistro: FormGroup 
 
-  private formRegistro: FormGroup; 
+  @ViewChild('nomeFantasia') nomeFantasia;
+  @ViewChild('numeroPropriedade') numeroPropriedade;
 
-
-  private clienteCollection : AngularFirestoreCollection<Clientes>;
-  private cliente: Observable<Clientes>;
-  private clienteDoc: AngularFirestoreDocument<Clientes>;
+  private clienteCollection : AngularFirestoreCollection<Clientes>
 
   constructor(
     public navCtrl: NavController, 
@@ -28,7 +26,8 @@ export class RegistroClientePage {
     private authProvider: AuthProvider,
     fb: FormBuilder,
     private db: AngularFirestore,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController
+  ) {
 
       this.clienteCollection = this.db.collection('clientes');
 
@@ -48,32 +47,27 @@ export class RegistroClientePage {
     
   }
 
+  focarInput(input) {
+    this.numeroPropriedade.setFocus()
+  }
+
   registro() {
 
-    this.navCtrl.setRoot(MenuPage);
+    let roleUsuarioAtual = this.authProvider.atualUsuario.role
 
-    let a = this.authProvider.atualUsuario.role;
+    let vendedor = this.authProvider.atualUsuario
     
+    let dadosFormulario = this.formRegistro.value
+    this.formRegistro.reset()
+  
+    this.navCtrl.setRoot(MenuPage)
 
-    let data = this.formRegistro.value;
+    this.clienteCollection.add(dadosFormulario).then(result => {
 
-    this.clienteCollection.add(data).then(result => {
+      if(roleUsuarioAtual === 'Vendedor') {
 
-      this.db.doc('clientes/'+result.id).update({id:result.id});
-
-      if(this.authProvider.atualUsuario.role === 'Vendedor') {
-
-        this.db.doc('clientes/'+result.id).update({VENDEDORid:this.authProvider.atualUsuario.id});
-        this.db.doc('clientes/'+result.id).update({VENDEDORnome:this.authProvider.atualUsuario.nome});
-        this.db.doc('clientes/'+result.id).update({VENDEDORestado:this.authProvider.atualUsuario.estado});
-        this.db.doc('clientes/'+result.id).update({VENDEDORcidade:this.authProvider.atualUsuario.cidade});
-        this.db.doc('clientes/'+result.id).update({VENDEDORcpf:this.authProvider.atualUsuario.CPF});
-        this.db.doc('clientes/'+result.id).update({VENDEDORendereco:this.authProvider.atualUsuario.endereco});
-        this.db.doc('clientes/'+result.id).update({VENDEDORbairro:this.authProvider.atualUsuario.bairro});
-        this.db.doc('clientes/'+result.id).update({VENDEDORnumeroCasa:this.authProvider.atualUsuario.numeroCasa});
-        this.db.doc('clientes/'+result.id).update({VENDEDORemail:this.authProvider.atualUsuario.email});
-        this.db.doc('clientes/'+result.id).update({VENDEDORtelefone:this.authProvider.atualUsuario.telefone});
-        this.db.doc('clientes/'+result.id).update({VENDEDORrole:this.authProvider.atualUsuario.role});
+        this.db.doc('clientes/'+result.id).update({id:result.id});
+        this.db.doc('clientes/'+result.id).update({vendedor});
         this.db.doc('clientes/'+result.id).update({verificado:false});
           
       }

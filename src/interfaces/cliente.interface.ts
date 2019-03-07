@@ -12,4 +12,5 @@ export interface Clientes {
     razaoSocial:string;
     CNPJ:string;
     inscricaoEstadual:string;
+
 }

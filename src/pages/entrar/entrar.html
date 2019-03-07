@@ -18,7 +18,7 @@
     </div>
 
 
-    <form (ngSubmit)="login()" #loginForm="ngForm" [formGroup]="formLogin">
+    <form (ngSubmit)="entrarAplicativo()" #formularioEntrar="ngForm" [formGroup]="formularioEntrarAplicativo">
       
       <div class="container-30">
 
@@ -42,17 +42,22 @@
         </ion-item>
 
 
-        <ion-item>
+        <ion-scroll scrollY="true">
 
-          <div ngxErrors="nome">
-            <div [ngxError]="['required']" [when]="['touched']">Digite o seu nome</div>
-          </div>
-      
-          <div ngxErrors="senha">
-            <div [ngxError]="['required']" [when]="['touched']">Digite a sua senha</div>
-          </div>   
+          <ion-item>
 
-        </ion-item>
+            <div class="espaco" ngxErrors="nome">
+              <div [ngxError]="['required']" [when]="['touched']">Digite o seu nome</div>
+            </div>
+        
+            
+            <div class="espaco" ngxErrors="senha">
+              <div [ngxError]="['required']" [when]="['touched']">Digite a sua senha</div>
+            </div>   
+
+          </ion-item>
+
+        </ion-scroll>
 
       </div>
 
@@ -65,7 +70,7 @@
 <ion-footer>
 
   <div padding-horizontal text-center>
-    <button ion-button color="vermelho" round (click)="loginForm.ngSubmit.emit()" [disabled]="!formLogin.valid">Entrar</button>
+    <button ion-button color="vermelho" round (click)="formularioEntrar.ngSubmit.emit()" [disabled]="!formularioEntrarAplicativo.valid">Entrar</button>
   </div>
 
 </ion-footer>

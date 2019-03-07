@@ -39,92 +39,60 @@
 <ion-content padding>
 
   <form (ngSubmit)="registro()" [formGroup]="formRegistro">
-
-
-    <!-- <div text-center>
-      <img width="125" height="125" src="../assets/imgs/images.png" alt="">
-    </div> -->
    
       <ion-item >
         
         <ion-input type="text" placeholder="Razão Social" formControlName="razaoSocial"></ion-input>
       </ion-item>
 
-      <div ngxErrors="razaoSocial">
-        <div [ngxError]="['required']" [when]="['touched']">Preencha a Razão Social</div>
-      </div>
 
       <ion-item >
-        <ion-input type="text" placeholder="Nome Fantasia" formControlName="nomeFantasia"></ion-input>
+        <ion-input type="text" #nomeFantasia placeholder="Nome Fantasia" formControlName="nomeFantasia"></ion-input>
       </ion-item>
 
-      <div ngxErrors="nomeFantasia">
-        <div [ngxError]="['required']" [when]="['touched']">Preencha o nome fantasia</div>
-      </div>
 
       <ion-item >
         <ion-input type="text" placeholder="Telefone" formControlName="telefone"></ion-input>
       </ion-item>
 
-      <div ngxErrors="telefone">
-        <div [ngxError]="['required']" [when]="['touched']">Preencha o telefone</div>
-      </div>
 
       <ion-item >
         <ion-input type="text" placeholder="CNPJ" formControlName="CNPJ"></ion-input>
       </ion-item>
 
-      <div ngxErrors="CNPJ">
-        <div [ngxError]="['required']" [when]="['touched']">Preencha o CNPJ</div>
-      </div>
-      
+
       <ion-item >
         <ion-input type="text" placeholder="CEP" formControlName="CEP"></ion-input>
       </ion-item>
 
-      <div ngxErrors="CEP">
-        <div [ngxError]="['required']" [when]="['touched']">Preencha o CEP do cliente</div>
-      </div>
 
       <ion-item >
         <ion-input type="text" placeholder="Inscrição Estadual" formControlName="inscricaoEstadual"></ion-input>
       </ion-item>
 
-      <div ngxErrors="inscricaoEstadual">
-        <div [ngxError]="['required']" [when]="['touched']">Preencha a Inscrição Estadual</div>
-      </div>
 
       <ion-item >
         <ion-input type="text" placeholder="Logradouro" formControlName="endereco"></ion-input>
       </ion-item>
 
-      <div ngxErrors="endereco">
-        <div [ngxError]="['required']" [when]="['touched']">Preencha o endereço</div>
-      </div>
-      
+
       <ion-item >
         <ion-input type="text" placeholder="Bairro" formControlName="bairro"></ion-input>
       </ion-item>
 
-      <div ngxErrors="bairro">
-        <div [ngxError]="['required']" [when]="['touched']">Preencha o bairro</div>
-      </div>
-      
+
       <ion-item >
 
-        <label item-content for="numeroPropriedade">Propriedade: </label>
+        <label item-content for="numeroPropriedade">Nº da Propriedade: </label>
 
-        <ion-input type="text"  formControlName="numeroPropriedade"></ion-input>
+        <ion-input type="text" #numeroPropriedade formControlName="numeroPropriedade"></ion-input>
 
       </ion-item>
 
-      <div ngxErrors="numeroPropriedade">
-        <div [ngxError]="['required']" [when]="['touched']">Preencha o Número da propriedade</div>
-      </div>
-            
+      
       <ion-item>
-          <label item-content for="cidade">Cidade: </label>
-          <ion-select class="selectCidade" formControlName="cidade">
+        <label item-content for="cidade">Cidade: </label>
+        <ion-select class="selectCidade" formControlName="cidade">
           <ion-option>Ji-Paraná</ion-option>
           <ion-option>Porto Velho</ion-option>
           <ion-option>Jaru</ion-option>
@@ -134,9 +102,6 @@
         </ion-select>
       </ion-item> 
 
-      <div ngxErrors="cidade">
-        <div [ngxError]="['required']" [when]="['touched']">Selecione o município do cliente</div>
-      </div>  
 
       <ion-item>
         <label item-content for="estado">Estado: </label>
@@ -148,9 +113,6 @@
         </ion-select>
       </ion-item> 
 
-      <div ngxErrors="estado">
-        <div [ngxError]="['required']" [when]="['touched']">Selecione o estado do cliente</div>
-      </div> 
 
       <div padding-horizontal>
 
@@ -158,6 +120,57 @@
 
       </div>
 
+      <ion-scroll scrollY="true">
+
+        <ion-item>
+
+          <div ngxErrors="razaoSocial">
+            <div [ngxError]="['required']" [when]="['touched']">Preencha a Razão Social</div>
+          </div>
+
+          <div ngxErrors="nomeFantasia">
+            <div (click)="focarInput('nomeFantasia')" [ngxError]="['required']" [when]="['touched']">Preencha o nome fantasia</div>
+          </div>
+
+          <div ngxErrors="telefone">
+            <div [ngxError]="['required']" [when]="['touched']">Preencha o telefone</div>
+          </div>
+
+          <div ngxErrors="CNPJ">
+            <div [ngxError]="['required']" [when]="['touched']">Preencha o CNPJ</div>
+          </div>
+
+          <div ngxErrors="CEP">
+            <div [ngxError]="['required']" [when]="['touched']">Preencha o CEP do cliente</div>
+          </div>
+
+          <div ngxErrors="inscricaoEstadual">
+            <div [ngxError]="['required']" [when]="['touched']">Preencha a Inscrição Estadual</div>
+         </div>
+
+          <div ngxErrors="endereco">
+            <div [ngxError]="['required']" [when]="['touched']">Preencha o endereço</div>
+          </div>
+          
+          <div ngxErrors="bairro">
+            <div [ngxError]="['required']" [when]="['touched']">Preencha o bairro</div>
+          </div>
+
+          <div ngxErrors="numeroPropriedade">
+            <div [ngxError]="['required']" [when]="['touched']">Preencha o Número da propriedade</div>
+          </div>
+            
+          <div ngxErrors="cidade">
+            <div [ngxError]="['required']" [when]="['touched']">Selecione o município do cliente</div>
+          </div>  
+
+          <div ngxErrors="estado">
+            <div [ngxError]="['required']" [when]="['touched']">Selecione o estado do cliente</div>
+          </div> 
+
+        </ion-item>
+
+      </ion-scroll>
 
   </form>
   

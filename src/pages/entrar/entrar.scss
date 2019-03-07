@@ -1,32 +1,32 @@
 page-entrar {
-    
-    ul {
-        list-style-type: none;
+
+    ion-scroll {
+        white-space: nowrap;
+        height: 120px;
+        width: 100%;
+    }
+
+    .espaco{
+        padding:0.7%
     }
     ion-input {
-        font-size: 150%;
-    }
-    button {
-        font-size: 150%;
-    }
-    form {
-        height: 100%;
+        font-size: 150%
     }
     .button { 
         width: 50%;
-        font-size: 150%;
+        font-size: 150%
     }
     .container {
         height: 100%;
-        width: 100%;
+        width: 100%
     }
     .container-20 {
-        height: 20%;
+        height: 20%
     }
     .container-30 {
-        height: 33%;
+        height: 33%
     }
     label{
-        font-size: 150%;
+        font-size: 150%
     }
 }

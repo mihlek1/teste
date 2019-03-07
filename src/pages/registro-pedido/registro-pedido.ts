@@ -96,10 +96,10 @@ export class RegistroPedidoPage {
     this.pmt.setPedido(id)
     this.pmt.setValorPedido(0)
     let a = this.pmt.getCliente()
-
+    console.log(a)
     //Zera o valor total do pedido toda vez que um pedido é gerado
     this.pedidoCollection.doc(id).set({a}).then(result => {
-      
+    
       if(this.authProvider.atualUsuario.role === 'Vendedor') {
         //Se o usuário for um vendedor, define o 'vendedor' como o ID do usuario atual
         this.db.doc('pedidos/'+id).update({vendedor:this.authProvider.atualUsuario.id});

@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthProvider } from '../../providers/auth/auth';
+import { Component } from '@angular/core'
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular'
+
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+
+import { AuthProvider } from '../../providers/auth/auth'
 
 @IonicPage()
 @Component({
@@ -11,29 +13,30 @@ import { AuthProvider } from '../../providers/auth/auth';
 export class EntrarPage {
 
   //Recebe o formLogin declarado no HTML
-  private formLogin: FormGroup; 
+  private formularioEntrarAplicativo: FormGroup 
 
   constructor(
     public  navCtrl: NavController, 
     public  navParams: NavParams,
     private fb: FormBuilder,
     private authProvider: AuthProvider,
-    private toastCtrl:ToastController) {
+    private toastCtrl:ToastController
+  ) {
 
-      //Validação para formulário, requer melhorias      
-      this.formLogin = this.fb.group({
+      //Validação para formulário    
+      this.formularioEntrarAplicativo = this.fb.group({
         nome: ['', Validators.compose([Validators.required])],
         senha: ['', Validators.compose([Validators.required])]
-      });
+      })
       
   }  
   
   //Recebe os dados inseridos (usuário e senha) 
   //Chama a função login do AuthProvider (provedor importado e declarado no construtor)
-  login() {
+  entrarAplicativo() {
 
-    let data = this.formLogin.value;
-    this.formLogin.reset();
+    let data = this.formularioEntrarAplicativo.value
+    this.formularioEntrarAplicativo.reset()
     
       this.authProvider.login(data).then(success => {
         if(success) {   
@@ -42,17 +45,17 @@ export class EntrarPage {
             message: 'Seja bem-vindo ' +data.nome,
             duration: 1350,
             position: 'bottom'
-          });
-          toast.present(); 
+          })
+          toast.present();
         } 
       }).catch (err => {
         let toast = this.toastCtrl.create({
           message: 'Falha ao realizar login, confira suas credenciais',
           duration: 4000,
           position: 'bottom'
-        });
-        toast.present(); 
-      }); 
+        })
+        toast.present() 
+      })
   }
 
 }

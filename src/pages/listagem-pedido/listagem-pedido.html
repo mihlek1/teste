@@ -18,11 +18,11 @@
 
     <ion-list >
 
-        <ion-item-sliding *ngFor="let pedido of pedidos | async">
+        <ion-item-sliding *ngFor="let pedido of pedidos$ | async">
 
 
           <ion-item>
-            <p>{{pedido.data.CEP}} - {{pedido.valorTotal}} - {{pedido.vendedor}}</p>
+            <p>{{pedido.a.CEP}} - {{pedido.valorTotal}} - {{pedido.vendedor}}</p>
           </ion-item>
 
 
