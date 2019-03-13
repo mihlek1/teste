@@ -1,3 +1,4 @@
+
 <ion-header>
 
   <ion-navbar color="yellow"> 
@@ -8,19 +9,23 @@
 
         <ion-row align-items-center>
 
-          <ion-col align-self-center col-4>
+          <ion-col align-self-center col-1>
 
             <ion-buttons slot="start">
+
               <button text-center (click)="voltar()" ion-button icon-only>
                 <ion-icon name="arrow-back"></ion-icon>
               </button>
+
             </ion-buttons>
 
           </ion-col>
 
 
-          <ion-col align-self-center col-8>
-            <ion-title>Realizar Pedido</ion-title>
+          <ion-col align-self-center col-10>
+
+            <ion-title text-center>Realizar Pedido</ion-title>
+
           </ion-col>
 
         </ion-row>
@@ -28,11 +33,10 @@
       </ion-grid>
 
     </ion-toolbar> 
-
+    
   </ion-navbar>
 
 </ion-header>
-
 
 <ion-content padding>
 
@@ -45,7 +49,7 @@
       <label item-content for="cliente">Cliente: </label>
       
 
-      <ion-select class="selectCliente" (ionChange)="escolheCliente($event)" formControlName="cliente">
+      <ion-select class="selectCliente"  (ionChange)="escolheCliente($event)" formControlName="cliente">
         <ion-option value="{{cliente.id}}" *ngFor="let cliente of clientes | async">{{cliente.razaoSocial}}</ion-option>
       </ion-select>
 
@@ -60,7 +64,7 @@
       <ion-item>
 
         <label item-content for="nomeFantasia">Nome Fantasia: </label>
-        <ion-input type="text" value="{{cliente2.nomeFantasia}}" [readonly]="isReadonly()" formControlName="nomeFantasia"></ion-input>
+        <ion-input type="text" [ngClass]="recebeDadosCliente(cliente2)" value="{{cliente2.nomeFantasia}}" [readonly]="isReadonly()" formControlName="nomeFantasia"></ion-input>
 
       </ion-item>
 

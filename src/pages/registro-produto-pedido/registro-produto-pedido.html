@@ -1,22 +1,51 @@
 <ion-header>
 
   <ion-navbar color="yellow"> 
+
     <ion-toolbar>
+
       <ion-grid>
+
         <ion-row align-items-center>
+
           <ion-col align-self-center col-1>
+
             <ion-buttons slot="start">
+
               <button text-center (click)="voltar()" ion-button icon-only>
                 <ion-icon name="arrow-back"></ion-icon>
               </button>
+
             </ion-buttons>
+
           </ion-col>
-          <ion-col align-self-center col-11>
-            <ion-title text-center>Carrinho</ion-title>
+
+
+          <ion-col align-self-center col-10>
+
+            <ion-title text-center>Carrinho de Compras</ion-title>
+
           </ion-col>
+
+
+          <ion-col col-1>
+
+            <ion-buttons slot="end">
+
+              <button type="button" (click)="mostrarCarrinho(this.pedido)" ion-button icon-only>
+                <ion-icon name="cart"></ion-icon>
+              </button>
+
+            </ion-buttons>
+
+          </ion-col>
+
         </ion-row>
+
       </ion-grid>
+
     </ion-toolbar> 
+
   </ion-navbar>
 
 </ion-header>
@@ -27,14 +56,6 @@
   <form (ngSubmit)="adicionarCarrinho()" [formGroup]="formVenda">
 
     <ion-grid>
-
-      <ion-row>
-
-        <ion-col>
-
-        </ion-col>
-
-      </ion-row>
 
       <ion-row align-items-start>
 
@@ -93,12 +114,6 @@
         
         </ion-col>
 
-
-        <ion-col col-3>
-          <button type="button" (click)="mostrarCarrinho(this.pedido)" ion-button icon-only>
-            <ion-icon name="cart"></ion-icon>
-          </button>
-        </ion-col>
 
       </ion-row>
     
