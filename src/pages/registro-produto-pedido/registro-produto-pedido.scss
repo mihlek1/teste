@@ -5,4 +5,9 @@ page-registro-produto-pedido {
     ul {
         list-style-type: none;
     }
+    ion-scroll {
+        white-space: nowrap;
+        height: 120px;
+        width: 100%;
+    }
 }

@@ -4,8 +4,7 @@ import { ParametrosDetalhesProvider } from '../../providers/parametros-detalhes/
 import { Observable } from 'rxjs';
 import { AngularFirestoreCollection, AngularFirestore } from 'angularfire2/firestore';
 import { ProdutosPedido } from '../../interfaces/produtoPedido.interface';
-// import * as admin from 'firebase-admin';
-
+import * as firebase from 'firebase'
 @IonicPage()
 @Component({
   selector: 'page-detalhe-produtos-pedido',
@@ -54,15 +53,32 @@ export class DetalheProdutosPedidoPage {
 
   } 
 
-  //Stackoveflow await
-  // removerAll() {
-  //   var firestore = admin.firestore(); 
-  //   var query = firestore.collection('produtosPedidos').where('pedido','==',this.pProdutos);
-  //   query.get().then(function(querySnapshot) {
-  //     querySnapshot.forEach(function(doc) {
-  //       doc.ref.delete();
-  //     });
-  //   });
-  // }
+  removerAll() {
+
+    let valorPedido = this.pmt.getValorPedido();
+
+    firebase.firestore().collection('produtosPedidos').where('pedido', '==', this.pProdutos)
+    .get()
+    .then(querySnapshot => {
+      querySnapshot.forEach((doc) => {
+        doc.ref.delete().then(() => {
+          console.log("Document successfully deleted!");
+          if(valorPedido > 0) {  
+            let valorPedido = this.pmt.getValorPedido(); 
+            this.pmt.setValorPedido(0);
+            this.db.doc('pedidos/'+this.pProdutos).update({valorTotal:valorPedido});       
+          }
+        }).catch(function(error) {
+          console.error("Error removing document: ", error);
+        });
+      });
+    })
+    .catch(function(error) {
+      console.log("Error getting documents: ", error);
+    });
+
+
+
+  }
   
 }

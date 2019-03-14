@@ -30,6 +30,7 @@ export class EntrarPage {
   
   //Recebe os dados inseridos (usuário e senha) 
   //Chama a função login do AuthProvider (provedor importado e declarado no construtor)
+
   login() {
 
     let data = this.formLogin.value;

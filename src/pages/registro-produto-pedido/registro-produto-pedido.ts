@@ -8,7 +8,6 @@ import { Pedidos } from '../../interfaces/pedido.interface';
 import { Produtos } from '../../interfaces/produto.interface';
 import { ProdutosPedido } from '../../interfaces/produtoPedido.interface';
 import { DatePipe } from '@angular/common';
-
 @IonicPage()
 @Component({
   selector: 'page-registro-produto-pedido',
@@ -191,10 +190,9 @@ export class RegistroProdutoPedidoPage {
 
   // }
 
-  // deletarPedido() {
-  //   //deleta todo produto pedido related
-  //   //deleta o pedido
-  // }
+   deletarPedido() {
+ 
+   }
 
   voltar() {
 

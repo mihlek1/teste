@@ -27,10 +27,12 @@ export class RegistroPedidoPage {
 
   private pedidoCollection : AngularFirestoreCollection<Pedidos>;
 
+  private cliente;
+
   //Recebe a data atual para registrar
   private dataAtual = new Date();
   private data:string;
-
+  private stop:boolean = true;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -51,7 +53,7 @@ export class RegistroPedidoPage {
       if( a === 'Vendedor') {
         //Se a role for vendedor, ele mostra apenas os clientes relacionados à ele
       this.clientesCollection = this.db.collection('clientes', ref => {
-        return ref.where('zVENDEDORid', '==', b);
+        return ref.where('vendedor.id', '==', b);
       });      
       this.clientes = this.clientesCollection.valueChanges();
 
@@ -87,18 +89,16 @@ export class RegistroPedidoPage {
   }
 
   registro() {
-
-    let data:Clientes = this.formRegistro.value;
+    let cliente = this.cliente;
     let id = this.db.createId();
     this.formRegistro.reset();
     this.pmt.setPedido(id);
     this.pmt.setValorPedido(0);
-    this.pmt.setCliente(data);
+    this.pmt.setCliente(cliente);
     console.log(this.pmt.getCliente());
     this.navCtrl.setRoot('RegistroProdutoPedidoPage');
-    console.log(data.inscricaoEstadual)
     //Zera o valor total do pedido toda vez que um pedido é gerado
-    this.pedidoCollection.doc(id).set({data}).then(result => {
+    this.pedidoCollection.doc(id).set({cliente}).then(result => {
       
       if(this.authProvider.atualUsuario.role === 'Vendedor') {
         //Se o usuário for um vendedor, define o 'vendedor' como o ID do usuario atual
@@ -135,9 +135,18 @@ export class RegistroPedidoPage {
 
   }
   escolheCliente(idCliente: any) {
+    this.stop = true;
     this.clientesCollection2 = this.db.collection<Clientes>('clientes', ref => {
       return ref.where('id', '==', idCliente);
     });      
     this.clientes2 = this.clientesCollection2.valueChanges();
+
+  }
+  recebeDadosCliente(cliente) {
+    if(this.stop == true) {
+      this.cliente = cliente;
+      this.stop = false;
+    }
   }
 }
+

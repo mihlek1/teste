@@ -39,6 +39,7 @@
     "firebase-admin": "^6.5.1",
     "firebase-tools": "^6.2.2",
     "ionic-angular": "3.9.2",
+    "ionic-native": "^2.9.0",
     "ionicons": "3.0.0",
     "promise-polyfill": "^8.1.0",
     "release": "6.0.0",
