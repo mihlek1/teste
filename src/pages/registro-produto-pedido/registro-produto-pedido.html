@@ -40,6 +40,7 @@
 
           </ion-col>
 
+
         </ion-row>
 
       </ion-grid>
@@ -55,6 +56,7 @@
 
   <form (ngSubmit)="adicionarCarrinho()" [formGroup]="formVenda">
 
+
     <ion-item>
 
       <label item-content for="produto">Item:</label>
@@ -63,6 +65,7 @@
       <ion-select class="selectProd" placeholder="Produto" (ionChange)="escolheProduto($event)" formControlName="produto">
         <ion-option value="{{prod.nome}}" *ngFor="let prod of produtos | async">{{prod.nome}}</ion-option>
       </ion-select>
+
 
     </ion-item>
 
@@ -104,6 +107,7 @@
       </div>  
 
     </ion-scroll>
+
 
   </form>
 

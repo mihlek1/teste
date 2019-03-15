@@ -8,6 +8,7 @@ import { Clientes } from '../../interfaces/cliente.interface'
 import {  ViewChild, ElementRef } from '@angular/core'
 // import { Keyboard } from 'ionic-native'
 
+
 @IonicPage()
 @Component({
   selector: 'page-registro-cliente',
