@@ -79,6 +79,10 @@ export class RegistroClientePage {
         this.db.doc('clientes/'+result.id).update({vendedor});
         this.db.doc('clientes/'+result.id).update({verificado:false});
           
+      } else if (roleUsuarioAtual === 'Admin') {
+        this.db.doc('clientes/'+result.id).update({id:result.id});
+        this.db.doc('clientes/'+result.id).update({vendedor});
+        this.db.doc('clientes/'+result.id).update({verificado:true});
       }
 
       let toast = this.toastCtrl.create({

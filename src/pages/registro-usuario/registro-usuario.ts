@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { MenuPage } from '../menu/menu';
 import { Usuarios } from '../../interfaces/usuario.interface';
-
+import { AngularFireAuth } from 'angularfire2/auth'
 
 
 @IonicPage()
@@ -22,6 +22,7 @@ export class RegistroUsuarioPage {
   private usuarioCollection : AngularFirestoreCollection<Usuarios>;
 
   constructor(
+    private afAuth: AngularFireAuth,
     public navCtrl: NavController, 
     public navParams: NavParams,
     private authProvider: AuthProvider,
@@ -47,72 +48,58 @@ export class RegistroUsuarioPage {
       });
 
   }
+
+
   registro() {
-
-    let bool = this.authProvider.atualUsuario.role === 'Admin';
-
-
-    if (!bool) {
-      this.navCtrl.setRoot('EntrarPage');
-
-      let toast = this.toastCtrl.create({
-        message: 'Você não possui acesso à essa funcionalidade',
-        duration: 2000,
-        position: 'bottom'
-      });
-      toast.present();
-
-    } else {
       
       this.navCtrl.setRoot('MenuPage');
 
-      let data = this.formRegistro.value;
+      let dadosUsuario = this.formRegistro.value;
 
-      this.usuarioCollection.add(data).then(result => {
-  
-        this.db.doc('usuarios/'+result.id).update({id:result.id});
+      try{  
 
+        let result = this.afAuth.auth.createUserWithEmailAndPassword(dadosUsuario.usuario, dadosUsuario.senha);
+        console.log(result)
         let toast = this.toastCtrl.create({
           message: 'Usuário cadastrado com sucesso',
           duration: 2000,
           position: 'bottom'
         });
+        
         toast.present();
-   
-      }).catch(err => {
+
+
+
+      } catch (erro) {
 
         let toast = this.toastCtrl.create({
-          message: 'O cadastro falhou, erro: '+err,
+          message: 'O cadastro falhou, erro: '+erro,
           duration: 4000,
           position: 'bottom'
         });
-        
+       
         toast.present();
-        
-      });
 
-    }
+      }
 
   }
+//       this.usuarioCollection.add(dadosUsuario).then(result => {
   
-  ionViewCanEnter() {
-    
-    let bool =this.authProvider.atualUsuario.role === 'Admin';
+//         this.db.doc('usuarios/'+result.id).update({id:result.id});
 
-    if (!bool) {
-      this.navCtrl.setRoot('EntrarPage');
-
-      let toast = this.toastCtrl.create({
-        message: 'Você não possui acesso à essa página',
-        duration: 2000,
-        position: 'bottom'
-      });
+   
+//       }).catch(err => {
 
 
-    }
-    
-    return bool;
+        
+//       });
+
+//     }
+
+  
+  
+//   ionViewCanEnter() {
  
- }
-
+//  }
+  
 }

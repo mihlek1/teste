@@ -9,7 +9,7 @@ import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrMaskerModule } from 'brmasker-ionic-3';
 import { ParametrosDetalhesProvider } from '../providers/parametros-detalhes/parametros-detalhes';
-
+import { AngularFireAuth } from 'angularfire2/auth';
 //Importante instalar para erros de formulários
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -54,6 +54,7 @@ import { environment } from '../environments/firebase.config';
     AuthProvider,
     DatePipe,
     ParametrosDetalhesProvider,
+    AngularFireAuth
   ]
 })
 export class AppModule {}
